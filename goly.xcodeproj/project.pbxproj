@@ -1,0 +1,420 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9EDE20BB1C9DFA8000B981E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE20BA1C9DFA8000B981E9 /* AppDelegate.swift */; };
+		9EDE20BD1C9DFA8000B981E9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE20BC1C9DFA8000B981E9 /* ViewController.swift */; };
+		9EDE20C01C9DFA8000B981E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EDE20BE1C9DFA8000B981E9 /* Main.storyboard */; };
+		9EDE20C31C9DFA8000B981E9 /* goly.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE20C11C9DFA8000B981E9 /* goly.xcdatamodeld */; };
+		9EDE20C51C9DFA8000B981E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EDE20C41C9DFA8000B981E9 /* Assets.xcassets */; };
+		9EDE20C81C9DFA8000B981E9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EDE20C61C9DFA8000B981E9 /* LaunchScreen.storyboard */; };
+		9EDE20D31C9DFA8000B981E9 /* golyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE20D21C9DFA8000B981E9 /* golyTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9EDE20CF1C9DFA8000B981E9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9EDE20AF1C9DFA8000B981E9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9EDE20B61C9DFA8000B981E9;
+			remoteInfo = goly;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		9EDE20B71C9DFA8000B981E9 /* goly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = goly.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9EDE20BA1C9DFA8000B981E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		9EDE20BC1C9DFA8000B981E9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		9EDE20BF1C9DFA8000B981E9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		9EDE20C21C9DFA8000B981E9 /* goly.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = goly.xcdatamodel; sourceTree = "<group>"; };
+		9EDE20C41C9DFA8000B981E9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9EDE20C71C9DFA8000B981E9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		9EDE20C91C9DFA8000B981E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9EDE20CE1C9DFA8000B981E9 /* golyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = golyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9EDE20D21C9DFA8000B981E9 /* golyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = golyTests.swift; sourceTree = "<group>"; };
+		9EDE20D41C9DFA8000B981E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9EDE20B41C9DFA8000B981E9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9EDE20CB1C9DFA8000B981E9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9EDE20AE1C9DFA8000B981E9 = {
+			isa = PBXGroup;
+			children = (
+				9EDE20B91C9DFA8000B981E9 /* goly */,
+				9EDE20D11C9DFA8000B981E9 /* golyTests */,
+				9EDE20B81C9DFA8000B981E9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9EDE20B81C9DFA8000B981E9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9EDE20B71C9DFA8000B981E9 /* goly.app */,
+				9EDE20CE1C9DFA8000B981E9 /* golyTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9EDE20B91C9DFA8000B981E9 /* goly */ = {
+			isa = PBXGroup;
+			children = (
+				9EDE20BA1C9DFA8000B981E9 /* AppDelegate.swift */,
+				9EDE20BC1C9DFA8000B981E9 /* ViewController.swift */,
+				9EDE20BE1C9DFA8000B981E9 /* Main.storyboard */,
+				9EDE20C41C9DFA8000B981E9 /* Assets.xcassets */,
+				9EDE20C61C9DFA8000B981E9 /* LaunchScreen.storyboard */,
+				9EDE20C91C9DFA8000B981E9 /* Info.plist */,
+				9EDE20C11C9DFA8000B981E9 /* goly.xcdatamodeld */,
+			);
+			path = goly;
+			sourceTree = "<group>";
+		};
+		9EDE20D11C9DFA8000B981E9 /* golyTests */ = {
+			isa = PBXGroup;
+			children = (
+				9EDE20D21C9DFA8000B981E9 /* golyTests.swift */,
+				9EDE20D41C9DFA8000B981E9 /* Info.plist */,
+			);
+			path = golyTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9EDE20B61C9DFA8000B981E9 /* goly */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9EDE20D71C9DFA8000B981E9 /* Build configuration list for PBXNativeTarget "goly" */;
+			buildPhases = (
+				9EDE20B31C9DFA8000B981E9 /* Sources */,
+				9EDE20B41C9DFA8000B981E9 /* Frameworks */,
+				9EDE20B51C9DFA8000B981E9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = goly;
+			productName = goly;
+			productReference = 9EDE20B71C9DFA8000B981E9 /* goly.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9EDE20CD1C9DFA8000B981E9 /* golyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9EDE20DA1C9DFA8000B981E9 /* Build configuration list for PBXNativeTarget "golyTests" */;
+			buildPhases = (
+				9EDE20CA1C9DFA8000B981E9 /* Sources */,
+				9EDE20CB1C9DFA8000B981E9 /* Frameworks */,
+				9EDE20CC1C9DFA8000B981E9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9EDE20D01C9DFA8000B981E9 /* PBXTargetDependency */,
+			);
+			name = golyTests;
+			productName = golyTests;
+			productReference = 9EDE20CE1C9DFA8000B981E9 /* golyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9EDE20AF1C9DFA8000B981E9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "Carson C. Moore, LLC";
+				TargetAttributes = {
+					9EDE20B61C9DFA8000B981E9 = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
+					9EDE20CD1C9DFA8000B981E9 = {
+						CreatedOnToolsVersion = 7.2.1;
+						TestTargetID = 9EDE20B61C9DFA8000B981E9;
+					};
+				};
+			};
+			buildConfigurationList = 9EDE20B21C9DFA8000B981E9 /* Build configuration list for PBXProject "goly" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 9EDE20AE1C9DFA8000B981E9;
+			productRefGroup = 9EDE20B81C9DFA8000B981E9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9EDE20B61C9DFA8000B981E9 /* goly */,
+				9EDE20CD1C9DFA8000B981E9 /* golyTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9EDE20B51C9DFA8000B981E9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9EDE20C81C9DFA8000B981E9 /* LaunchScreen.storyboard in Resources */,
+				9EDE20C51C9DFA8000B981E9 /* Assets.xcassets in Resources */,
+				9EDE20C01C9DFA8000B981E9 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9EDE20CC1C9DFA8000B981E9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9EDE20B31C9DFA8000B981E9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9EDE20BD1C9DFA8000B981E9 /* ViewController.swift in Sources */,
+				9EDE20C31C9DFA8000B981E9 /* goly.xcdatamodeld in Sources */,
+				9EDE20BB1C9DFA8000B981E9 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9EDE20CA1C9DFA8000B981E9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9EDE20D31C9DFA8000B981E9 /* golyTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9EDE20D01C9DFA8000B981E9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9EDE20B61C9DFA8000B981E9 /* goly */;
+			targetProxy = 9EDE20CF1C9DFA8000B981E9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		9EDE20BE1C9DFA8000B981E9 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9EDE20BF1C9DFA8000B981E9 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		9EDE20C61C9DFA8000B981E9 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9EDE20C71C9DFA8000B981E9 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		9EDE20D51C9DFA8000B981E9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9EDE20D61C9DFA8000B981E9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9EDE20D81C9DFA8000B981E9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = goly/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.carscafmoo.goly;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		9EDE20D91C9DFA8000B981E9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = goly/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.carscafmoo.goly;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		9EDE20DB1C9DFA8000B981E9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = golyTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.carscafmoo.golyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/goly.app/goly";
+			};
+			name = Debug;
+		};
+		9EDE20DC1C9DFA8000B981E9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = golyTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.carscafmoo.golyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/goly.app/goly";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9EDE20B21C9DFA8000B981E9 /* Build configuration list for PBXProject "goly" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9EDE20D51C9DFA8000B981E9 /* Debug */,
+				9EDE20D61C9DFA8000B981E9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9EDE20D71C9DFA8000B981E9 /* Build configuration list for PBXNativeTarget "goly" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9EDE20D81C9DFA8000B981E9 /* Debug */,
+				9EDE20D91C9DFA8000B981E9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		9EDE20DA1C9DFA8000B981E9 /* Build configuration list for PBXNativeTarget "golyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9EDE20DB1C9DFA8000B981E9 /* Debug */,
+				9EDE20DC1C9DFA8000B981E9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		9EDE20C11C9DFA8000B981E9 /* goly.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				9EDE20C21C9DFA8000B981E9 /* goly.xcdatamodel */,
+			);
+			currentVersion = 9EDE20C21C9DFA8000B981E9 /* goly.xcdatamodel */;
+			path = goly.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 9EDE20AF1C9DFA8000B981E9 /* Project object */;
+}
