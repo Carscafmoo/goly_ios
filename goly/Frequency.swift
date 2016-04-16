@@ -27,4 +27,20 @@ enum Frequency: String {
             return checkInFrequency != .Weekly
         }
     }
+    
+    // Convert a frequency (which is an adverb) into a noun
+    static func nounify(f: Frequency) -> String {
+        switch f {
+        case .Daily:
+            return "today"
+        case .Weekly:
+            return "this week"
+        case .Monthly:
+            return "this month"
+        case .Quarterly:
+            return "this quarter"
+        case .Yearly:
+            return "this year"
+        }
+    }
 }

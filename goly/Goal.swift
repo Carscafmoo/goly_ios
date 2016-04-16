@@ -75,6 +75,28 @@ class Goal: NSObject, NSCoding {
         }
     }
     
+    // Calculate the total value for the current timeframe
+    func currentProgress() -> Int {
+        return timeframeValue(Timeframe(frequency: self.frequency, now: NSDate()))
+    }
+    
+    // Calculate the total value for a given timeframe
+    func timeframeValue(tf: Timeframe) -> Int {
+        // Check-ins are sorted by date descending so we can break once we exit the timeframe
+        var val = 0
+        for ci in checkIns {
+            if (ci.timeframe.endDate.timeIntervalSince1970 <= tf.startDate.timeIntervalSince1970) {
+                break
+            }
+            
+            if (ci.timeframe.startDate.timeIntervalSince1970 < tf.endDate.timeIntervalSince1970) {
+                val += ci.value
+            }
+        }
+        
+        return val
+    }
+    
     // MARK: NSCoding implementation
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(name, forKey: PropertyKey.nameKey)
