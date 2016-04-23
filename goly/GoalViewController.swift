@@ -264,18 +264,7 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
                 interstitial = " have you done"
             }
             
-            switch Frequency(rawValue: checkInFrequency)! {
-            case .Daily:
-                when = "today"
-            case .Weekly:
-                when = "this week"
-            case .Monthly:
-                when = "this month"
-            case .Quarterly:
-                when = "this quarter"
-            case .Yearly:
-                when = "this year"
-            }
+            when = Frequency.thisNounify(Frequency(rawValue: checkInFrequency)!)
             
             promptTextField.text = query + " " + name + interstitial + " " + when + "?"
         }

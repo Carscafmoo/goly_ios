@@ -34,9 +34,7 @@ class GoalTableViewController: UITableViewController {
     
     // MARK: Table data source population
     func loadSampleGoals() {
-        goals.append(Goal(name: "Test Goal", prompt: "How many 75-minute chunks did you work on Goaly today?", frequency: Frequency.Weekly, target: 5, type: Type.Numeric, checkInFrequency: Frequency.Daily)!)
-        goals.append(Goal(name: "Test Goal 2", prompt: "Did you work out today?", frequency: Frequency.Weekly, target: 5, type: Type.Binary, checkInFrequency: Frequency.Daily)!)
-        goals.append(Goal(name: "Test Goal 3", prompt: "Did you do heroin today?", frequency: Frequency.Daily, target: 0, type: Type.Binary, checkInFrequency: Frequency.Daily)!)
+        self.goals = GoalGenerator().getSampleGoals()
     }
     
     // MARK: Standard table view definitions
@@ -65,9 +63,10 @@ class GoalTableViewController: UITableViewController {
         
         cell.lastCheckInLabel.text = dateString
         cell.checkInButton.goal = goal
-         // TODO: PICK UP HERE TOMORROW!
+        cell.historyButton.goal = goal
+        
         let cp = String(goal.currentProgress())
-        let fnoun = Frequency.nounify(goal.frequency)
+        let fnoun = Frequency.thisNounify(goal.frequency)
         cell.currentProgressLabel.text = cp + " of " + String(goal.target) + " " + fnoun
         
         if (!goal.active) {
@@ -116,8 +115,13 @@ class GoalTableViewController: UITableViewController {
         } else if segue.identifier == "AddGoal" {
         } else if segue.identifier == "CheckIn" {
             let checkInController = segue.destinationViewController as! CheckInViewController
-            if let selectedButton = sender as? CheckInUIButton {
+            if let selectedButton = sender as? goalButton {
                 checkInController.goal = selectedButton.goal!
+            }
+        } else if segue.identifier == "ShowHistory" {
+            let historyController = segue.destinationViewController as! HistoryViewController
+            if let selectedButton = sender as? goalButton {
+                historyController.goal = selectedButton.goal!
             }
         } else {
             print("Unrecognized identifier " + (segue.identifier ?? ""))
@@ -132,7 +136,7 @@ class GoalTableViewController: UITableViewController {
                 goals.append(goal)
             }
             
-            goals = sortGoals(goals)
+            goals = Goal.sortGoals(goals)
             saveGoals()
             self.tableView.reloadData() // We have to reload the whole shabang after any changes to maintain sorting
         }
@@ -164,25 +168,6 @@ class GoalTableViewController: UITableViewController {
     }
 
     func loadGoals() -> [Goal]? {
-        if let goals = NSKeyedUnarchiver.unarchiveObjectWithFile(Goal.ArchiveURL.path!) as? [Goal] {
-            return sortGoals(goals)
-        }
-        
-        return nil
+        return Goal.loadGoals()
     }
-    
-    func sortGoals(goals: [Goal]) -> [Goal] {
-        return goals.sort {
-            if ($0.active && !$1.active) { return true; } // active always comes first
-            if (!$0.active && $1.active) { return false; }
-            
-            // That which is more frequently checked in should come first
-            if ($0.checkInFrequency.hashValue < $1.checkInFrequency.hashValue) { return true; }
-            if ($0.checkInFrequency.hashValue > $1.checkInFrequency.hashValue) { return false; }
-            
-            // Otherwise, sort by name I guess
-            return $0.name < $1.name
-        }
-    }
-    
 }

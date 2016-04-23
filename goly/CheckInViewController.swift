@@ -130,11 +130,11 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
             saveButton.enabled = false
             
             // Swipe recognizers
-            let swipeRight = UISwipeGestureRecognizer(target: self, action: "handleSwipe:")
+            let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe))
             swipeRight.direction = UISwipeGestureRecognizerDirection.Right
             self.view.addGestureRecognizer(swipeRight)
             
-            let swipeLeft = UISwipeGestureRecognizer(target: self, action: "handleSwipe:")
+            let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe))
             swipeLeft.direction = UISwipeGestureRecognizerDirection.Left
             self.view.addGestureRecognizer(swipeLeft)
             

@@ -12,7 +12,7 @@
 		9E5743361CB194B3004643B4 /* CheckIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5743351CB194B3004643B4 /* CheckIn.swift */; };
 		9E5743381CB19519004643B4 /* Timeframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5743371CB19519004643B4 /* Timeframe.swift */; };
 		9EA9F4E61CB992EF00FA0F9B /* CheckInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA9F4E51CB992EF00FA0F9B /* CheckInViewController.swift */; };
-		9EDA3D761CB9AE4800C71D86 /* CheckInUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDA3D751CB9AE4800C71D86 /* CheckInUIButton.swift */; };
+		9EDA3D761CB9AE4800C71D86 /* goalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDA3D751CB9AE4800C71D86 /* goalButton.swift */; };
 		9EDE20BB1C9DFA8000B981E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE20BA1C9DFA8000B981E9 /* AppDelegate.swift */; };
 		9EDE20BD1C9DFA8000B981E9 /* GoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE20BC1C9DFA8000B981E9 /* GoalViewController.swift */; };
 		9EDE20C01C9DFA8000B981E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EDE20BE1C9DFA8000B981E9 /* Main.storyboard */; };
@@ -24,6 +24,11 @@
 		9EDE20DF1C9E03FA00B981E9 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE20DD1C9E03FA00B981E9 /* Goal.swift */; };
 		9EDE20E11C9E055700B981E9 /* Frequency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE20E01C9E055700B981E9 /* Frequency.swift */; };
 		9EDE20E31C9F1EC700B981E9 /* Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE20E21C9F1EC700B981E9 /* Type.swift */; };
+		9EE5F23A1CC2C29D00180499 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EE5F2331CC2C26400180499 /* Charts.framework */; };
+		9EE5F23B1CC2C29D00180499 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9EE5F2331CC2C26400180499 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9EE5F2401CC2CEF600180499 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE5F23F1CC2CEF600180499 /* HistoryViewController.swift */; };
+		9EE5F2421CC666AA00180499 /* SampleGoals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE5F2411CC666AA00180499 /* SampleGoals.swift */; };
+		9EE5F2441CCBFCC000180499 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE5F2431CCBFCC000180499 /* Notifications.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,7 +39,56 @@
 			remoteGlobalIDString = 9EDE20B61C9DFA8000B981E9;
 			remoteInfo = goly;
 		};
+		9EE5F2321CC2C26400180499 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9EE5F22B1CC2C26400180499 /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5BA8EC401A9D14DC00CE82E1;
+			remoteInfo = "Charts-iOS";
+		};
+		9EE5F2341CC2C26400180499 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9EE5F22B1CC2C26400180499 /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A52C5C371BAC5CA400594CDD;
+			remoteInfo = "Charts-TV";
+		};
+		9EE5F2361CC2C26400180499 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9EE5F22B1CC2C26400180499 /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 65B3F5BF1C7370BE000983D0;
+			remoteInfo = "Charts-OSX";
+		};
+		9EE5F2381CC2C26400180499 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9EE5F22B1CC2C26400180499 /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 06AEE7A21BDC3F8B009875AE;
+			remoteInfo = ChartsTests;
+		};
+		9EE5F23C1CC2C29D00180499 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9EE5F22B1CC2C26400180499 /* Charts.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 5BA8EC3F1A9D14DC00CE82E1;
+			remoteInfo = "Charts-iOS";
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		9EE5F23E1CC2C29D00180499 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				9EE5F23B1CC2C29D00180499 /* Charts.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		9E5743311CAEB404004643B4 /* GoalTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalTableViewCell.swift; sourceTree = "<group>"; };
@@ -43,7 +97,7 @@
 		9E5743371CB19519004643B4 /* Timeframe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timeframe.swift; sourceTree = "<group>"; };
 		9E5743391CB5439A004643B4 /* pg.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = pg.playground; sourceTree = "<group>"; };
 		9EA9F4E51CB992EF00FA0F9B /* CheckInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckInViewController.swift; sourceTree = "<group>"; };
-		9EDA3D751CB9AE4800C71D86 /* CheckInUIButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckInUIButton.swift; sourceTree = "<group>"; };
+		9EDA3D751CB9AE4800C71D86 /* goalButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = goalButton.swift; sourceTree = "<group>"; };
 		9EDE20B71C9DFA8000B981E9 /* goly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = goly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EDE20BA1C9DFA8000B981E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9EDE20BC1C9DFA8000B981E9 /* GoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalViewController.swift; sourceTree = "<group>"; };
@@ -58,6 +112,10 @@
 		9EDE20DD1C9E03FA00B981E9 /* Goal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
 		9EDE20E01C9E055700B981E9 /* Frequency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Frequency.swift; sourceTree = "<group>"; };
 		9EDE20E21C9F1EC700B981E9 /* Type.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Type.swift; sourceTree = "<group>"; };
+		9EE5F22B1CC2C26400180499 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "../../Downloads/Charts-master/Charts/Charts.xcodeproj"; sourceTree = "<group>"; };
+		9EE5F23F1CC2CEF600180499 /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		9EE5F2411CC666AA00180499 /* SampleGoals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleGoals.swift; sourceTree = "<group>"; };
+		9EE5F2431CCBFCC000180499 /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +123,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9EE5F23A1CC2C29D00180499 /* Charts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +140,7 @@
 		9EDE20AE1C9DFA8000B981E9 = {
 			isa = PBXGroup;
 			children = (
+				9EE5F22B1CC2C26400180499 /* Charts.xcodeproj */,
 				9EDE20B91C9DFA8000B981E9 /* goly */,
 				9EDE20D11C9DFA8000B981E9 /* golyTests */,
 				9EDE20B81C9DFA8000B981E9 /* Products */,
@@ -100,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				9EDE20BA1C9DFA8000B981E9 /* AppDelegate.swift */,
+				9EE5F2431CCBFCC000180499 /* Notifications.swift */,
 				9EDE20BC1C9DFA8000B981E9 /* GoalViewController.swift */,
 				9EDE20DD1C9E03FA00B981E9 /* Goal.swift */,
 				9E5743351CB194B3004643B4 /* CheckIn.swift */,
@@ -108,9 +169,11 @@
 				9EDE20E21C9F1EC700B981E9 /* Type.swift */,
 				9EDE20E01C9E055700B981E9 /* Frequency.swift */,
 				9EDE20BE1C9DFA8000B981E9 /* Main.storyboard */,
+				9EE5F23F1CC2CEF600180499 /* HistoryViewController.swift */,
+				9EE5F2411CC666AA00180499 /* SampleGoals.swift */,
 				9EA9F4E51CB992EF00FA0F9B /* CheckInViewController.swift */,
 				9E5743331CAEB5C2004643B4 /* GoalTableViewController.swift */,
-				9EDA3D751CB9AE4800C71D86 /* CheckInUIButton.swift */,
+				9EDA3D751CB9AE4800C71D86 /* goalButton.swift */,
 				9E5743311CAEB404004643B4 /* GoalTableViewCell.swift */,
 				9EDE20C41C9DFA8000B981E9 /* Assets.xcassets */,
 				9EDE20C61C9DFA8000B981E9 /* LaunchScreen.storyboard */,
@@ -129,6 +192,17 @@
 			path = golyTests;
 			sourceTree = "<group>";
 		};
+		9EE5F22C1CC2C26400180499 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9EE5F2331CC2C26400180499 /* Charts.framework */,
+				9EE5F2351CC2C26400180499 /* Charts.framework */,
+				9EE5F2371CC2C26400180499 /* Charts.framework */,
+				9EE5F2391CC2C26400180499 /* ChartsTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -139,10 +213,12 @@
 				9EDE20B31C9DFA8000B981E9 /* Sources */,
 				9EDE20B41C9DFA8000B981E9 /* Frameworks */,
 				9EDE20B51C9DFA8000B981E9 /* Resources */,
+				9EE5F23E1CC2C29D00180499 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				9EE5F23D1CC2C29D00180499 /* PBXTargetDependency */,
 			);
 			name = goly;
 			productName = goly;
@@ -197,6 +273,12 @@
 			mainGroup = 9EDE20AE1C9DFA8000B981E9;
 			productRefGroup = 9EDE20B81C9DFA8000B981E9 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 9EE5F22C1CC2C26400180499 /* Products */;
+					ProjectRef = 9EE5F22B1CC2C26400180499 /* Charts.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				9EDE20B61C9DFA8000B981E9 /* goly */,
@@ -204,6 +286,37 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		9EE5F2331CC2C26400180499 /* Charts.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Charts.framework;
+			remoteRef = 9EE5F2321CC2C26400180499 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9EE5F2351CC2C26400180499 /* Charts.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Charts.framework;
+			remoteRef = 9EE5F2341CC2C26400180499 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9EE5F2371CC2C26400180499 /* Charts.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Charts.framework;
+			remoteRef = 9EE5F2361CC2C26400180499 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9EE5F2391CC2C26400180499 /* ChartsTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ChartsTests.xctest;
+			remoteRef = 9EE5F2381CC2C26400180499 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		9EDE20B51C9DFA8000B981E9 /* Resources */ = {
@@ -230,14 +343,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9EE5F2441CCBFCC000180499 /* Notifications.swift in Sources */,
+				9EE5F2421CC666AA00180499 /* SampleGoals.swift in Sources */,
 				9E5743381CB19519004643B4 /* Timeframe.swift in Sources */,
 				9EDE20DE1C9E03FA00B981E9 /* Goal.swift in Sources */,
 				9E5743321CAEB404004643B4 /* GoalTableViewCell.swift in Sources */,
 				9E5743341CAEB5C2004643B4 /* GoalTableViewController.swift in Sources */,
+				9EE5F2401CC2CEF600180499 /* HistoryViewController.swift in Sources */,
 				9EDE20E11C9E055700B981E9 /* Frequency.swift in Sources */,
 				9E5743361CB194B3004643B4 /* CheckIn.swift in Sources */,
 				9EDE20BD1C9DFA8000B981E9 /* GoalViewController.swift in Sources */,
-				9EDA3D761CB9AE4800C71D86 /* CheckInUIButton.swift in Sources */,
+				9EDA3D761CB9AE4800C71D86 /* goalButton.swift in Sources */,
 				9EDE20C31C9DFA8000B981E9 /* goly.xcdatamodeld in Sources */,
 				9EDE20BB1C9DFA8000B981E9 /* AppDelegate.swift in Sources */,
 				9EA9F4E61CB992EF00FA0F9B /* CheckInViewController.swift in Sources */,
@@ -261,6 +377,11 @@
 			isa = PBXTargetDependency;
 			target = 9EDE20B61C9DFA8000B981E9 /* goly */;
 			targetProxy = 9EDE20CF1C9DFA8000B981E9 /* PBXContainerItemProxy */;
+		};
+		9EE5F23D1CC2C29D00180499 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Charts-iOS";
+			targetProxy = 9EE5F23C1CC2C29D00180499 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -371,6 +492,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = goly/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.carscafmoo.goly;
@@ -382,6 +504,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = goly/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.carscafmoo.goly;

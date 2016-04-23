@@ -11,6 +11,7 @@ class Timeframe: NSObject, NSCoding {
     var startDate: NSDate! // Start is always local midnight I guess?
     var endDate: NSDate! // Timeframe does not include end time -- it's [start, end)
     var frequency: Frequency
+    var dateFormatter: NSDateFormatter!
     
     /**
      * Create a timeframe given the time it currently is right now and the frequency for which the timeframe applies
@@ -19,6 +20,7 @@ class Timeframe: NSObject, NSCoding {
         self.frequency = frequency
         super.init()
         determineStartEnd(frequency, now: now)
+        self.dateFormatter = Timeframe.getDateFormatter()
     }
     
     // MARK: Stupid date math figuring out stuff
@@ -70,6 +72,38 @@ class Timeframe: NSObject, NSCoding {
         } else {
             return nil
         }
+    }
+    
+    // MARK: display stuff
+    func toString() -> String {
+        return dateFormatter.stringFromDate(startDate)
+    }
+    
+    func next() -> Timeframe {
+        return Timeframe(frequency: frequency, now: endDate)
+    }
+    
+    // Return a list of timeframes between two given points.  Incomplete timeframes are included
+    // -- so for example, specifying quarerly timeframes between march and april should return both Q1 and Q2.
+    static func fromRange(startDate: NSDate, endDate: NSDate, frequency: Frequency) -> [Timeframe] {
+        var tfs = [Timeframe]()
+        
+        var tf = Timeframe(frequency: frequency, now: startDate)
+        while (tf.startDate.timeIntervalSince1970 <= endDate.timeIntervalSince1970) { // <= includes the end date here
+            tfs.append(tf)
+            tf = tf.next()
+        }
+        
+        return tfs
+    }
+    
+    static func getDateFormatter() -> NSDateFormatter {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateStyle = .ShortStyle
+        dateFormatter.timeStyle = .NoStyle
+        dateFormatter.locale = NSLocale(localeIdentifier: "en_US") // @TODO: Probably figure out where the user is?
+        
+        return dateFormatter
     }
 }
 

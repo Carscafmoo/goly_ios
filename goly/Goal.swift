@@ -56,11 +56,11 @@ class Goal: NSObject, NSCoding {
     //  - sort -- make sure we sort by timeframe DESC so we always have most recent cis first -- this is ESSENTIAL for 
     //              lastCheckInTime to work :-)
     func checkIn(value: Int, date: NSDate) {
-        let timeframe = Timeframe(frequency: self.frequency, now: date)
-        checkIns = checkIns.filter { (x) in x.timeframe != timeframe }
+        let timeframe = Timeframe(frequency: self.checkInFrequency, now: date)
+         checkIns = checkIns.filter { (x) in x.timeframe != timeframe }
         
-        checkIns.append(CheckIn(value: value, frequency: self.frequency, date: date))
-        checkIns = checkIns.sort {
+        checkIns.append(CheckIn(value: value, frequency: self.checkInFrequency, date: date))
+        self.checkIns = checkIns.sort {
             // Date objects themselves are not comparable for some stupid reason in Swift
             return $0.timeframe.startDate.timeIntervalSince1970 > $1.timeframe.startDate.timeIntervalSince1970
         }
@@ -77,7 +77,10 @@ class Goal: NSObject, NSCoding {
     
     // Calculate the total value for the current timeframe
     func currentProgress() -> Int {
-        return timeframeValue(Timeframe(frequency: self.frequency, now: NSDate()))
+        let timeframe = Timeframe(frequency: self.frequency, now: NSDate())
+        let value = timeframeValue(timeframe)
+        
+        return value
     }
     
     // Calculate the total value for a given timeframe
@@ -128,6 +131,28 @@ class Goal: NSObject, NSCoding {
             self.checkIns = checkIns
         } else {
             return nil
+        }
+    }
+    
+    static func loadGoals() -> [Goal]? {
+        if let goals = NSKeyedUnarchiver.unarchiveObjectWithFile(ArchiveURL.path!) as? [Goal] {
+            return Goal.sortGoals(goals)
+        }
+            
+        return nil
+    }
+        
+    static func sortGoals(goals: [Goal]) -> [Goal] {
+        return goals.sort {
+            if ($0.active && !$1.active) { return true; } // active always comes first
+            if (!$0.active && $1.active) { return false; }
+            
+            // That which is more frequently checked in should come first
+            if ($0.checkInFrequency.hashValue < $1.checkInFrequency.hashValue) { return true; }
+            if ($0.checkInFrequency.hashValue > $1.checkInFrequency.hashValue) { return false; }
+            
+            // Otherwise, sort by name I guess
+            return $0.name < $1.name
         }
     }
 }
