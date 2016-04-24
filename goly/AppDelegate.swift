@@ -18,7 +18,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes:  [.Alert, .Badge, .Sound], categories: nil))  // types are UIUserNotificationType members
-
+        
+        if let lo = launchOptions, _ = lo[UIApplicationLaunchOptionsLocalNotificationKey] {
+            launchCheckIns()
+        }
+        
         return true
     }
 
@@ -110,6 +114,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 abort()
             }
         }
+    }
+    
+    // MARK: Launch Handlers
+    func launchCheckIns() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let goals = Goal.goalsNeedingCheckIn()
+        for goal in goals {
+            let controller = storyboard.instantiateViewControllerWithIdentifier("CheckIn") as! CheckInViewController
+            controller.goal = goal
+            if let window = window, rvc = window.rootViewController as? UINavigationController {
+                rvc.pushViewController(controller, animated: false)
+            }
+        }
+        
+        
     }
 
 }

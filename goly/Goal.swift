@@ -100,6 +100,16 @@ class Goal: NSObject, NSCoding {
         return val
     }
     
+    // Determine whether a goal needs to be checked in right now:
+    func needsCheckIn() -> Bool {
+        if (!active) { return false }
+        if (checkIns.count == 0) { return true }
+        
+        let tf = Timeframe(frequency: checkInFrequency, now: NSDate())
+        
+        return tf.isCheckInDate() && tf.startDate.timeIntervalSince1970 >= checkIns[0].timeframe.startDate.timeIntervalSince1970
+    }
+    
     // MARK: NSCoding implementation
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(name, forKey: PropertyKey.nameKey)
@@ -134,6 +144,7 @@ class Goal: NSObject, NSCoding {
         }
     }
     
+    // MARK: Goal collection helpers
     static func loadGoals() -> [Goal]? {
         if let goals = NSKeyedUnarchiver.unarchiveObjectWithFile(ArchiveURL.path!) as? [Goal] {
             return Goal.sortGoals(goals)
@@ -154,5 +165,15 @@ class Goal: NSObject, NSCoding {
             // Otherwise, sort by name I guess
             return $0.name < $1.name
         }
+    }
+    
+    // Return a list of goals that need to be checked in today
+    static func goalsNeedingCheckIn() -> [Goal] {
+        let retGoals = [Goal]()
+        if let goals = loadGoals() {
+            return goals.filter { $0.needsCheckIn() }
+        }
+        
+        return retGoals
     }
 }

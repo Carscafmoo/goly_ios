@@ -530,7 +530,7 @@
         <!--Check In-->
         <scene sceneID="bLi-lg-D71">
             <objects>
-                <viewController id="EW8-XV-psV" customClass="CheckInViewController" customModule="goly" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CheckIn" id="EW8-XV-psV" customClass="CheckInViewController" customModule="goly" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hhr-zh-UeN"/>
                         <viewControllerLayoutGuide type="bottom" id="2Wr-Ih-a2X"/>
@@ -661,6 +661,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="EiO-2x-JvU"/>
-        <segue reference="8Q1-Gj-wSb"/>
+        <segue reference="kdw-KU-HwA"/>
     </inferredMetricsTieBreakers>
 </document>

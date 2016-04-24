@@ -41,13 +41,15 @@ class Notifications {
             var timeframe = Timeframe(frequency: frequency, now: NSDate()) // start now!
             
             // But... don't bother the user if they have already checked in all goals for this timeframe
-            goals = goals.filter { $0.checkInFrequency == frequency && ($0.checkIns.count == 0 || $0.checkIns[0].timeframe.startDate.timeIntervalSince1970 < timeframe.startDate.timeIntervalSince1970) }
-            if (goals.count == 0) { // Then you have nothing to alert about in this timeframe
+            let curCheckIns = Goal.goalsNeedingCheckIn()
+            if (curCheckIns.count == 0) { // Then you have nothing to alert about in this timeframe
                 timeframe = timeframe.next()
             }
             
             
             // Now figure out the last day of each of the next 10 checkIn timeframes associated with this most frequently checked-in active goal and schedule notifications at 9:00 PM on each of those nights
+            // This ... doesn't exactly work this way, unfortunately
+            // @TOOD: Fix this to deal with what happens if weekly goals are the most frequent
             for _ in 0..<10 {
                 // Find the end of the timeframe and subtract a day, then register a notification for that day
                 let noteDate = cal.dateByAddingUnit(.Day, value: -1, toDate: timeframe.endDate, options: calOpts)

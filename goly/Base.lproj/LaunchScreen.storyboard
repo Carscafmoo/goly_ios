@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -16,7 +17,27 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="goly" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" highlighted="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i3X-Q3-auP">
+                                <rect key="frame" x="266.5" y="146" width="68" height="42"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="36"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="4st-vK-eg9">
+                                <rect key="frame" x="220" y="220" width="160" height="160"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="4st-vK-eg9" secondAttribute="height" multiplier="1:1" id="6uz-wF-mBU"/>
+                                    <constraint firstAttribute="height" constant="160" id="8eE-C7-b4M"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="4st-vK-eg9" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="84e-fb-7f6"/>
+                            <constraint firstItem="4st-vK-eg9" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Q6O-ZQ-PAy"/>
+                            <constraint firstItem="4st-vK-eg9" firstAttribute="top" secondItem="i3X-Q3-auP" secondAttribute="bottom" constant="32" id="m0R-GN-ZKy"/>
+                            <constraint firstItem="i3X-Q3-auP" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="pGW-9K-bIm"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -24,4 +45,7 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Logo" width="1024" height="991"/>
+    </resources>
 </document>

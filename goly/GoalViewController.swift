@@ -133,6 +133,7 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
                 goal.checkInFrequency = cif
                 goal.prompt = prompt
                 goal.active = active
+                disableAutoPrompt = true
             } else { // it's a new goal
                 goal = Goal(name: name, prompt: prompt, frequency: frequency, target: target, type: type, checkInFrequency: cif)
             }

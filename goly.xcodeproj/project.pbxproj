@@ -17,7 +17,6 @@
 		9EDE20BD1C9DFA8000B981E9 /* GoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE20BC1C9DFA8000B981E9 /* GoalViewController.swift */; };
 		9EDE20C01C9DFA8000B981E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EDE20BE1C9DFA8000B981E9 /* Main.storyboard */; };
 		9EDE20C31C9DFA8000B981E9 /* goly.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE20C11C9DFA8000B981E9 /* goly.xcdatamodeld */; };
-		9EDE20C51C9DFA8000B981E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EDE20C41C9DFA8000B981E9 /* Assets.xcassets */; };
 		9EDE20C81C9DFA8000B981E9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EDE20C61C9DFA8000B981E9 /* LaunchScreen.storyboard */; };
 		9EDE20D31C9DFA8000B981E9 /* golyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE20D21C9DFA8000B981E9 /* golyTests.swift */; };
 		9EDE20DE1C9E03FA00B981E9 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE20DD1C9E03FA00B981E9 /* Goal.swift */; };
@@ -29,6 +28,7 @@
 		9EE5F2401CC2CEF600180499 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE5F23F1CC2CEF600180499 /* HistoryViewController.swift */; };
 		9EE5F2421CC666AA00180499 /* SampleGoals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE5F2411CC666AA00180499 /* SampleGoals.swift */; };
 		9EE5F2441CCBFCC000180499 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE5F2431CCBFCC000180499 /* Notifications.swift */; };
+		9EE5F2461CCD40DE00180499 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EE5F2451CCD40DE00180499 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,7 +103,6 @@
 		9EDE20BC1C9DFA8000B981E9 /* GoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalViewController.swift; sourceTree = "<group>"; };
 		9EDE20BF1C9DFA8000B981E9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9EDE20C21C9DFA8000B981E9 /* goly.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = goly.xcdatamodel; sourceTree = "<group>"; };
-		9EDE20C41C9DFA8000B981E9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9EDE20C71C9DFA8000B981E9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9EDE20C91C9DFA8000B981E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9EDE20CE1C9DFA8000B981E9 /* golyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = golyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -116,6 +115,7 @@
 		9EE5F23F1CC2CEF600180499 /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		9EE5F2411CC666AA00180499 /* SampleGoals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleGoals.swift; sourceTree = "<group>"; };
 		9EE5F2431CCBFCC000180499 /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
+		9EE5F2451CCD40DE00180499 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../../.Trash/Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,10 +175,10 @@
 				9E5743331CAEB5C2004643B4 /* GoalTableViewController.swift */,
 				9EDA3D751CB9AE4800C71D86 /* goalButton.swift */,
 				9E5743311CAEB404004643B4 /* GoalTableViewCell.swift */,
-				9EDE20C41C9DFA8000B981E9 /* Assets.xcassets */,
 				9EDE20C61C9DFA8000B981E9 /* LaunchScreen.storyboard */,
 				9EDE20C91C9DFA8000B981E9 /* Info.plist */,
 				9EDE20C11C9DFA8000B981E9 /* goly.xcdatamodeld */,
+				9EE5F2451CCD40DE00180499 /* Assets.xcassets */,
 			);
 			path = goly;
 			sourceTree = "<group>";
@@ -255,6 +255,7 @@
 				TargetAttributes = {
 					9EDE20B61C9DFA8000B981E9 = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = 5P84MK5784;
 					};
 					9EDE20CD1C9DFA8000B981E9 = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -324,7 +325,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9EDE20C81C9DFA8000B981E9 /* LaunchScreen.storyboard in Resources */,
-				9EDE20C51C9DFA8000B981E9 /* Assets.xcassets in Resources */,
+				9EE5F2461CCD40DE00180499 /* Assets.xcassets in Resources */,
 				9EDE20C01C9DFA8000B981E9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -492,6 +493,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = goly/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -504,6 +506,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = goly/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

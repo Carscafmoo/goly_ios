@@ -17,19 +17,23 @@ class GoalTableViewController: UITableViewController {
         super.viewDidLoad()
         
         if let savedGoals  = loadGoals() {
-            if (savedGoals.isEmpty) {
-                loadSampleGoals() // @TODO: Get rid of this eventually, probably!
-            } else {
-                goals += savedGoals
-            }
-        } else {
-            loadSampleGoals()
+            goals += savedGoals
         }
         
         navigationItem.leftBarButtonItem = editButtonItem()
         dateFormatter.dateStyle = .MediumStyle
         dateFormatter.timeStyle = .NoStyle
         dateFormatter.locale = NSLocale(localeIdentifier: "en_US") // @TODO: Probably figure out where the user is?
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if (goals.isEmpty) {
+            let alert = UIAlertController(title: "You have no saved goals!", message: "Click the + in the upper right to create a new goal", preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
     }
     
     // MARK: Table data source population
