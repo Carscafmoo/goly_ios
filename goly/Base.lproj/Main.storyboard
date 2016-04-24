@@ -338,38 +338,38 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cKD-YG-fTw">
-                                            <rect key="frame" x="109.5" y="0.0" width="46.5" height="20.5"/>
+                                            <rect key="frame" x="109.5" y="8" width="46.5" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" ambiguous="YES" text="0000-00-00 00:00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UqI-CL-1uE">
-                                            <rect key="frame" x="109.5" y="63.5" width="172.5" height="30"/>
+                                            <rect key="frame" x="109" y="65" width="172.5" height="28"/>
                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yFz-AG-Fyd" customClass="goalButton" customModule="goly" customModuleProvider="target">
-                                            <rect key="frame" x="524" y="28.5" width="60" height="27"/>
+                                            <rect key="frame" x="524" y="36.5" width="60" height="20.5"/>
                                             <state key="normal" title="Check In"/>
                                             <connections>
                                                 <segue destination="EW8-XV-psV" kind="show" identifier="CheckIn" id="8Q1-Gj-wSb"/>
                                             </connections>
                                         </button>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Default" translatesAutoresizingMaskIntoConstraints="NO" id="FZZ-Uk-jCh">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="FZZ-Uk-jCh">
                                             <rect key="frame" x="8" y="8" width="93.5" height="93.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="FZZ-Uk-jCh" secondAttribute="height" multiplier="1:1" id="oyT-AS-MtY"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="X of Y this Z" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zi6-Du-Bve">
-                                            <rect key="frame" x="109.5" y="28.5" width="94" height="27"/>
+                                            <rect key="frame" x="109" y="36.5" width="94" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sDp-dq-fAN" customClass="goalButton" customModule="goly" customModuleProvider="target">
-                                            <rect key="frame" x="534" y="63.5" width="50" height="30"/>
+                                            <rect key="frame" x="534" y="65" width="50" height="28"/>
                                             <state key="normal" title="History"/>
                                             <connections>
                                                 <segue destination="GPe-Fr-3eV" kind="show" identifier="ShowHistory" id="ka8-cG-tvf"/>
@@ -378,7 +378,7 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="bottomMargin" secondItem="UqI-CL-1uE" secondAttribute="bottom" constant="8" id="2fX-oF-OqK"/>
-                                        <constraint firstAttribute="topMargin" secondItem="cKD-YG-fTw" secondAttribute="top" constant="8" id="BKv-rX-zlQ"/>
+                                        <constraint firstAttribute="topMargin" secondItem="cKD-YG-fTw" secondAttribute="top" id="BKv-rX-zlQ"/>
                                         <constraint firstItem="yFz-AG-Fyd" firstAttribute="top" secondItem="zi6-Du-Bve" secondAttribute="top" id="C2f-Mu-frV"/>
                                         <constraint firstItem="zi6-Du-Bve" firstAttribute="top" secondItem="cKD-YG-fTw" secondAttribute="bottom" constant="8" id="Fqb-pA-FqX"/>
                                         <constraint firstItem="sDp-dq-fAN" firstAttribute="top" secondItem="UqI-CL-1uE" secondAttribute="top" id="IYY-ec-g7d"/>
@@ -511,22 +511,6 @@
             </objects>
             <point key="canvasLocation" x="545" y="-107"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="CAR-ip-wnk">
-            <objects>
-                <navigationController id="9rr-0b-URd" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Umg-tx-JJg">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="EW8-XV-psV" kind="relationship" relationship="rootViewController" id="kdw-KU-HwA"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="twz-AF-EAu" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1176" y="-778"/>
-        </scene>
         <!--Check In-->
         <scene sceneID="bLi-lg-D71">
             <objects>
@@ -552,7 +536,7 @@
                                 </date>
                             </datePicker>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Number" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Q1s-0b-TMW">
-                                <rect key="frame" x="161" y="235" width="279" height="30"/>
+                                <rect key="frame" x="81" y="235" width="439" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -597,7 +581,7 @@
                             <constraint firstItem="Q1s-0b-TMW" firstAttribute="top" secondItem="iF5-go-pWy" secondAttribute="bottom" id="2oo-SR-M0b"/>
                             <constraint firstAttribute="trailingMargin" secondItem="1V5-Ei-4qh" secondAttribute="trailing" constant="8" id="3CJ-YT-juY"/>
                             <constraint firstItem="1V5-Ei-4qh" firstAttribute="centerX" secondItem="uFQ-4D-3im" secondAttribute="centerX" id="3uF-s7-uvy"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Q1s-0b-TMW" secondAttribute="trailing" constant="140" id="8cY-Lc-rDj"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Q1s-0b-TMW" secondAttribute="trailing" constant="60" id="8cY-Lc-rDj"/>
                             <constraint firstItem="WHH-gj-o3A" firstAttribute="top" secondItem="F6x-5D-6QX" secondAttribute="bottom" id="GYV-wz-uwL"/>
                             <constraint firstItem="F6x-5D-6QX" firstAttribute="top" secondItem="Q1s-0b-TMW" secondAttribute="bottom" id="Gnc-XL-5RF"/>
                             <constraint firstItem="i1i-Qa-Do9" firstAttribute="centerY" secondItem="uFQ-4D-3im" secondAttribute="centerY" id="HKf-ik-ITf"/>
@@ -655,12 +639,11 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Default" width="540" height="540"/>
+        <image name="Logo" width="1024" height="991"/>
         <image name="No" width="200" height="200"/>
         <image name="Yes" width="254" height="254"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="EiO-2x-JvU"/>
-        <segue reference="kdw-KU-HwA"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -53,6 +53,10 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
         // Do any additional setup after loading the view, typically from a nib.
         nameTextField.delegate = self
         promptTextField.delegate = self
+        frequencyTextField.delegate = self
+        typeTextField.delegate = self
+        targetTextField.delegate = self
+        checkInTextField.delegate = self
         
         frequencyPickerView.delegate = self
         frequencies = ["Daily", "Weekly", "Monthly", "Quarterly", "Yearly"]
@@ -140,7 +144,44 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
         }
     }
     
-    // MARK: Name text field
+    // MARK: text field
+    func textFieldDidBeginEditing(textField: UITextField) {
+        if (textField == frequencyTextField) {
+            if (textField.text == "") {
+                textField.text = frequencies[frequencyPickerView.selectedRowInComponent(0)]
+            } else {
+                if let index = frequencies.indexOf(textField.text!) {
+                    frequencyPickerView.selectRow(index, inComponent: 0, animated: true)
+                }
+            }
+        } else if (textField == typeTextField) {
+            if (textField.text == "") {
+                textField.text = types[typePickerView.selectedRowInComponent(0)]
+            } else {
+                if let index = types.indexOf(textField.text!) {
+                    typePickerView.selectRow(index, inComponent: 0, animated: true)
+                }
+            }
+        } else if (textField == targetTextField) {
+            if (textField.text == "") {
+                textField.text = String(numbers[targetPickerView.selectedRowInComponent(0)])
+            } else {
+                if let index = numbers.indexOf(Int(textField.text!)!) {
+                    targetPickerView.selectRow(index, inComponent: 0, animated: true)
+                }
+            }
+        } else if (textField == checkInTextField) {
+            let checkInFrequencies = filterCheckInFrequencies()
+            if (textField.text == "") {
+                textField.text = checkInFrequencies[checkInPickerView.selectedRowInComponent(0)]
+            } else {
+                if let index = checkInFrequencies.indexOf(textField.text!) {
+                    checkInPickerView.selectRow(index, inComponent: 0, animated: true)
+                }
+            }
+        }
+    }
+    
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder() // hide the keyboard
         
@@ -152,8 +193,6 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
             navigationItem.title = textField.text
         } else if (textField == promptTextField) {
             disableAutoPrompt = true
-        } else if (textField == frequencyTextField) {
-            
         }
         
         updatePrompt() // textFieldDidEndEditing only runs for keyboard inputs and must be run in pickerViews separately
@@ -211,9 +250,6 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
         } else if (pickerView == checkInPickerView) {
             checkInTextField.text = filterCheckInFrequencies()[row]
         }
-        
-        updatePrompt() // textFieldDidEndEditing only runs for keyboard inputs and must be run in pickerViews separately
-        allowSave() // Do this after updatePrompt so it takes into account the prompt value
     }
     
     // MARK: Detail disclosures
