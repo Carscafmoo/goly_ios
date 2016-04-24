@@ -288,7 +288,7 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
     func updatePrompt() {
         if (disableAutoPrompt) { return }
         
-        if let checkInFrequency = checkInTextField.text, type = typeTextField.text, name = nameTextField.text {
+        if let checkInFrequency = checkInTextField.text, type = typeTextField.text, name = nameTextField.text?.lowercaseString {
             if (type.isEmpty || checkInFrequency.isEmpty || name.isEmpty) { return }
             
             var query: String
