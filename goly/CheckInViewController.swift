@@ -40,6 +40,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
         
         valuePickerView.delegate = self
         valueField.inputView = valuePickerView
+    
         allowSave()
     }
     
@@ -58,6 +59,16 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
     }
     
     // MARK: text field
+    func textFieldDidBeginEditing(textField: UITextField) {
+        if (textField.text == "") {
+            textField.text = String(numbers[valuePickerView.selectedRowInComponent(0)])
+        } else {
+            if let index = numbers.indexOf(Int(textField.text!)!) {
+                valuePickerView.selectRow(index, inComponent: 0, animated: true)
+            }
+        }
+    }
+    
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder() // hide the keyboard
         
@@ -65,7 +76,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
-        allowSave() // Do this after updatePrompt so it takes into account the prompt value
+        allowSave()
     }
     
     // MARK: Picker View DS
