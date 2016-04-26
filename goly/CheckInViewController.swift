@@ -40,7 +40,9 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
         
         valuePickerView.delegate = self
         valueField.inputView = valuePickerView
-    
+        
+        datePicker.maximumDate = NSDate()
+        
         allowSave()
     }
     
@@ -49,14 +51,35 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
         navigationController!.popViewControllerAnimated(true)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if saveButton === sender {
-            let date = datePicker.date
-            if let value = valueField.text, intVal = Int(value), goal = goal  {
-                goal.checkIn(intVal, date: date)
+    @IBAction func save(sender: UIBarButtonItem) {
+        if let text = valueField.text, val = Int(text), goal = goal {
+            goal.checkIn(val, date: datePicker.date)
+        }
+        
+        saveAndPop()
+    }
+    
+    
+    func saveAndPop() {
+        if var goals = Goal.loadGoals() {
+            for (index, _goal) in goals.enumerate() {
+                if (_goal.name == goal!.name) {
+                    goals[index] = goal!
+                }
+            }
+            
+            Goal.saveGoals(goals)
+        }
+        
+        // If you are the last dude in the stack, tell the table to reload its data:
+        if (navigationController!.viewControllers.count == 2) {
+            if let cnt = navigationController!.viewControllers[0] as? GoalTableViewController {
+                cnt.tableView.reloadData()
             }
         }
+        navigationController!.popViewControllerAnimated(true)
     }
+    
     
     // MARK: text field
     func textFieldDidBeginEditing(textField: UITextField) {
@@ -172,6 +195,6 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
             goal.checkIn(val, date: datePicker.date)
         }
         
-        self.performSegueWithIdentifier("checkInBinary", sender: self)
+        saveAndPop()
     }
 }

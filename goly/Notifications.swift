@@ -33,6 +33,9 @@ class Notifications {
     func scheduleNotifications(app: UIApplication) {
         clearNotifications(app)
         if var goals = self.goals {
+            // If there's no goals, go ahead and return
+            if goals.count == 0 { return }
+            
             // Load goals already sorts by frequency and activity
             // If no goals are active, the first goal will be inactive and you can return
             if (!goals[0].active) { return }
@@ -46,15 +49,13 @@ class Notifications {
                 timeframe = timeframe.next()
             }
             
-            
             // Now figure out the last day of each of the next 10 checkIn timeframes associated with this most frequently checked-in active goal and schedule notifications at 9:00 PM on each of those nights
             // This ... doesn't exactly work this way, unfortunately
-            // @TOOD: Fix this to deal with what happens if weekly goals are the most frequent
+            // @TODO: Fix this to deal with what happens if weekly goals are the most frequent
             for _ in 0..<10 {
                 // Find the end of the timeframe and subtract a day, then register a notification for that day
                 let noteDate = cal.dateByAddingUnit(.Day, value: -1, toDate: timeframe.endDate, options: calOpts)
                 scheduleNotification(app, date: noteDate!)
-                
                 timeframe = timeframe.next()
             }
         }

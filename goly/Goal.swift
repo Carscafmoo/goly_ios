@@ -69,7 +69,7 @@ class Goal: NSObject, NSCoding {
     // Helper to get last check-in time displayed on list view
     func lastCheckInTime() -> NSDate? {
         if let ci = checkIns.first {
-            return ci.timestamp
+            return ci.timeframe.startDate
         } else {
             return nil
         }
@@ -103,11 +103,12 @@ class Goal: NSObject, NSCoding {
     // Determine whether a goal needs to be checked in right now:
     func needsCheckIn() -> Bool {
         if (!active) { return false }
-        if (checkIns.count == 0) { return true }
         
         let tf = Timeframe(frequency: checkInFrequency, now: NSDate())
+        if (!tf.isCheckInDate()) { return false; }
+        if (checkIns.count == 0) { return true }
         
-        return tf.isCheckInDate() && tf.startDate.timeIntervalSince1970 >= checkIns[0].timeframe.startDate.timeIntervalSince1970
+        return tf.startDate.timeIntervalSince1970 > checkIns[0].timeframe.startDate.timeIntervalSince1970
     }
     
     // MARK: NSCoding implementation
@@ -152,7 +153,15 @@ class Goal: NSObject, NSCoding {
             
         return nil
     }
-        
+    
+    static func saveGoals(goals: [Goal]) {
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(goals, toFile: ArchiveURL.path!)
+        if isSuccessfulSave {
+        } else {
+            print("Save unsuccessful :-(")
+        }
+    }
+    
     static func sortGoals(goals: [Goal]) -> [Goal] {
         return goals.sort {
             if ($0.active && !$1.active) { return true; } // active always comes first

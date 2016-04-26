@@ -141,34 +141,15 @@ class GoalTableViewController: UITableViewController {
             }
             
             goals = Goal.sortGoals(goals)
-            saveGoals()
-            self.tableView.reloadData() // We have to reload the whole shabang after any changes to maintain sorting
-        }
-        
-        if let sourceController = sender.sourceViewController as? CheckInViewController, goal = sourceController.goal {
-            // Need to figure out which goal to replace...
-            var indexPath: NSIndexPath?
-            for (index, _goal) in goals.enumerate() {
-                if (_goal.name == goal.name) {
-                    goals[index] = goal
-                    indexPath = NSIndexPath(forRow: index, inSection: 0)
-                }
-            }
             
             saveGoals()
-            if let ind = indexPath {
-                tableView.reloadRowsAtIndexPaths([ind], withRowAnimation: .None)
-            }
+            self.tableView.reloadData() // We have to reload the whole shabang after any changes to maintain sorting
         }
     }
     
     // MARK: Persistence
     func saveGoals() {
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(goals, toFile: Goal.ArchiveURL.path!)
-        if isSuccessfulSave {
-        } else {
-            print("Save unsuccessful :-(")
-        }
+        Goal.saveGoals(goals)
     }
 
     func loadGoals() -> [Goal]? {

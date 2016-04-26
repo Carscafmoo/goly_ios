@@ -24,7 +24,7 @@ class GoalGenerator {
         goal.checkIn(1, date: cal.dateByAddingUnit(.Day, value: -3, toDate: date, options: opts)!)
         goal.checkIn(0, date: cal.dateByAddingUnit(.Day, value: -2, toDate: date, options: opts)!)
         goal.checkIn(1, date: cal.dateByAddingUnit(.Day, value: -1, toDate: date, options: opts)!)
-        goal.checkIn(0, date: date)
+        // goal.checkIn(0, date: date)
         
         return goal
     }
@@ -45,7 +45,7 @@ class GoalGenerator {
         goal.checkIn(21, date: cal.dateByAddingUnit(.Day, value: -4, toDate: date, options: opts)!)
         goal.checkIn(20, date: cal.dateByAddingUnit(.Day, value: -3, toDate: date, options: opts)!)
         goal.checkIn(0, date: cal.dateByAddingUnit(.Day, value: -1, toDate: date, options: opts)!)
-        goal.checkIn(20, date: date)
+        // goal.checkIn(20, date: date)
         
         return goal
     }
@@ -68,7 +68,7 @@ class GoalGenerator {
         goal.checkIn(0, date: cal.dateByAddingUnit(.Day, value: -3, toDate: date, options: opts)!)
         goal.checkIn(1, date: cal.dateByAddingUnit(.Day, value: -2, toDate: date, options: opts)!)
         goal.checkIn(1, date: cal.dateByAddingUnit(.Day, value: -1, toDate: date, options: opts)!)
-        goal.checkIn(0, date: date)
+        // goal.checkIn(0, date: date)
         
         return goal
     }
@@ -84,7 +84,7 @@ class GoalGenerator {
         goal.checkIn(0, date: cal.dateByAddingUnit(.Month, value: -4, toDate: date, options: opts)!)
         goal.checkIn(0, date: cal.dateByAddingUnit(.Month, value: -3, toDate: date, options: opts)!)
         goal.checkIn(1, date: cal.dateByAddingUnit(.Month, value: -1, toDate: date, options: opts)!)
-        goal.checkIn(1, date: date)
+        // goal.checkIn(1, date: date)
         
         return goal
     }
