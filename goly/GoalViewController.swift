@@ -123,6 +123,7 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if saveButton === sender {
             let name = nameTextField.text ?? ""
+            let trimmedName = name.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
             let frequency = Frequency(rawValue: frequencyTextField.text!)!
             let type = Type(rawValue: typeTextField.text!)!
             let target = Int(targetTextField.text!)!
@@ -130,7 +131,7 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
             let prompt = promptTextField.text ?? ""
             let active = activeSwitch.on
             if let goal = goal {
-                goal.name = name
+                goal.name = trimmedName
                 goal.frequency = frequency
                 goal.type = type
                 goal.target = target
@@ -139,7 +140,7 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
                 goal.active = active
                 disableAutoPrompt = true
             } else { // it's a new goal
-                goal = Goal(name: name, prompt: prompt, frequency: frequency, target: target, type: type, checkInFrequency: cif)
+                goal = Goal(name: trimmedName, prompt: prompt, frequency: frequency, target: target, type: type, checkInFrequency: cif)
             }
         }
     }
@@ -289,21 +290,22 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
         if (disableAutoPrompt) { return }
         
         if let checkInFrequency = checkInTextField.text, type = typeTextField.text, name = nameTextField.text?.lowercaseString {
-            if (type.isEmpty || checkInFrequency.isEmpty || name.isEmpty) { return }
+            let trimmedName = name.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+            if (type.isEmpty || checkInFrequency.isEmpty || trimmedName.isEmpty) { return }
             
             var query: String
             var when: String
             var interstitial: String = ""
             if (type == "Yes/No") {
-                query = "Have you done"
+                query = "Did you"
             } else {
                 query = "How many"
-                interstitial = " have you done"
+                interstitial = " did you do"
             }
             
             when = Frequency.thisNounify(Frequency(rawValue: checkInFrequency)!)
             
-            promptTextField.text = query + " " + name + interstitial + " " + when + "?"
+            promptTextField.text = query + " " + trimmedName + interstitial + " " + when + "?"
         }
     }
     
@@ -320,12 +322,14 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
     }
     
     func allowSave() { // we check emptiness in reverse order since these should fill from the top down -- #efficiency
-        if (promptTextField.text!.isEmpty ||
+        let trimmedPrompt = promptTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        let trimmedName = nameTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        if (trimmedPrompt.isEmpty ||
             checkInTextField.text!.isEmpty ||
             typeTextField.text!.isEmpty ||
             frequencyTextField.text!.isEmpty ||
             targetTextField.text!.isEmpty ||
-            nameTextField.text!.isEmpty
+            trimmedName.isEmpty
             ) {
             saveButton.enabled = false
             

@@ -32,3 +32,12 @@ let a = numbers.sort {
 
 print(numbers)
 print(a)
+
+let mystr = "    "
+mystr.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+
+
+let tst = 1 ..< 2
+for t in tst { print(t) }
+let otst = [1,2,3,4,5]
+for (index, val) in otst.enumerate() { print(index) }

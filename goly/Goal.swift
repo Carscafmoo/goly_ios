@@ -100,7 +100,8 @@ class Goal: NSObject, NSCoding {
         return val
     }
     
-    // Determine whether a goal needs to be checked in right now:
+    // Determine whether a goal needs to be checked in right now.
+    // Contains some slight optimization compared to needsCheckInOnDate
     func needsCheckIn() -> Bool {
         if (!active) { return false }
         
@@ -109,6 +110,17 @@ class Goal: NSObject, NSCoding {
         if (checkIns.count == 0) { return true }
         
         return tf.startDate.timeIntervalSince1970 > checkIns[0].timeframe.startDate.timeIntervalSince1970
+    }
+    
+    // Determine whether a goal needs to be checked in at a given time
+    func needsCheckInOnDate(date: NSDate) -> Bool {
+        if (!active) { return false }
+        
+        let tf = Timeframe(frequency: checkInFrequency, now: date)
+        if (!tf.dateIsCheckInDate(date)) { return false; }
+        if (checkIns.count == 0) { return true }
+        
+        return !checkIns.contains { $0.timeframe == tf }
     }
     
     // MARK: NSCoding implementation
@@ -181,6 +193,15 @@ class Goal: NSObject, NSCoding {
         let retGoals = [Goal]()
         if let goals = loadGoals() {
             return goals.filter { $0.needsCheckIn() }
+        }
+        
+        return retGoals
+    }
+    // Here again, there are some optimizations in needsCheckIn, so we have a separate function
+    static func goalsNeedingCheckInOnDate(date: NSDate) -> [Goal] {
+        let retGoals = [Goal]()
+        if let goals = loadGoals() {
+            return goals.filter { $0.needsCheckInOnDate(date) }
         }
         
         return retGoals

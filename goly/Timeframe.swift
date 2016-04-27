@@ -70,7 +70,12 @@ class Timeframe: NSObject, NSCoding {
     
     // Is today the check in date for this timeframe?
     func isCheckInDate() -> Bool {
-        return cal.startOfDayForDate(NSDate()) == checkInDate()
+        return dateIsCheckInDate(NSDate())
+    }
+    
+    // Is a given date the check in date for this timeframe?
+    func dateIsCheckInDate(date: NSDate) -> Bool {
+        return cal.startOfDayForDate(date) == checkInDate()
     }
     
     // MARK: NSCoding implementation
