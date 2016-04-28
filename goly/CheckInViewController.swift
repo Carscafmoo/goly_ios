@@ -15,19 +15,27 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var promptLabel: UILabel!
     @IBOutlet weak var valueField: UITextField!
-    @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var dateField: UITextField!
     @IBOutlet weak var yesImageView: UIImageView!
     @IBOutlet weak var noImageView: UIImageView!
-    
+    @IBOutlet weak var valueLabel: UILabel!
+    let datePicker = UIDatePicker()
     let valuePickerView = UIPickerView()
+    let dateFormatter = NSDateFormatter()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        let date = NSDate()
         if let goal = goal {
             presentCorrectView(goal)
             navigationItem.title = goal.name
             promptLabel.text = goal.prompt
+            
+            // If there is a check-in for the current timeframe, go ahead and grab it and display that value:
+            if let checkIn = goal.getCheckInForDate(date) {
+                valueField.text = String(checkIn.value)
+            }
+            
         }
         
         valueField.delegate = self
@@ -41,7 +49,16 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
         valuePickerView.delegate = self
         valueField.inputView = valuePickerView
         
-        datePicker.maximumDate = NSDate()
+        dateFormatter.dateStyle = .MediumStyle
+        dateFormatter.timeStyle = .NoStyle
+        dateFormatter.locale = NSLocale(localeIdentifier: "en_US") // @TODO: Probably figure out where the user is?
+        
+        datePicker.maximumDate = date
+        datePicker.datePickerMode = .Date
+        dateField.delegate = self
+        dateField.inputView = datePicker
+        dateField.text = dateFormatter.stringFromDate(NSDate())
+        datePicker.addTarget(self, action: #selector(datePickerChanged), forControlEvents: UIControlEvents.ValueChanged)
         
         allowSave()
     }
@@ -81,15 +98,29 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
     }
     
     
-    // MARK: text field
+    // MARK: text fields
     func textFieldDidBeginEditing(textField: UITextField) {
+        if (textField == valueField) { delegateValueFieldDidBeginEditing(textField) }
+        else if (textField == dateField) { delegateDateFieldDidBeginEditing(textField) }
+        
+    }
+    
+    func delegateValueFieldDidBeginEditing(textField: UITextField) {
         if (textField.text == "") {
+            valuePickerView.selectRow(0, inComponent: 0, animated: false) // reset to 0
             textField.text = String(numbers[valuePickerView.selectedRowInComponent(0)])
         } else {
             if let index = numbers.indexOf(Int(textField.text!)!) {
                 valuePickerView.selectRow(index, inComponent: 0, animated: true)
             }
         }
+    }
+    
+    func delegateDateFieldDidBeginEditing(textField: UITextField) {
+        if let text = textField.text, date = dateFormatter.dateFromString(text) {
+            datePicker.date = date
+        }
+        
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -129,7 +160,17 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
             valueField.text = String(numbers[row])
         }
         
-        allowSave() // Do this after updatePrompt so it takes into account the prompt value
+        allowSave()
+    }
+    
+    // MARK: Date picker view delegate... sort of
+    func datePickerChanged(datePicker: UIDatePicker) {
+        dateField.text = dateFormatter.stringFromDate(datePicker.date)
+        if let checkIn = goal?.getCheckInForDate(datePicker.date) {
+            valueField.text = String(checkIn.value)
+        } else {
+            valueField.text = ""
+        }
     }
     
     // MARK: Gesture recognizers
@@ -159,6 +200,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
             yesImageView.hidden = false
             noImageView.hidden = false
             valueField.hidden = true
+            valueLabel.hidden = true
             // You can't hide a menu button but you can disable it and and make it disappear
             saveButton.tintColor = UIColor.clearColor()
             saveButton.enabled = false
@@ -177,6 +219,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
             yesImageView.hidden = true
             noImageView.hidden = true
             valueField.hidden = false
+            valueLabel.hidden = false
             saveButton.enabled = true
             saveButton.tintColor = nil
         }
@@ -184,7 +227,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
     
     func allowSave() {
         saveButton.enabled = false
-        if let text = valueField.text {
+        if let text = valueField.text, dateText = dateField.text, _ = dateFormatter.dateFromString(dateText) {
             if (!text.isEmpty) { saveButton.enabled = true }
         }
     }

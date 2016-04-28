@@ -120,7 +120,23 @@ class Goal: NSObject, NSCoding {
         if (!tf.dateIsCheckInDate(date)) { return false; }
         if (checkIns.count == 0) { return true }
         
-        return !checkIns.contains { $0.timeframe == tf }
+        // Uses an optimization handy for most common use case where check-in date is in the future (for notification scheduling)
+        if let _ = getCheckInForDate(date) { return true }
+        
+        return false
+    }
+    
+    // Pull a check-in for a given date.  If none exists, return nil
+    func getCheckInForDate(date: NSDate) -> CheckIn? {
+        // Standard optimization -- if you ever hit a case where the date in question is > check In end date
+        // You can break, since they're ordered in reverse chron order by timeframe
+        for ci in checkIns {
+            if (ci.timeframe.endDate.timeIntervalSince1970 < date.timeIntervalSince1970) { break }
+            let timeframe = Timeframe(frequency: checkInFrequency, now: date)
+            if (ci.timeframe == timeframe) { return ci }
+        }
+        
+        return nil
     }
     
     // MARK: NSCoding implementation
@@ -197,6 +213,7 @@ class Goal: NSObject, NSCoding {
         
         return retGoals
     }
+    
     // Here again, there are some optimizations in needsCheckIn, so we have a separate function
     static func goalsNeedingCheckInOnDate(date: NSDate) -> [Goal] {
         let retGoals = [Goal]()
