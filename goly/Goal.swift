@@ -121,9 +121,9 @@ class Goal: NSObject, NSCoding {
         if (checkIns.count == 0) { return true }
         
         // Uses an optimization handy for most common use case where check-in date is in the future (for notification scheduling)
-        if let _ = getCheckInForDate(date) { return true }
+        if let _ = getCheckInForDate(date) { return false }
         
-        return false
+        return true
     }
     
     // Pull a check-in for a given date.  If none exists, return nil
