@@ -99,14 +99,17 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
         var values = [Int](count: timeframes.count, repeatedValue: 0)
         
         if (timeframes.count > 0) {
+            // Rely on the min / max timeframe dates, not min / max dates set
+            let minStartDate = timeframes.first!.startDate
+            let maxEndDate = timeframes.last!.endDate
             // timeframes are organized ascending and check-ins descending; we can flip one of the two for some
             // additional effeciency gains here as we iterate.
             let checkIns = goal.checkIns.reverse()
             var tfIndex = 0 // We can keep track of which TF we're in and never look lower than that
             for checkIn in checkIns {
                 // Handle cases where we need to continue iterating or end iteration
-                if (checkIn.timeframe.endDate.timeIntervalSince1970 <= startDate.timeIntervalSince1970) { continue }
-                if (checkIn.timeframe.startDate.timeIntervalSince1970 > endDate.timeIntervalSince1970) { break }
+                if (checkIn.timeframe.endDate.timeIntervalSince1970 <= minStartDate.timeIntervalSince1970) { continue }
+                if (checkIn.timeframe.startDate.timeIntervalSince1970 > maxEndDate.timeIntervalSince1970) { break }
                 
                 // All other cases are guaranteed to fit into a timeframe
                 let citf = checkIn.timeframe
@@ -272,6 +275,15 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
             case .Yearly:
                 startDate = cal.dateByAddingUnit(.Year, value: -3, toDate: endDate, options: opts)!
             }
+            
+            // Limit the start to the oldest check-in.  Goals may have check-ins older than the created date
+            if let last = goal.checkIns.last {
+                if last.timeframe.startDate.timeIntervalSince1970 > startDate.timeIntervalSince1970 {
+                    startDate = last.timeframe.startDate
+                }
+            }
         }
+        
+        
     }
 }
