@@ -33,11 +33,5 @@ class HideableLabel: UILabel {
         }
         
         self.hidden = false
-        if let sv = self.superview {
-            print("There's a superview!")
-            print(sv.autoresizesSubviews)
-            print(sv.dynamicType)
-            
-        }
     }
 }

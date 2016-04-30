@@ -14,7 +14,7 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
     var dateFormatter = NSDateFormatter()
     var startDate = NSDate()
     var endDate = NSDate()
-    var currentTextField: UITextField? // Used by handleDatePicker
+    var currentTextField: UITextField? // Used by handleDatePicker, touchesBegan
     @IBOutlet weak var historyChart: BarChartView!
     @IBOutlet weak var drilldownChart: LineChartView!
     @IBOutlet weak var startDateTextField: UITextField!
@@ -192,7 +192,8 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
             datePickerView.date = date
         }
         
-        datePickerView.maximumDate = endDate
+        if (textField == startDateTextField) { datePickerView.maximumDate = endDate }
+        else { datePickerView.maximumDate = NSDate() }
     }
     
     func handleDatePicker(sender: UIDatePicker) {
@@ -214,6 +215,13 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
         }
         
         if (shouldPlot) { setUpChart() }
+    }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        super.touchesBegan(touches, withEvent: event)
+        if let ctf = currentTextField {
+            if (ctf.canResignFirstResponder()) { ctf.resignFirstResponder() }
+        }
     }
     
     // MARK: Chart view delegate
