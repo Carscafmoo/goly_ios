@@ -11,6 +11,7 @@
 		9E5743341CAEB5C2004643B4 /* GoalTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5743331CAEB5C2004643B4 /* GoalTableViewController.swift */; };
 		9E5743361CB194B3004643B4 /* CheckIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5743351CB194B3004643B4 /* CheckIn.swift */; };
 		9E5743381CB19519004643B4 /* Timeframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5743371CB19519004643B4 /* Timeframe.swift */; };
+		9E6A4BB21CD529A500BD6D26 /* HIdeableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6A4BB11CD529A500BD6D26 /* HIdeableLabel.swift */; };
 		9EA9F4E61CB992EF00FA0F9B /* CheckInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA9F4E51CB992EF00FA0F9B /* CheckInViewController.swift */; };
 		9EDA3D761CB9AE4800C71D86 /* goalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDA3D751CB9AE4800C71D86 /* goalButton.swift */; };
 		9EDE20BB1C9DFA8000B981E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE20BA1C9DFA8000B981E9 /* AppDelegate.swift */; };
@@ -96,6 +97,7 @@
 		9E5743351CB194B3004643B4 /* CheckIn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckIn.swift; sourceTree = "<group>"; };
 		9E5743371CB19519004643B4 /* Timeframe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timeframe.swift; sourceTree = "<group>"; };
 		9E5743391CB5439A004643B4 /* pg.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = pg.playground; sourceTree = "<group>"; };
+		9E6A4BB11CD529A500BD6D26 /* HIdeableLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HIdeableLabel.swift; sourceTree = "<group>"; };
 		9EA9F4E51CB992EF00FA0F9B /* CheckInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckInViewController.swift; sourceTree = "<group>"; };
 		9EDA3D751CB9AE4800C71D86 /* goalButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = goalButton.swift; sourceTree = "<group>"; };
 		9EDE20B71C9DFA8000B981E9 /* goly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = goly.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -162,6 +164,7 @@
 				9EDE20BA1C9DFA8000B981E9 /* AppDelegate.swift */,
 				9EE5F2431CCBFCC000180499 /* Notifications.swift */,
 				9EDE20BC1C9DFA8000B981E9 /* GoalViewController.swift */,
+				9E6A4BB11CD529A500BD6D26 /* HIdeableLabel.swift */,
 				9EDE20DD1C9E03FA00B981E9 /* Goal.swift */,
 				9E5743351CB194B3004643B4 /* CheckIn.swift */,
 				9E5743371CB19519004643B4 /* Timeframe.swift */,
@@ -356,6 +359,7 @@
 				9EDE20BD1C9DFA8000B981E9 /* GoalViewController.swift in Sources */,
 				9EDA3D761CB9AE4800C71D86 /* goalButton.swift in Sources */,
 				9EDE20C31C9DFA8000B981E9 /* goly.xcdatamodeld in Sources */,
+				9E6A4BB21CD529A500BD6D26 /* HIdeableLabel.swift in Sources */,
 				9EDE20BB1C9DFA8000B981E9 /* AppDelegate.swift in Sources */,
 				9EA9F4E61CB992EF00FA0F9B /* CheckInViewController.swift in Sources */,
 				9EDE20E31C9F1EC700B981E9 /* Type.swift in Sources */,

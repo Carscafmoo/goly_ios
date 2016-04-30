@@ -15,15 +15,18 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
     @IBOutlet weak var targetTextField: UITextField!
     @IBOutlet weak var checkInTextField: UITextField!
     @IBOutlet weak var promptTextField: UITextField!
-    @IBOutlet weak var nameDetail: UILabel!
-    @IBOutlet weak var frequencyDetail: UILabel!
-    @IBOutlet weak var typeDetail: UILabel!
-    @IBOutlet weak var targetDetail: UILabel!
-    @IBOutlet weak var checkInDetail: UILabel!
-    @IBOutlet weak var promptDetail: UILabel!
     @IBOutlet weak var activeLabel: UILabel!
     @IBOutlet weak var activeSwitch: UISwitch!
     @IBOutlet weak var saveButton: UIBarButtonItem!
+    
+    @IBOutlet weak var nameDetail: HideableLabel!
+    @IBOutlet weak var targetDetail: HideableLabel!
+    @IBOutlet weak var frequencyDetail: HideableLabel!
+    @IBOutlet weak var typeDetail: HideableLabel!
+    @IBOutlet weak var checkInDetail: HideableLabel!
+    @IBOutlet weak var promptDetail: HideableLabel!
+    
+    @IBOutlet weak var scrollView: UIScrollView!
     
     // Picker views
     // Open question -- better to have one PV that responds differently depending on what FR is?
@@ -40,10 +43,13 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
     var numbers = [Int]()
     
     // Collection of details for easy iteration
-    var details = [UILabel]()
+    var details = [HideableLabel]()
     
     // Whether the prompt text field has been manually updated yet
     var disableAutoPrompt: Bool = false
+    
+    // Keep track of which field is being edited so we can scroll to it as necessary
+    var activeField: UITextField?
     
     var goal: Goal?
     
@@ -78,7 +84,7 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
         checkInTextField.inputView = checkInPickerView
         
         // Hide all of the details
-        details = [nameDetail, frequencyDetail, typeDetail, targetDetail, checkInDetail, promptDetail]
+        details = [nameDetail, targetDetail, frequencyDetail, typeDetail, checkInDetail, promptDetail]
         hideDetails()
         
         // If the goal already exists, prepopulate all its details:
@@ -102,6 +108,11 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
         }
         
         allowSave() // disable the save button as necessary!
+        
+        // Watch for the keyboard to show, if it shows, deal with your scrolling
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardDidShow), name: UIKeyboardDidShowNotification, object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillBeHidden), name: UIKeyboardWillHideNotification, object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -147,6 +158,7 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
     
     // MARK: text field
     func textFieldDidBeginEditing(textField: UITextField) {
+        activeField = textField
         if (textField == frequencyTextField) {
             if (textField.text == "") {
                 textField.text = frequencies[frequencyPickerView.selectedRowInComponent(0)]
@@ -190,6 +202,7 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
+        activeField = nil
         if (textField == nameTextField) {
             navigationItem.title = textField.text
         } else if (textField == promptTextField) {
@@ -311,14 +324,16 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
     
     func hideDetails() {
         for detail in details {
-            detail.hidden = true
+            detail.hide()
         }
     }
     
-    func handleDetailDisclosure(detailLabel: UILabel) {
+    func handleDetailDisclosure(detailLabel: HideableLabel) {
         let isHidden = detailLabel.hidden
         hideDetails()
-        if (isHidden) { detailLabel.hidden = false } // otherwise leave it hidden
+        if (isHidden) {
+            detailLabel.show()
+        } // otherwise leave it hidden
     }
     
     func allowSave() { // we check emptiness in reverse order since these should fill from the top down -- #efficiency
@@ -338,6 +353,27 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
         }
         
         
+    }
+    
+    //MARK: Keyboard scrolling
+    func keyboardDidShow(notification: NSNotification) {
+        if let activeField = self.activeField, keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+            let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height, right: 0.0)
+            
+            self.scrollView.contentInset = contentInsets
+            self.scrollView.scrollIndicatorInsets = contentInsets
+            var aRect = self.view.frame
+            aRect.size.height -= keyboardSize.size.height
+            if (!CGRectContainsPoint(aRect, activeField.frame.origin)) {
+                self.scrollView.scrollRectToVisible(activeField.frame, animated: true)
+            }
+        }
+    }
+    
+    func keyboardWillBeHidden(notification: NSNotification) {
+        let contentInsets = UIEdgeInsetsZero
+        self.scrollView.contentInset = contentInsets
+        self.scrollView.scrollIndicatorInsets = contentInsets
     }
 }
 
