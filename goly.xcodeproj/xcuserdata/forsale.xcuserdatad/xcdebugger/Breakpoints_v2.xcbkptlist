@@ -106,7 +106,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "goly/HistoryViewController.swift"
-            timestampString = "483031140.503217"
+            timestampString = "483591139.93961"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "79"
@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "goly/Notifications.swift"
-            timestampString = "483588481.446171"
+            timestampString = "483588681.23319"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
             landmarkName = "calculateNextCheckIn(_:date:)"
             landmarkType = "5">
          </BreakpointContent>

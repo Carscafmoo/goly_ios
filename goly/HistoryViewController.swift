@@ -176,6 +176,7 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
         chartDataSet.fillColor = UIColor.blackColor()
         chartDataSet.fillAlpha = 1.0
         chartDataSet.valueColors = dataPointLabelColors
+        
     }
     
     // MARK: text fields
@@ -235,7 +236,7 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
                 break
             }
             
-            if (checkIn.timeframe.startDate.timeIntervalSince1970 > timeframe.endDate.timeIntervalSince1970) {
+            if (checkIn.timeframe.startDate.timeIntervalSince1970 >= timeframe.endDate.timeIntervalSince1970) {
                 continue
             }
             
