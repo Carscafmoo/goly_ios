@@ -14,12 +14,13 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
     var dateFormatter = NSDateFormatter()
     var startDate = NSDate()
     var endDate = NSDate()
-    var currentTextField: UITextField? // Used by handleDatePicker, touchesBegan
     @IBOutlet weak var historyChart: BarChartView!
     @IBOutlet weak var drilldownChart: LineChartView!
     @IBOutlet weak var startDateTextField: UITextField!
     @IBOutlet weak var endDateTextField: UITextField!
     @IBOutlet weak var summaryLabel: UILabel!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var contentView: UIClickToDismissView!
     
     // Text fields should actually be dates
     let datePickerView = UIDatePicker()
@@ -43,6 +44,8 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
         datePickerView.addTarget(self, action: #selector(handleDatePicker), forControlEvents: UIControlEvents.ValueChanged)
         
         historyChart.delegate = self
+        scrollView.canCancelContentTouches = false
+        scrollView.keyboardDismissMode = .OnDrag
         
         setUpChart()
     }
@@ -176,18 +179,18 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
         chartDataSet.fillColor = UIColor.blackColor()
         chartDataSet.fillAlpha = 1.0
         chartDataSet.valueColors = dataPointLabelColors
-        
     }
     
     // MARK: text fields
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder() // hide the picker view
+        contentView.currentTextField = nil
         
         return true
     }
     
     func textFieldDidBeginEditing(textField: UITextField) {
-        currentTextField = textField // Used by handleDatePicker
+        contentView.currentTextField = textField // Used by handleDatePicker
         if let date = dateFormatter.dateFromString(textField.text!) {
             datePickerView.date = date
         }
@@ -199,7 +202,7 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
     func handleDatePicker(sender: UIDatePicker) {
         var shouldPlot = false // only replot if something has actually changed
         let date = sender.date
-        let ctf = currentTextField!
+        let ctf = contentView.currentTextField!
         ctf.text = dateFormatter.stringFromDate(date)
         if (ctf == startDateTextField) {
             shouldPlot = (startDate != date)
@@ -215,13 +218,6 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
         }
         
         if (shouldPlot) { setUpChart() }
-    }
-    
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesBegan(touches, withEvent: event)
-        if let ctf = currentTextField {
-            if (ctf.canResignFirstResponder()) { ctf.resignFirstResponder() }
-        }
     }
     
     // MARK: Chart view delegate

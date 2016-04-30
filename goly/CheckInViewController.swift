@@ -23,6 +23,8 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
     let valuePickerView = UIPickerView()
     let dateFormatter = NSDateFormatter()
     
+    var currentTextField: UITextField?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let date = NSDate()
@@ -100,6 +102,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
     
     // MARK: text fields
     func textFieldDidBeginEditing(textField: UITextField) {
+        currentTextField = textField
         if (textField == valueField) { delegateValueFieldDidBeginEditing(textField) }
         else if (textField == dateField) { delegateDateFieldDidBeginEditing(textField) }
         
@@ -125,6 +128,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder() // hide the keyboard
+        currentTextField = nil
         
         return true
     }
@@ -170,6 +174,13 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
             valueField.text = String(checkIn.value)
         } else {
             valueField.text = ""
+        }
+    }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        super.touchesBegan(touches, withEvent: event)
+        if let ctf = currentTextField {
+            if (ctf.canResignFirstResponder()) { ctf.resignFirstResponder() }
         }
     }
     
