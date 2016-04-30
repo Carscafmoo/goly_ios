@@ -24,6 +24,10 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
     let dateFormatter = NSDateFormatter()
     
     var currentTextField: UITextField?
+    var originalPoint: CGPoint?
+    
+    var originalYesImageFrame: CGRect?
+    var originalNoImageFrame: CGRect?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,7 +100,8 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
                 cnt.tableView.reloadData()
             }
         }
-        navigationController!.popViewControllerAnimated(true)
+        
+        navigationController!.popViewControllerAnimated(false) // This looks terrible with the swipes if it's animated
     }
     
     
@@ -192,16 +197,88 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
     @IBAction func handleNoTap(sender: UITapGestureRecognizer) {
         checkInBinary(false)
     }
-
-    func handleSwipe(sender: UISwipeGestureRecognizer) {
-        switch sender.direction {
-        case UISwipeGestureRecognizerDirection.Right:
-            checkInBinary(true)
-        case UISwipeGestureRecognizerDirection.Left:
-            checkInBinary(false)
+    
+    // MARK: Swipe gesture recognizer
+    // Stolen basically verbatim from http://guti.in/articles/creating-tinder-like-animations/, minus Bar Rafaeli for #sexism purposes
+    func handleSwipe(sender: UIPanGestureRecognizer) {
+        // Parameters for determining swipe strength and rotation, etc
+        let strengthPixels = 240.0 // # of pixels that qualifies as a fully-fledged swipe
+        let rotationScale = 16 // fraction of a circle you want to rotate the view.  Less is more rotation
+        let sizeScaleFactor = 4 // 1 - fraction how quickly you want the view to shrink... i.e., 4 will shrink to 75%, 5 to 80%, 3 to 67%
+        let minScale = 0.75 // Cap the view shrinkage
+        let baseImageAlpha = 0.5 // We scale up and down the image alphas for yes and now depending on the swipe strength in their respective direction
+        
+        
+        let xDistance = sender.translationInView(self.view).x
+        let yDistance = sender.translationInView(self.view).y
+        
+        switch (sender.state) {
+        case .Began:
+            self.originalPoint = self.view.center;
+            self.originalYesImageFrame = yesImageView.frame
+            self.originalNoImageFrame = noImageView.frame
+        case .Changed:
+            let rotationStrength = max(min(Double(xDistance) / strengthPixels, 1.0), -1.0)
+            let rotationAngle = (2 * M_PI * rotationStrength / Double(rotationScale))
+            let scaleStrength = 1 - fabs(rotationStrength) / Double(sizeScaleFactor)
+            let scale = max(scaleStrength, minScale)
+            self.view.center = CGPointMake(self.originalPoint!.x + xDistance, self.originalPoint!.y + yDistance)
+            let transform = CGAffineTransformMakeRotation(CGFloat(rotationAngle))
+            let scaleTransform = CGAffineTransformScale(transform, CGFloat(scale), CGFloat(scale)) // scale x and y equally I guess
+            self.view.transform = scaleTransform
+            
+            // Image alphas
+            let alphaScale = (1 - baseImageAlpha) * rotationStrength // Rotation strength is negative if swiping left so we don't need to if on that
+            yesImageView.alpha = CGFloat(baseImageAlpha + alphaScale)
+            noImageView.alpha = CGFloat(baseImageAlpha - alphaScale)
+            
+            // Move images -- they both end up on the edge of the page, offset by about 8
+            // Depends on if we're swiping left or right whether we'll want to track min or max X value
+            if (xDistance < 0) {
+                let originalYesDistance = self.view.frame.width - originalYesImageFrame!.maxX - 8
+                let yesDistanceToTranslate = originalYesDistance * fabs(CGFloat(rotationStrength))
+                yesImageView.transform = CGAffineTransformMakeTranslation(yesDistanceToTranslate, CGFloat(0.0))
+                
+                let originalNoDistance = self.view.frame.width - originalNoImageFrame!.maxX - 8
+                let noDistanceToTranslate = originalNoDistance * fabs(CGFloat(rotationStrength))
+                noImageView.transform = CGAffineTransformMakeTranslation(noDistanceToTranslate, CGFloat(0.0))
+            } else {
+                let originalYesDistance = originalYesImageFrame!.minX - 8
+                let yesDistanceToTranslate = originalYesDistance * fabs(CGFloat(rotationStrength))
+                yesImageView.transform = CGAffineTransformMakeTranslation(-yesDistanceToTranslate, CGFloat(0.0))
+                
+                let originalNoDistance = originalNoImageFrame!.minX - 8
+                let noDistanceToTranslate = originalNoDistance * fabs(CGFloat(rotationStrength))
+                noImageView.transform = CGAffineTransformMakeTranslation(-noDistanceToTranslate, CGFloat(0.0))
+            }
+            
+        case .Ended:
+            self.handleSwipeEnd(xDistance)
         default:
             break
         }
+    }
+    
+    func handleSwipeEnd(swipeDistance: CGFloat) {
+        let swipeMax = 240.0 // You must swipe at least 320 pixels for it to register as a swipe
+        
+        if (fabs(swipeDistance) >= CGFloat(swipeMax)) {
+            if (swipeDistance > 0) { checkInBinary(true) }
+            else { checkInBinary(false) }
+            
+            return
+        }
+        
+        // Otherwise snap back
+        UIView.animateWithDuration(0.2, animations: {
+            self.view.center = self.originalPoint!
+            self.view.transform = CGAffineTransformMakeRotation(0)
+            self.yesImageView.alpha = CGFloat(1.0)
+            self.noImageView.alpha = CGFloat(1.0)
+            self.yesImageView.transform = CGAffineTransformMakeTranslation(0, 0)
+            self.noImageView.transform = CGAffineTransformMakeTranslation(0, 0)
+            
+        }, completion: nil)
     }
     
     // MARK: Helpers
@@ -217,13 +294,13 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
             saveButton.enabled = false
             
             // Swipe recognizers
-            let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe))
-            swipeRight.direction = UISwipeGestureRecognizerDirection.Right
+            let swipeRight = UIPanGestureRecognizer(target: self, action: #selector(handleSwipe))
+            // swipeRight.direction = UISwipeGestureRecognizerDirection.Right
             self.view.addGestureRecognizer(swipeRight)
             
-            let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe))
-            swipeLeft.direction = UISwipeGestureRecognizerDirection.Left
-            self.view.addGestureRecognizer(swipeLeft)
+            // let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe))
+            // swipeLeft.direction = UISwipeGestureRecognizerDirection.Left
+            // self.view.addGestureRecognizer(swipeLeft)
             
             
         case .Numeric:
