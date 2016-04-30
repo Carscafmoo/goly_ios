@@ -91,6 +91,7 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
         summaryLabel.text = "Goal accomplished " + passing + " out of " + String(cnt) + " " + Frequency.nounify(goal.frequency) + pluralSuffix
         
         drilldownChart.hidden = true // Rehide the drilldown if it's not currently hidden
+        historyChart.notifyDataSetChanged()
     }
     
     // Sum up the checkIns according to their goal timeframe; return the x and y labels
@@ -182,6 +183,7 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
         chartDataSet.fillColor = UIColor.blackColor()
         chartDataSet.fillAlpha = 1.0
         chartDataSet.valueColors = dataPointLabelColors
+        drilldownChart.notifyDataSetChanged()
     }
     
     // MARK: text fields
