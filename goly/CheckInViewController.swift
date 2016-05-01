@@ -217,6 +217,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
             self.originalPoint = self.view.center;
             self.originalYesImageFrame = yesImageView.frame
             self.originalNoImageFrame = noImageView.frame
+            
         case .Changed:
             let rotationStrength = max(min(Double(xDistance) / strengthPixels, 1.0), -1.0)
             let rotationAngle = (2 * M_PI * rotationStrength / Double(rotationScale))
@@ -235,11 +236,12 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
             // Move images -- they both end up on the edge of the page, offset by about 8
             // Depends on if we're swiping left or right whether we'll want to track min or max X value
             if (xDistance < 0) {
-                let originalYesDistance = self.view.frame.width - originalYesImageFrame!.maxX - 8
+                let frameWidth = UIScreen.mainScreen().bounds.width
+                let originalYesDistance = frameWidth - originalYesImageFrame!.maxX - 8
                 let yesDistanceToTranslate = originalYesDistance * fabs(CGFloat(rotationStrength))
                 yesImageView.transform = CGAffineTransformMakeTranslation(yesDistanceToTranslate, CGFloat(0.0))
                 
-                let originalNoDistance = self.view.frame.width - originalNoImageFrame!.maxX - 8
+                let originalNoDistance = frameWidth - originalNoImageFrame!.maxX - 8
                 let noDistanceToTranslate = originalNoDistance * fabs(CGFloat(rotationStrength))
                 noImageView.transform = CGAffineTransformMakeTranslation(noDistanceToTranslate, CGFloat(0.0))
             } else {
