@@ -22,16 +22,39 @@ class HideableLabel: UILabel {
     
     func hide() {
         if (!self.hidden) { originalHeight = self.frame.height }
-        
-        self.frame = CGRectMake(self.frame.minX, self.frame.minY, self.frame.width, 0)
+        for c in self.constraints {
+            if (c.identifier == "HideableHeight") {
+                c.constant = 0
+                self.layoutIfNeeded()
+            }
+        }
+        // self.transform = CGAffineTransformMakeScale(1, 0)
         self.hidden = true
     }
     
     func show() {
-        if let height = originalHeight {
-            self.frame = CGRectMake(self.frame.minX, self.frame.minY, self.frame.width, height)
+        for c in self.constraints {
+            if (c.identifier == "HideableHeight") {
+                
+                c.constant = requiredHeight()
+                self.layoutIfNeeded()
+            }
         }
         
         self.hidden = false
+        
+    }
+    
+    // http://stackoverflow.com/questions/25180443/adjust-uilabel-height-to-text
+    func requiredHeight() -> CGFloat{
+        let label:UILabel = UILabel(frame: CGRectMake(0, 0, self.frame.width, CGFloat.max))
+        label.numberOfLines = 0
+        label.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        label.font = self.font
+        label.text = self.text
+        
+        label.sizeToFit()
+        
+        return label.frame.height
     }
 }

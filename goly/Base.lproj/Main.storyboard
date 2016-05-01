@@ -39,7 +39,7 @@
                                 <rect key="frame" x="20" y="64" width="560" height="536"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d83-wn-Cqr" userLabel="Content">
-                                        <rect key="frame" x="10" y="0.0" width="540" height="464"/>
+                                        <rect key="frame" x="10" y="0.0" width="540" height="396.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rpX-kI-OuV">
                                                 <rect key="frame" x="10" y="0.0" width="90" height="21"/>
@@ -68,43 +68,43 @@
                                                     <action selector="discloseNameDetail:" destination="Ige-hc-gyB" eventType="touchUpInside" id="gIP-ES-Ta0"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This name will be displayed in the home screen.  It should be descriptive, but short." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8hq-Q5-DFi" customClass="HideableLabel" customModule="goly" customModuleProvider="target">
-                                                <rect key="frame" x="10" y="31" width="520" height="33.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This name will be displayed in the home screen.  It should be descriptive, but short." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8hq-Q5-DFi" customClass="HideableLabel" customModule="goly" customModuleProvider="target">
+                                                <rect key="frame" x="10" y="31" width="520" height="20"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" id="7zg-GD-Iqf"/>
+                                                    <constraint firstAttribute="height" constant="20" identifier="HideableHeight" id="7zg-GD-Iqf"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Target" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6s6-oh-PZB">
-                                                <rect key="frame" x="10" y="74.5" width="90" height="21"/>
+                                                <rect key="frame" x="10" y="61" width="90" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0, 1, or more" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Yu8-8C-xlV">
-                                                <rect key="frame" x="110" y="74.5" width="389" height="21"/>
+                                                <rect key="frame" x="110" y="61" width="389" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xC4-pw-pYN">
-                                                <rect key="frame" x="509" y="74.5" width="21" height="21"/>
+                                                <rect key="frame" x="509" y="61" width="21" height="21"/>
                                                 <connections>
                                                     <action selector="discloseTargetDetail:" destination="Ige-hc-gyB" eventType="touchUpInside" id="yhu-1c-tSo"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How many times do you want to achieve this goal within a given timeframe?" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BJI-ew-TGx" customClass="HideableLabel" customModule="goly" customModuleProvider="target">
-                                                <rect key="frame" x="10" y="105.5" width="520" height="20"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How many times do you want to achieve this goal within a given timeframe?" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BJI-ew-TGx" customClass="HideableLabel" customModule="goly" customModuleProvider="target">
+                                                <rect key="frame" x="10" y="92" width="520" height="20"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="vGH-Np-Un6"/>
+                                                    <constraint firstAttribute="height" constant="20" identifier="HideableHeight" id="vGH-Np-Un6"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Timeframe" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BdP-FZ-Mvm">
-                                                <rect key="frame" x="10" y="135.5" width="90" height="21"/>
+                                                <rect key="frame" x="10" y="122" width="90" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="hEc-rA-U0M"/>
                                                 </constraints>
@@ -113,27 +113,27 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Tap to select" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SqH-9M-Hrk">
-                                                <rect key="frame" x="110" y="135.5" width="389" height="21"/>
+                                                <rect key="frame" x="110" y="122" width="389" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EHS-mM-fGw">
-                                                <rect key="frame" x="509" y="135.5" width="21" height="21"/>
+                                                <rect key="frame" x="509" y="122" width="21" height="21"/>
                                                 <connections>
                                                     <action selector="discloseFrequencyDetail:" destination="Ige-hc-gyB" eventType="touchUpInside" id="DY5-Q4-dsq"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Defines the time range of the target (e.g., if target is 1, do you want to accomplish your goal one time per day? Per week?)" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VaF-dw-zeJ" customClass="HideableLabel" customModule="goly" customModuleProvider="target">
-                                                <rect key="frame" x="10" y="166.5" width="520" height="33.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Defines the time range of the target (e.g., if target is 1, do you want to accomplish your goal one time per day? Per week?)" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VaF-dw-zeJ" customClass="HideableLabel" customModule="goly" customModuleProvider="target">
+                                                <rect key="frame" x="10" y="153" width="520" height="20"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="gzJ-ax-SlM"/>
+                                                    <constraint firstAttribute="height" constant="20" identifier="HideableHeight" id="gzJ-ax-SlM"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Dr-Mo-2vr">
-                                                <rect key="frame" x="10" y="210" width="90" height="21"/>
+                                                <rect key="frame" x="10" y="183" width="90" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="2Dj-vB-WHu"/>
                                                 </constraints>
@@ -142,20 +142,20 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Tap to select" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HMF-Im-XsP">
-                                                <rect key="frame" x="110" y="210" width="389" height="21"/>
+                                                <rect key="frame" x="110" y="183" width="389" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CZ1-Id-CC2">
-                                                <rect key="frame" x="509" y="210" width="21" height="21"/>
+                                                <rect key="frame" x="509" y="183" width="21" height="21"/>
                                                 <connections>
                                                     <action selector="discloseTypeDetail:" destination="Ige-hc-gyB" eventType="touchUpInside" id="Prx-Lw-ThO"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TMY-MG-IfA" customClass="HideableLabel" customModule="goly" customModuleProvider="target">
-                                                <rect key="frame" x="10" y="240.5" width="520" height="33.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TMY-MG-IfA" customClass="HideableLabel" customModule="goly" customModuleProvider="target">
+                                                <rect key="frame" x="10" y="213.5" width="520" height="20"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="wnN-oo-TMI"/>
+                                                    <constraint firstAttribute="height" constant="20" identifier="HideableHeight" id="wnN-oo-TMI"/>
                                                 </constraints>
                                                 <string key="text">Yes / No is perfect for daily goals and allows you to respond with a swipe. For cumulative goals, you will be prompted to enter a number.</string>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
@@ -163,7 +163,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Check In" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="duN-V5-xwf">
-                                                <rect key="frame" x="10" y="284" width="90" height="21"/>
+                                                <rect key="frame" x="10" y="243.5" width="90" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="DEs-xu-wpk"/>
                                                 </constraints>
@@ -172,20 +172,20 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Tap to select" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xbT-ej-7da">
-                                                <rect key="frame" x="110" y="284" width="389" height="21"/>
+                                                <rect key="frame" x="110" y="243.5" width="389" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cJD-iq-tBB">
-                                                <rect key="frame" x="509" y="284" width="21" height="21"/>
+                                                <rect key="frame" x="509" y="243.5" width="21" height="21"/>
                                                 <connections>
                                                     <action selector="discloseCheckInDetail:" destination="Ige-hc-gyB" eventType="touchUpInside" id="i3k-eT-OUw"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p3A-nU-B5N" customClass="HideableLabel" customModule="goly" customModuleProvider="target">
-                                                <rect key="frame" x="10" y="315" width="520" height="33.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p3A-nU-B5N" customClass="HideableLabel" customModule="goly" customModuleProvider="target">
+                                                <rect key="frame" x="10" y="274.5" width="520" height="20"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="mGn-fv-xsC"/>
+                                                    <constraint firstAttribute="height" constant="20" identifier="HideableHeight" id="mGn-fv-xsC"/>
                                                 </constraints>
                                                 <string key="text">How often should we check in on your goal? This field determines when we send push notifications, and must make sense with the given Timeframe.</string>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
@@ -193,39 +193,39 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pW4-Gi-ujG">
-                                                <rect key="frame" x="10" y="358.5" width="90" height="21"/>
+                                                <rect key="frame" x="10" y="304.5" width="90" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Did you..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uYF-gI-o9E">
-                                                <rect key="frame" x="110" y="358.5" width="389" height="21"/>
+                                                <rect key="frame" x="110" y="304.5" width="389" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nWd-5H-Yu0">
-                                                <rect key="frame" x="509" y="358.5" width="21" height="21"/>
+                                                <rect key="frame" x="509" y="304.5" width="21" height="21"/>
                                                 <connections>
                                                     <action selector="disclosePromptDetail:" destination="Ige-hc-gyB" eventType="touchUpInside" id="95r-HM-KZC"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is the question we'll ask to see if you accomplished your goal when we check in." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A8b-Qx-Nqv" customClass="HideableLabel" customModule="goly" customModuleProvider="target">
-                                                <rect key="frame" x="10" y="389.5" width="520" height="33.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is the question we'll ask to see if you accomplished your goal when we check in." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A8b-Qx-Nqv" customClass="HideableLabel" customModule="goly" customModuleProvider="target">
+                                                <rect key="frame" x="10" y="335.5" width="520" height="20"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="35H-Bn-8Al"/>
+                                                    <constraint firstAttribute="height" constant="20" identifier="HideableHeight" id="35H-Bn-8Al"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Active" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gIP-ah-vcZ">
-                                                <rect key="frame" x="10" y="433" width="90" height="21"/>
+                                                <rect key="frame" x="10" y="365.5" width="90" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DHf-B9-yK3">
-                                                <rect key="frame" x="110" y="429" width="51" height="21"/>
+                                                <rect key="frame" x="110" y="365.5" width="51" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="49" id="bKl-bH-KXU"/>
                                                 </constraints>
@@ -349,7 +349,6 @@
                             <constraint firstItem="Cmi-ip-ykx" firstAttribute="leading" secondItem="f2e-iy-uYp" secondAttribute="leadingMargin" id="3Ib-vR-xOf"/>
                             <constraint firstItem="7T8-6K-afi" firstAttribute="top" secondItem="Cmi-ip-ykx" secondAttribute="bottom" id="Ca0-lX-Qot"/>
                             <constraint firstItem="Cmi-ip-ykx" firstAttribute="top" secondItem="ov9-Xm-a7g" secondAttribute="bottom" id="R8c-ZE-iOy"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="d83-wn-Cqr" secondAttribute="leading" constant="10" id="RJC-ME-mcK"/>
                             <constraint firstAttribute="trailingMargin" secondItem="d83-wn-Cqr" secondAttribute="trailing" constant="10" id="V5g-4H-pKa"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Cmi-ip-ykx" secondAttribute="trailing" id="lRM-fx-dQg"/>
                         </constraints>
@@ -675,13 +674,13 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hnj-Pf-1Nw">
                                 <rect key="frame" x="28" y="147" width="42" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Value" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p2b-A6-3rJ">
                                 <rect key="frame" x="28" y="193" width="42" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="k4v-mH-bdM">
