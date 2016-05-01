@@ -39,10 +39,10 @@
                                 <rect key="frame" x="20" y="64" width="560" height="536"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d83-wn-Cqr" userLabel="Content">
-                                        <rect key="frame" x="10" y="0.0" width="540" height="396.5"/>
+                                        <rect key="frame" x="10" y="0.0" width="540" height="406.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rpX-kI-OuV">
-                                                <rect key="frame" x="10" y="0.0" width="90" height="21"/>
+                                                <rect key="frame" x="10" y="10" width="90" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="Nfa-ST-ZPu"/>
                                                     <constraint firstAttribute="width" constant="90" id="WBU-yt-kyn"/>
@@ -52,7 +52,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="My New Goal" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hun-kU-XG0">
-                                                <rect key="frame" x="110" y="0.0" width="389" height="21"/>
+                                                <rect key="frame" x="110" y="10" width="389" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="NKD-eb-YpB"/>
                                                 </constraints>
@@ -60,7 +60,7 @@
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sIz-8R-Z4N">
-                                                <rect key="frame" x="509" y="0.0" width="21" height="21"/>
+                                                <rect key="frame" x="509" y="10" width="21" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="sIz-8R-Z4N" secondAttribute="height" multiplier="1:1" id="VXg-5X-ntt"/>
                                                 </constraints>
@@ -69,7 +69,7 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This name will be displayed in the home screen.  It should be descriptive, but short." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8hq-Q5-DFi" customClass="HideableLabel" customModule="goly" customModuleProvider="target">
-                                                <rect key="frame" x="10" y="31" width="520" height="20"/>
+                                                <rect key="frame" x="10" y="41" width="520" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" identifier="HideableHeight" id="7zg-GD-Iqf"/>
                                                 </constraints>
@@ -78,24 +78,24 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Target" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6s6-oh-PZB">
-                                                <rect key="frame" x="10" y="61" width="90" height="21"/>
+                                                <rect key="frame" x="10" y="71" width="90" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0, 1, or more" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Yu8-8C-xlV">
-                                                <rect key="frame" x="110" y="61" width="389" height="21"/>
+                                                <rect key="frame" x="110" y="71" width="389" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xC4-pw-pYN">
-                                                <rect key="frame" x="509" y="61" width="21" height="21"/>
+                                                <rect key="frame" x="509" y="71" width="21" height="21"/>
                                                 <connections>
                                                     <action selector="discloseTargetDetail:" destination="Ige-hc-gyB" eventType="touchUpInside" id="yhu-1c-tSo"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How many times do you want to achieve this goal within a given timeframe?" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BJI-ew-TGx" customClass="HideableLabel" customModule="goly" customModuleProvider="target">
-                                                <rect key="frame" x="10" y="92" width="520" height="20"/>
+                                                <rect key="frame" x="10" y="102" width="520" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" identifier="HideableHeight" id="vGH-Np-Un6"/>
                                                 </constraints>
@@ -104,7 +104,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Timeframe" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BdP-FZ-Mvm">
-                                                <rect key="frame" x="10" y="122" width="90" height="21"/>
+                                                <rect key="frame" x="10" y="132" width="90" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="hEc-rA-U0M"/>
                                                 </constraints>
@@ -113,18 +113,18 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Tap to select" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SqH-9M-Hrk">
-                                                <rect key="frame" x="110" y="122" width="389" height="21"/>
+                                                <rect key="frame" x="110" y="132" width="389" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EHS-mM-fGw">
-                                                <rect key="frame" x="509" y="122" width="21" height="21"/>
+                                                <rect key="frame" x="509" y="132" width="21" height="21"/>
                                                 <connections>
                                                     <action selector="discloseFrequencyDetail:" destination="Ige-hc-gyB" eventType="touchUpInside" id="DY5-Q4-dsq"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Defines the time range of the target (e.g., if target is 1, do you want to accomplish your goal one time per day? Per week?)" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VaF-dw-zeJ" customClass="HideableLabel" customModule="goly" customModuleProvider="target">
-                                                <rect key="frame" x="10" y="153" width="520" height="20"/>
+                                                <rect key="frame" x="10" y="163" width="520" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" identifier="HideableHeight" id="gzJ-ax-SlM"/>
                                                 </constraints>
@@ -133,7 +133,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Dr-Mo-2vr">
-                                                <rect key="frame" x="10" y="183" width="90" height="21"/>
+                                                <rect key="frame" x="10" y="193" width="90" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="2Dj-vB-WHu"/>
                                                 </constraints>
@@ -142,18 +142,18 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Tap to select" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HMF-Im-XsP">
-                                                <rect key="frame" x="110" y="183" width="389" height="21"/>
+                                                <rect key="frame" x="110" y="193" width="389" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CZ1-Id-CC2">
-                                                <rect key="frame" x="509" y="183" width="21" height="21"/>
+                                                <rect key="frame" x="509" y="193" width="21" height="21"/>
                                                 <connections>
                                                     <action selector="discloseTypeDetail:" destination="Ige-hc-gyB" eventType="touchUpInside" id="Prx-Lw-ThO"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TMY-MG-IfA" customClass="HideableLabel" customModule="goly" customModuleProvider="target">
-                                                <rect key="frame" x="10" y="213.5" width="520" height="20"/>
+                                                <rect key="frame" x="10" y="223.5" width="520" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" identifier="HideableHeight" id="wnN-oo-TMI"/>
                                                 </constraints>
@@ -163,7 +163,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Check In" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="duN-V5-xwf">
-                                                <rect key="frame" x="10" y="243.5" width="90" height="21"/>
+                                                <rect key="frame" x="10" y="253.5" width="90" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="DEs-xu-wpk"/>
                                                 </constraints>
@@ -172,18 +172,18 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Tap to select" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xbT-ej-7da">
-                                                <rect key="frame" x="110" y="243.5" width="389" height="21"/>
+                                                <rect key="frame" x="110" y="253.5" width="389" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cJD-iq-tBB">
-                                                <rect key="frame" x="509" y="243.5" width="21" height="21"/>
+                                                <rect key="frame" x="509" y="253.5" width="21" height="21"/>
                                                 <connections>
                                                     <action selector="discloseCheckInDetail:" destination="Ige-hc-gyB" eventType="touchUpInside" id="i3k-eT-OUw"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p3A-nU-B5N" customClass="HideableLabel" customModule="goly" customModuleProvider="target">
-                                                <rect key="frame" x="10" y="274.5" width="520" height="20"/>
+                                                <rect key="frame" x="10" y="284.5" width="520" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" identifier="HideableHeight" id="mGn-fv-xsC"/>
                                                 </constraints>
@@ -193,24 +193,24 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pW4-Gi-ujG">
-                                                <rect key="frame" x="10" y="304.5" width="90" height="21"/>
+                                                <rect key="frame" x="10" y="314.5" width="90" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Did you..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uYF-gI-o9E">
-                                                <rect key="frame" x="110" y="304.5" width="389" height="21"/>
+                                                <rect key="frame" x="110" y="314.5" width="389" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nWd-5H-Yu0">
-                                                <rect key="frame" x="509" y="304.5" width="21" height="21"/>
+                                                <rect key="frame" x="509" y="314.5" width="21" height="21"/>
                                                 <connections>
                                                     <action selector="disclosePromptDetail:" destination="Ige-hc-gyB" eventType="touchUpInside" id="95r-HM-KZC"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is the question we'll ask to see if you accomplished your goal when we check in." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A8b-Qx-Nqv" customClass="HideableLabel" customModule="goly" customModuleProvider="target">
-                                                <rect key="frame" x="10" y="335.5" width="520" height="20"/>
+                                                <rect key="frame" x="10" y="345.5" width="520" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" identifier="HideableHeight" id="35H-Bn-8Al"/>
                                                 </constraints>
@@ -219,7 +219,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Active" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gIP-ah-vcZ">
-                                                <rect key="frame" x="10" y="365.5" width="90" height="21"/>
+                                                <rect key="frame" x="10" y="375.5" width="90" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -320,7 +320,7 @@
                                             <constraint firstItem="7Dr-Mo-2vr" firstAttribute="leading" secondItem="BdP-FZ-Mvm" secondAttribute="leading" id="pJa-Qr-iDK"/>
                                             <constraint firstItem="cJD-iq-tBB" firstAttribute="trailing" secondItem="CZ1-Id-CC2" secondAttribute="trailing" id="pvC-hH-yhF"/>
                                             <constraint firstItem="DHf-B9-yK3" firstAttribute="leading" secondItem="uYF-gI-o9E" secondAttribute="leading" id="qtX-hZ-ZVq"/>
-                                            <constraint firstItem="rpX-kI-OuV" firstAttribute="top" secondItem="d83-wn-Cqr" secondAttribute="top" id="qtj-eH-HJs"/>
+                                            <constraint firstItem="rpX-kI-OuV" firstAttribute="top" secondItem="d83-wn-Cqr" secondAttribute="top" constant="10" id="qtj-eH-HJs"/>
                                             <constraint firstItem="xbT-ej-7da" firstAttribute="bottom" secondItem="duN-V5-xwf" secondAttribute="bottom" id="rTK-ue-ZmN"/>
                                             <constraint firstItem="CZ1-Id-CC2" firstAttribute="bottom" secondItem="HMF-Im-XsP" secondAttribute="bottom" id="t84-ef-fOO"/>
                                             <constraint firstItem="VaF-dw-zeJ" firstAttribute="bottom" secondItem="7Dr-Mo-2vr" secondAttribute="top" constant="-10" id="vjt-VB-S4G"/>

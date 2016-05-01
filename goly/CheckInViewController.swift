@@ -202,11 +202,11 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
     // Stolen basically verbatim from http://guti.in/articles/creating-tinder-like-animations/, minus Bar Rafaeli for #sexism purposes
     func handleSwipe(sender: UIPanGestureRecognizer) {
         // Parameters for determining swipe strength and rotation, etc
-        let strengthPixels = 240.0 // # of pixels that qualifies as a fully-fledged swipe
+        let strengthPixels = UIScreen.mainScreen().bounds.width / 2 // # of pixels that qualifies as a fully-fledged swipe -- half the screen
         let rotationScale = 16 // fraction of a circle you want to rotate the view.  Less is more rotation
         let sizeScaleFactor = 4 // 1 - fraction how quickly you want the view to shrink... i.e., 4 will shrink to 75%, 5 to 80%, 3 to 67%
-        let minScale = 0.75 // Cap the view shrinkage
-        let baseImageAlpha = 0.5 // We scale up and down the image alphas for yes and now depending on the swipe strength in their respective direction
+        let minScale = CGFloat(0.75) // Cap the view shrinkage
+        let baseImageAlpha = CGFloat(0.5) // We scale up and down the image alphas for yes and now depending on the swipe strength in their respective direction
         
         
         let xDistance = sender.translationInView(self.view).x
@@ -219,9 +219,9 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
             self.originalNoImageFrame = noImageView.frame
             
         case .Changed:
-            let rotationStrength = max(min(Double(xDistance) / strengthPixels, 1.0), -1.0)
-            let rotationAngle = (2 * M_PI * rotationStrength / Double(rotationScale))
-            let scaleStrength = 1 - fabs(rotationStrength) / Double(sizeScaleFactor)
+            let rotationStrength = max(min(xDistance / strengthPixels, 1.0), -1.0)
+            let rotationAngle = (2 * M_PI * Double(rotationStrength) / Double(rotationScale))
+            let scaleStrength = 1 - fabs(rotationStrength) / CGFloat(sizeScaleFactor)
             let scale = max(scaleStrength, minScale)
             self.view.center = CGPointMake(self.originalPoint!.x + xDistance, self.originalPoint!.y + yDistance)
             let transform = CGAffineTransformMakeRotation(CGFloat(rotationAngle))
@@ -262,7 +262,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
     }
     
     func handleSwipeEnd(swipeDistance: CGFloat) {
-        let swipeMax = 240.0 // You must swipe at least 320 pixels for it to register as a swipe
+        let swipeMax = UIScreen.mainScreen().bounds.width / 2 // You must swipe at least 320 pixels for it to register as a swipe
         
         if (fabs(swipeDistance) >= CGFloat(swipeMax)) {
             if (swipeDistance > 0) { checkInBinary(true) }
