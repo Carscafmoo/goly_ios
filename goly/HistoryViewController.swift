@@ -90,7 +90,7 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
         
         summaryLabel.text = "Goal accomplished " + passing + " out of " + String(cnt) + " " + Frequency.nounify(goal.frequency) + pluralSuffix
         
-        drilldownChart.hidden = true // Rehide the drilldown if it's not currently hidden
+        hideDrilldownChart() // Rehide the drilldown if it's not currently hidden
         historyChart.notifyDataSetChanged()
     }
     
@@ -159,7 +159,7 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
     
     // MARK: Drilldown chart
     func plotDrilldown(xVals: [String], yVals: [Int]) {
-        drilldownChart.hidden = false
+        showDrilldownChart()
         let goal = self.goal!
         var dataEntries = [BarChartDataEntry]()
         var runningTotal = 0.0
@@ -184,6 +184,26 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
         chartDataSet.fillAlpha = 1.0
         chartDataSet.valueColors = dataPointLabelColors
         drilldownChart.notifyDataSetChanged()
+    }
+    
+    func hideDrilldownChart() {
+        drilldownChart.hidden = true
+        for c in contentView.constraints {
+            if (c.identifier == "drilldownHeight") {
+                c.constant = 172.0
+                contentView.layoutIfNeeded()
+            }
+        }
+    }
+    
+    func showDrilldownChart() {
+        drilldownChart.hidden = false
+        for c in contentView.constraints {
+            if (c.identifier == "drilldownHeight") {
+                c.constant = 172.0
+                contentView.layoutIfNeeded()
+            }
+        }
     }
     
     // MARK: text fields
