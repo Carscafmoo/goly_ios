@@ -422,7 +422,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cKD-YG-fTw">
-                                            <rect key="frame" x="109.5" y="8" width="46.5" height="20.5"/>
+                                            <rect key="frame" x="85.5" y="8" width="46.5" height="20.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20.5" id="Uom-9L-VJR"/>
                                             </constraints>
@@ -431,7 +431,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="0000-00-00 00:00:00" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UqI-CL-1uE">
-                                            <rect key="frame" x="109" y="65" width="172.5" height="28"/>
+                                            <rect key="frame" x="85" y="65" width="172.5" height="28"/>
                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
@@ -443,14 +443,8 @@
                                                 <segue destination="EW8-XV-psV" kind="show" identifier="CheckIn" id="8Q1-Gj-wSb"/>
                                             </connections>
                                         </button>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="FZZ-Uk-jCh">
-                                            <rect key="frame" x="8" y="8" width="93.5" height="93.5"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" secondItem="FZZ-Uk-jCh" secondAttribute="height" multiplier="1:1" id="oyT-AS-MtY"/>
-                                            </constraints>
-                                        </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="X of Y this Z" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zi6-Du-Bve">
-                                            <rect key="frame" x="109" y="36.5" width="94" height="20.5"/>
+                                            <rect key="frame" x="85" y="36.5" width="94" height="20.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20.5" id="5az-MN-LbO"/>
                                             </constraints>
@@ -465,6 +459,12 @@
                                                 <segue destination="GPe-Fr-3eV" kind="show" identifier="ShowHistory" id="ka8-cG-tvf"/>
                                             </connections>
                                         </button>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="FZZ-Uk-jCh">
+                                            <rect key="frame" x="8" y="24" width="61.5" height="61.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="FZZ-Uk-jCh" secondAttribute="height" multiplier="1:1" id="oyT-AS-MtY"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="bottomMargin" secondItem="UqI-CL-1uE" secondAttribute="bottom" constant="8" id="2fX-oF-OqK"/>
@@ -475,15 +475,15 @@
                                         <constraint firstItem="yFz-AG-Fyd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="zi6-Du-Bve" secondAttribute="trailing" constant="8" id="T3P-fF-492"/>
                                         <constraint firstItem="sDp-dq-fAN" firstAttribute="trailing" secondItem="yFz-AG-Fyd" secondAttribute="trailing" id="Zq0-F1-E2w"/>
                                         <constraint firstItem="FZZ-Uk-jCh" firstAttribute="leading" secondItem="scg-f1-vT9" secondAttribute="leadingMargin" id="a8E-b5-w1e"/>
-                                        <constraint firstItem="cKD-YG-fTw" firstAttribute="leading" secondItem="FZZ-Uk-jCh" secondAttribute="trailing" constant="8" id="aQW-d6-mcn"/>
+                                        <constraint firstItem="cKD-YG-fTw" firstAttribute="leading" secondItem="FZZ-Uk-jCh" secondAttribute="trailing" constant="16" id="aQW-d6-mcn"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="yFz-AG-Fyd" secondAttribute="trailing" constant="8" id="cas-Oo-pBc"/>
                                         <constraint firstItem="UqI-CL-1uE" firstAttribute="leading" secondItem="cKD-YG-fTw" secondAttribute="leading" id="fWp-Wx-sMn"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="FZZ-Uk-jCh" secondAttribute="bottom" id="oQZ-0U-j5G"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="FZZ-Uk-jCh" secondAttribute="bottom" constant="16" id="oQZ-0U-j5G"/>
                                         <constraint firstItem="UqI-CL-1uE" firstAttribute="top" secondItem="zi6-Du-Bve" secondAttribute="bottom" constant="8" id="ozC-dC-EJ8"/>
                                         <constraint firstItem="zi6-Du-Bve" firstAttribute="leading" secondItem="cKD-YG-fTw" secondAttribute="leading" id="sLl-qD-sei"/>
                                         <constraint firstItem="yFz-AG-Fyd" firstAttribute="bottom" secondItem="zi6-Du-Bve" secondAttribute="bottom" id="tWZ-hp-o9Y"/>
                                         <constraint firstItem="sDp-dq-fAN" firstAttribute="bottom" secondItem="UqI-CL-1uE" secondAttribute="bottom" id="w1k-87-0A4"/>
-                                        <constraint firstItem="FZZ-Uk-jCh" firstAttribute="top" secondItem="scg-f1-vT9" secondAttribute="topMargin" id="zSt-iu-XYS"/>
+                                        <constraint firstItem="FZZ-Uk-jCh" firstAttribute="top" secondItem="scg-f1-vT9" secondAttribute="topMargin" constant="16" id="zSt-iu-XYS"/>
                                         <constraint firstItem="sDp-dq-fAN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="UqI-CL-1uE" secondAttribute="trailing" constant="8" id="zU3-Ls-KCs"/>
                                     </constraints>
                                 </tableViewCellContentView>
@@ -782,7 +782,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Logo" width="1024" height="991"/>
+        <image name="Logo" width="438" height="438"/>
         <image name="No" width="200" height="200"/>
         <image name="Yes" width="254" height="254"/>
     </resources>
