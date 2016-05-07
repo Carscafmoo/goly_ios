@@ -13,8 +13,7 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes:  [.Alert, .Badge, .Sound], categories: nil))  // types are UIUserNotificationType members
@@ -45,6 +44,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        
+        // If you open the app after 9:00 PM, you should pretty much no matter what launch the checkIn page if you haven't yet
+        let hour = NSCalendar.currentCalendar().component(.Hour, fromDate: NSDate())
+        if (hour < 21) { return }
+        
+        // But, only do that if you're not CURRENTLY checking anything in RIGHT NOW in the background
+        if let window = window, rvc = window.rootViewController as? UINavigationController {
+            if (rvc.viewControllers.filter { return $0 is CheckInViewController }.count == 0) {
+                launchCheckIns()
+            }
+        }
+        
     }
 
     func applicationWillTerminate(application: UIApplication) {
