@@ -261,7 +261,7 @@
 				TargetAttributes = {
 					9EDE20B61C9DFA8000B981E9 = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = 5P84MK5784;
+						DevelopmentTeam = QU736QCFRX;
 					};
 					9EDE20CD1C9DFA8000B981E9 = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -505,7 +505,7 @@
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = goly/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.carscafmoo.goly;
+				PRODUCT_BUNDLE_IDENTIFIER = com.carscafmoo.goly1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -518,7 +518,7 @@
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = goly/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.carscafmoo.goly;
+				PRODUCT_BUNDLE_IDENTIFIER = com.carscafmoo.goly1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

@@ -57,7 +57,8 @@ class Goal: NSObject, NSCoding {
     //              lastCheckInTime to work :-)
     func checkIn(value: Int, date: NSDate) {
         let timeframe = Timeframe(frequency: self.checkInFrequency, now: date)
-         checkIns = checkIns.filter { (x) in x.timeframe != timeframe }
+        
+        checkIns = checkIns.filter { (x) in x.timeframe != timeframe }
         
         checkIns.append(CheckIn(value: value, frequency: self.checkInFrequency, date: date))
         self.checkIns = checkIns.sort {
