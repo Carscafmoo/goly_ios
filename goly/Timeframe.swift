@@ -25,8 +25,6 @@ class Timeframe: NSObject, NSCoding {
         calOpts = NSCalendarOptions(rawValue: 0) // I think this means... default options?
         super.init()
         determineStartEnd(frequency, now: now)
-        
-        
     }
     
     // MARK: Stupid date math figuring out stuff
@@ -80,14 +78,20 @@ class Timeframe: NSObject, NSCoding {
     
     // MARK: NSCoding implementation
     func encodeWithCoder(aCoder: NSCoder) {
-        // We only need to encode startDate, since that is a part of the timeframe, passing it as "now" should yield identical timeframe
+        // We only need to encode start, since that is a part of the timeframe, passing it as "now" should yield identical timeframe; as mentioned, we store the String rather than the actual date to deal with timezone issues (e.g., if I store 23:01:00 in Pacific Time and move to Mountain Time, that would get cast to 00:01:00 of *the next day* when it was loaded in.
         aCoder.encodeObject(frequency.rawValue, forKey: "frequency")
-        aCoder.encodeObject(startDate, forKey: "startDate")
+        aCoder.encodeObject(self.dateFormatter.stringFromDate(self.startDate), forKey: "startDate")
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
+        var startDate: NSDate
         let frequency = aDecoder.decodeObjectForKey("frequency") as! String
-        let startDate = aDecoder.decodeObjectForKey("startDate") as! NSDate
+        if let start = aDecoder.decodeObjectForKey("startDate") as? String {
+            startDate = Timeframe.getDateFormatter().dateFromString(start)! // This is not the best way to do this :-(
+        } else {
+            startDate = aDecoder.decodeObjectForKey("startDate") as! NSDate
+        }
+        
         if let freq = Frequency(rawValue: frequency) {
             self.init(frequency: freq, now: startDate)
         } else {
