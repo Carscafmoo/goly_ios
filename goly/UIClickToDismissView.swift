@@ -10,10 +10,10 @@ import UIKit
 class UIClickToDismissView: UIView {
     var currentTextField: UITextField?
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesBegan(touches, withEvent: event)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
         if let ctf = currentTextField {
-            if (ctf.canResignFirstResponder()) { ctf.resignFirstResponder() }
+            if (ctf.canResignFirstResponder) { ctf.resignFirstResponder() }
         }
     }
     

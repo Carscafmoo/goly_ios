@@ -13,7 +13,7 @@ enum Frequency: String {
     case Quarterly = "Quarterly"
     case Yearly = "Yearly"
 
-    static func conforms(frequency: Frequency, checkInFrequency: Frequency) -> Bool {
+    static func conforms(_ frequency: Frequency, checkInFrequency: Frequency) -> Bool {
         switch frequency {
         case .Daily:
             return checkInFrequency == .Daily
@@ -29,7 +29,7 @@ enum Frequency: String {
     }
     
     // Convert a frequency (which is an adverb) into a noun referring to the current instance (e.g., today)
-    static func thisNounify(f: Frequency) -> String {
+    static func thisNounify(_ f: Frequency) -> String {
         switch f {
         case .Daily:
             return "today"
@@ -44,7 +44,7 @@ enum Frequency: String {
         }
     }
     
-    static func nounify(f: Frequency) -> String {
+    static func nounify(_ f: Frequency) -> String {
         switch f {
             case .Daily:
             return "day"
@@ -57,5 +57,9 @@ enum Frequency: String {
             case .Yearly:
             return "year"
         }
+    }
+    
+    static func equals(_ lhs: Frequency, rhs: Frequency) -> Bool {
+        return lhs.hashValue == rhs.hashValue
     }
 }

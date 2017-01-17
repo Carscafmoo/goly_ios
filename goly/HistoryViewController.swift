@@ -11,9 +11,9 @@ import Charts
 class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDelegate {
     // MARK: Properties
     var goal: Goal?
-    var dateFormatter = NSDateFormatter()
-    var startDate = NSDate()
-    var endDate = NSDate()
+    var dateFormatter = DateFormatter()
+    var startDate = Date()
+    var endDate = Date()
     @IBOutlet weak var historyChart: BarChartView!
     @IBOutlet weak var drilldownChart: LineChartView!
     @IBOutlet weak var startDateTextField: UITextField!
@@ -27,25 +27,24 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        dateFormatter.dateStyle = .MediumStyle
-        dateFormatter.timeStyle = .NoStyle
-        dateFormatter.locale = NSLocale(localeIdentifier: "en_US") // @TODO: Probably figure out where the user is?
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        dateFormatter.locale = NSLocale(localeIdentifier: "en_US") as Locale! // @TODO: Probably figure out where the user is?
         
         setDefaultDates()
-        startDateTextField.text = dateFormatter.stringFromDate(startDate)
-        endDateTextField.text = dateFormatter.stringFromDate(endDate)
+        startDateTextField.text = dateFormatter.string(from: startDate as Date)
+        endDateTextField.text = dateFormatter.string(from: endDate as Date)
         
-        datePickerView.datePickerMode = .Date
+        datePickerView.datePickerMode = .date
         startDateTextField.delegate = self
         endDateTextField.delegate = self
         startDateTextField.inputView = datePickerView
         endDateTextField.inputView = datePickerView
-        datePickerView.addTarget(self, action: #selector(handleDatePicker), forControlEvents: UIControlEvents.ValueChanged)
+        datePickerView.addTarget(self, action: #selector(handleDatePicker), for: UIControlEvents.valueChanged)
         
         historyChart.delegate = self
         scrollView.canCancelContentTouches = false
-        scrollView.keyboardDismissMode = .OnDrag
+        scrollView.keyboardDismissMode = .onDrag
         
         setUpChart()
     }
@@ -55,36 +54,39 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
         historyChart.noDataText = "No Check-Ins available for this goal"
         if let goal = goal {
             navigationItem.title = goal.name
-            historyChart.noDataTextDescription = "You have not checked in with this goal"
+            historyChart.noDataText = "You have not checked in with this goal"
+            historyChart.xAxis.valueFormatter = DateAxisFormatter()
             
             plotGoalHistory(goal)
         } else {
-            historyChart.noDataTextDescription = "Goal did not load!" // should never happen!?
+            historyChart.noDataText = "Goal did not load!" // should never happen!?
         }
         
     }
     
-    func plotGoalHistory(goal: Goal) {
+    func plotGoalHistory(_ goal: Goal) {
         // Prep the aggregations
         let (dates, values) = aggregateCheckIns(goal)
         var dataEntries: [BarChartDataEntry] = []
-        
         for i in 0..<values.count {
-            let dataEntry = BarChartDataEntry(value: Double(values[i]), xIndex: i)
+            let dataEntry = BarChartDataEntry(x: Double(i), y: Double(values[i]))
             dataEntries.append(dataEntry)
         }
         
-        let chartDataSet = BarChartDataSet(yVals: dataEntries, label: "")
-        let chartData = BarChartData(xVals: dates, dataSet: chartDataSet)
+        let chartDataSet = BarChartDataSet(values: dataEntries, label: "")
+        let chartData = BarChartData(dataSet: chartDataSet)
         historyChart.data = chartData
+        if let formatter = historyChart.xAxis.valueFormatter as? DateAxisFormatter {
+            formatter.dates = dates
+        }
         
         // Formatting
-        formatChart(historyChart, yMax: Double(values.maxElement() ?? 0.0))
-        chartDataSet.colors = values.map { $0 < goal.target ? UIColor.whiteColor() : UIColor.blackColor() }
-        chartDataSet.barBorderColor = UIColor.blackColor()
+        formatChart(historyChart, yMax: Double(values.max() ?? 0))
+        chartDataSet.colors = values.map { $0 < goal.target ? UIColor.white : UIColor.black }
+        chartDataSet.barBorderColor = UIColor.black
         chartDataSet.barBorderWidth = 1
         
-        let passing = String((values.map { $0 >= goal.target ? 1 : 0 }).reduce(0, combine: +))
+        let passing = String((values.map { $0 >= goal.target ? 1 : 0 }).reduce(0, +))
         let cnt = values.count
         let pluralSuffix = cnt > 1 ? "s" : ""
         
@@ -95,9 +97,9 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
     }
     
     // Sum up the checkIns according to their goal timeframe; return the x and y labels
-    func aggregateCheckIns(goal: Goal) -> ([String], [Int]) {
-        let timeframes = Timeframe.fromRange(startDate, endDate: endDate, frequency: goal.frequency)
-        var values = [Int](count: timeframes.count, repeatedValue: 0)
+    func aggregateCheckIns(_ goal: Goal) -> ([String], [Int]) {
+        let timeframes = Timeframe.fromRange(startDate as Date, endDate: endDate as Date, frequency: goal.frequency)
+        var values = [Int](repeating: 0, count: timeframes.count)
         
         if (timeframes.count > 0) {
             // Rely on the min / max timeframe dates, not min / max dates set
@@ -105,12 +107,12 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
             let maxEndDate = timeframes.last!.endDate
             // timeframes are organized ascending and check-ins descending; we can flip one of the two for some
             // additional effeciency gains here as we iterate.
-            let checkIns = goal.checkIns.reverse()
+            let checkIns = goal.checkIns.reversed()
             var tfIndex = 0 // We can keep track of which TF we're in and never look lower than that
             for checkIn in checkIns {
                 // Handle cases where we need to continue iterating or end iteration
-                if (checkIn.timeframe.endDate.timeIntervalSince1970 <= minStartDate.timeIntervalSince1970) { continue }
-                if (checkIn.timeframe.startDate.timeIntervalSince1970 > maxEndDate.timeIntervalSince1970) { break }
+                if (checkIn.timeframe.endDate.timeIntervalSince1970 <= (minStartDate?.timeIntervalSince1970)!) { continue }
+                if (checkIn.timeframe.startDate.timeIntervalSince1970 > (maxEndDate?.timeIntervalSince1970)!) { break }
                 
                 // All other cases are guaranteed to fit into a timeframe
                 let citf = checkIn.timeframe
@@ -132,33 +134,38 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
     }
     
     // Format a chart by eliminating grid lines, decimals, right axis, etc.
-    func formatChart(chart: BarLineChartViewBase, yMax: Double) {
-        let formatter = NSNumberFormatter()
-        formatter.minimumFractionDigits = 0
-        chart.xAxis.labelPosition = .Bottom
-        chart.xAxis.gridColor = UIColor.clearColor()
-        chart.leftAxis.axisMinValue = 0.0
-        chart.leftAxis.valueFormatter = formatter
+    func formatChart(_ chart: BarLineChartViewBase, yMax: Double) {
+        let axisFormatter = DefaultAxisValueFormatter()
+        let formatter = DefaultValueFormatter()
+        formatter.decimals = 0
+        axisFormatter.decimals = 0
+        // formatter.minimumFractionDigits = 0 DEBUG?
+        
+        chart.xAxis.labelPosition = .bottom
+        chart.xAxis.labelCount = [chart.data!.entryCount, 10].min()! // Is there a default way to do spacing?
+        chart.xAxis.gridColor = UIColor.clear
+        chart.leftAxis.axisMinimum = 0.0
+        chart.leftAxis.valueFormatter = axisFormatter
         chart.leftAxis.granularity = 1 // Sets a minimum granularity, but allows for higher granularities
-        chart.leftAxis.axisMaxValue = [1.0, yMax * 1.1].maxElement()!
-        chart.leftAxis.gridColor = UIColor.clearColor()
+        chart.leftAxis.axisMaximum = [1.0, yMax * 1.1].max()!
+        chart.leftAxis.gridColor = UIColor.clear
         chart.rightAxis.enabled = false
         chart.legend.enabled = false
         chart.data!.setValueFormatter(formatter)
-        if (chart.data!.xValCount > 20) { chart.data!.setDrawValues(false) }
-        chart.descriptionText = ""
-        chart.animate(xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .Linear)
+        if (chart.data!.entryCount > 20) { chart.data!.setDrawValues(false) }
+        chart.chartDescription!.text = ""
+        chart.animate(xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .linear)
         chart.pinchZoomEnabled = false
         chart.doubleTapToZoomEnabled = false
         
         let limit = ChartLimitLine(limit: Double(goal!.target), label: "")
-        limit.lineColor = UIColor.blackColor()
+        limit.lineColor = UIColor.black
         limit.lineDashLengths = [4.0, 2.0]
         chart.leftAxis.addLimitLine(limit)
     }
     
     // MARK: Drilldown chart
-    func plotDrilldown(xVals: [String], yVals: [Int]) {
+    func plotDrilldown(_ xVals: [String], yVals: [Int]) {
         showDrilldownChart()
         let goal = self.goal!
         var dataEntries = [BarChartDataEntry]()
@@ -166,28 +173,32 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
         var dataPointLabelColors = [UIColor]()
         for i in 0..<yVals.count {
             let newRt = runningTotal + Double(yVals[i])
-            dataPointLabelColors.append(newRt == runningTotal ? UIColor.clearColor() : UIColor.blackColor())
+            dataPointLabelColors.append(newRt == runningTotal ? UIColor.clear : UIColor.black)
             runningTotal = newRt
-            let dataEntry = BarChartDataEntry(value: runningTotal, xIndex: i)
+            let dataEntry = BarChartDataEntry(x: Double(i), y: runningTotal)
             dataEntries.append(dataEntry)
         }
         
-        let chartDataSet = LineChartDataSet(yVals: dataEntries, label: "")
-        let chartData = LineChartData(xVals: xVals, dataSet: chartDataSet)
+        let chartDataSet = LineChartDataSet(values: dataEntries, label: "")
+        let chartData = LineChartData(dataSet: chartDataSet)
         drilldownChart.data = chartData
-        formatChart(drilldownChart, yMax: [runningTotal, Double(goal.target)].maxElement()!)
-        chartDataSet.colors = [UIColor.blackColor()]
-        chartDataSet.circleColors = [UIColor.blackColor()]
+        formatChart(drilldownChart, yMax: [runningTotal, Double(goal.target)].max()!)
+        let xAxisFormatter = DateAxisFormatter()
+        xAxisFormatter.dates = xVals
+        drilldownChart.xAxis.valueFormatter = xAxisFormatter
+        drilldownChart.xAxis.labelCount = [xVals.count, 5].min()! // Is there a default way to do spacing?
+        chartDataSet.colors = [UIColor.black]
+        chartDataSet.circleColors = [UIColor.black]
         chartDataSet.drawCirclesEnabled = false
         chartDataSet.drawFilledEnabled = true
-        chartDataSet.fillColor = UIColor.blackColor()
+        chartDataSet.fillColor = UIColor.black
         chartDataSet.fillAlpha = 1.0
         chartDataSet.valueColors = dataPointLabelColors
         drilldownChart.notifyDataSetChanged()
     }
     
     func hideDrilldownChart() {
-        drilldownChart.hidden = true
+        drilldownChart.isHidden = true
         for c in contentView.constraints {
             if (c.identifier == "drilldownHeight") {
                 c.constant = 172.0
@@ -197,7 +208,7 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
     }
     
     func showDrilldownChart() {
-        drilldownChart.hidden = false
+        drilldownChart.isHidden = false
         for c in contentView.constraints {
             if (c.identifier == "drilldownHeight") {
                 c.constant = 172.0
@@ -207,38 +218,38 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
     }
     
     // MARK: text fields
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder() // hide the picker view
         contentView.currentTextField = nil
         
         return true
     }
     
-    func textFieldDidBeginEditing(textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         contentView.currentTextField = textField // Used by handleDatePicker
-        if let date = dateFormatter.dateFromString(textField.text!) {
+        if let date = dateFormatter.date(from: textField.text!) {
             datePickerView.date = date
         }
         
-        if (textField == startDateTextField) { datePickerView.maximumDate = endDate }
-        else { datePickerView.maximumDate = NSDate() }
+        if (textField == startDateTextField) { datePickerView.maximumDate = endDate as Date }
+        else { datePickerView.maximumDate = NSDate() as Date }
     }
     
-    func handleDatePicker(sender: UIDatePicker) {
+    func handleDatePicker(_ sender: UIDatePicker) {
         var shouldPlot = false // only replot if something has actually changed
         let date = sender.date
         let ctf = contentView.currentTextField!
-        ctf.text = dateFormatter.stringFromDate(date)
+        ctf.text = dateFormatter.string(from: date)
         if (ctf == startDateTextField) {
-            shouldPlot = (startDate != date)
+            shouldPlot = (startDate as Date != date)
             startDate = date
         }
         if (ctf == endDateTextField) {
-            shouldPlot = (endDate != date)
+            shouldPlot = (endDate as Date != date)
             endDate = date
             if (startDate.timeIntervalSince1970 > endDate.timeIntervalSince1970) {
                 startDate = endDate
-                startDateTextField.text = dateFormatter.stringFromDate(startDate)
+                startDateTextField.text = dateFormatter.string(from: startDate as Date)
             }
         }
         
@@ -247,18 +258,22 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
     
     // MARK: Chart view delegate
     // handle interactions on clicked bars in order to drilldown
-    func chartValueSelected(chartView: ChartViewBase, entry: ChartDataEntry, dataSetIndex: Int, highlight: ChartHighlight) {
+    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         let goal = self.goal!
         
-        if (goal.frequency == goal.checkInFrequency || entry.value == 0.0) {
+        if ( Frequency.equals(goal.frequency, rhs: goal.checkInFrequency) || ((entry.y as Double) == 0.0) ) {
             return // Can't drilldown into a daily view; can't really drilldown into 0
         }
         
         // Getting the date and timeframe will allow us to grab any checkIns for this goal
-        let date = Timeframe.getDateFormatter().dateFromString(chartView.data!.xVals[entry.xIndex]!)!
+        var date = Date()
+        if let xAxisFormatter = historyChart.xAxis.valueFormatter as? DateAxisFormatter {
+            date = Timeframe.getDateFormatter().date(from: xAxisFormatter.dates![Int(entry.x)])!
+        }
+        
         let timeframe = Timeframe(frequency: goal.frequency, now: date)
         
-        var cis = [NSDate: Int]()
+        var cis = [Date: Int]()
         // Iterating backwards...
         for checkIn in goal.checkIns {
             if (checkIn.timeframe.endDate.timeIntervalSince1970 <= timeframe.startDate.timeIntervalSince1970) {
@@ -274,28 +289,27 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
         
         let citfs = Timeframe.fromRange(timeframe.startDate, endDate: timeframe.endDate, frequency: goal.checkInFrequency)
         let df = Timeframe.getDateFormatter()
-        let xVals = citfs.map{ df .stringFromDate($0.startDate) }
+        let xVals = citfs.map{ df.string(from: $0.startDate) }
         let yVals = citfs.map{ cis[$0.startDate] ?? 0 }
         plotDrilldown(xVals, yVals: yVals)
     }
     
     // MARK: Defaults
     func setDefaultDates() {
-        let cal = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-        let opts = NSCalendarOptions(rawValue: 0)
-        endDate = cal.startOfDayForDate(NSDate())
+        let cal = Calendar(identifier: Calendar.Identifier.gregorian)
+        endDate = cal.startOfDay(for: Date())
         if let goal = goal {
             switch goal.frequency {
             case .Daily:
-                startDate = cal.dateByAddingUnit(.Day, value: -7, toDate: endDate, options: opts)!
+                startDate = cal.date(byAdding: DateComponents(day: -7), to: endDate)!
             case .Weekly:
-                startDate = cal.dateByAddingUnit(.Day, value: -56, toDate: endDate, options: opts)!
+                startDate = cal.date(byAdding: DateComponents(day: -56), to: endDate)!
             case .Monthly:
-                startDate = cal.dateByAddingUnit(.Month, value: -12, toDate: endDate, options: opts)!
+                startDate = cal.date(byAdding: DateComponents(month: -12), to: endDate)!
             case .Quarterly:
-                startDate = cal.dateByAddingUnit(.Month, value: -24, toDate: endDate, options: opts)!
+                startDate = cal.date(byAdding: DateComponents(month: -24), to: endDate)!
             case .Yearly:
-                startDate = cal.dateByAddingUnit(.Year, value: -3, toDate: endDate, options: opts)!
+                startDate = cal.date(byAdding: DateComponents(year: -3), to: endDate)!
             }
             
             // Limit the start to the oldest check-in.  Goals may have check-ins older than the created date

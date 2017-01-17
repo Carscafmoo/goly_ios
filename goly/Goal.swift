@@ -14,7 +14,7 @@ class Goal: NSObject, NSCoding {
     var type: Type
     var checkInFrequency: Frequency
     var active: Bool
-    var created: NSDate
+    var created: Date
     var checkIns: [CheckIn]
     
     // I am not certain I fully understand why this is a good practice
@@ -31,8 +31,8 @@ class Goal: NSObject, NSCoding {
     }
     
     // MARK: Archiving paths
-    static let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
-    static let ArchiveURL = DocumentsDirectory.URLByAppendingPathComponent("goals")
+    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("goals")
     
     init?(name: String, prompt: String, frequency: Frequency, target: Int, type: Type, checkInFrequency: Frequency) {
         self.name = name
@@ -42,7 +42,7 @@ class Goal: NSObject, NSCoding {
         self.type = type
         self.checkInFrequency = checkInFrequency
         self.active = true
-        self.created = NSDate()
+        self.created = Date()
         self.checkIns = [CheckIn]()
         super.init()
         
@@ -55,22 +55,22 @@ class Goal: NSObject, NSCoding {
     //  - dedupe -- make sure you have no existing cis with this timeframe
     //  - sort -- make sure we sort by timeframe DESC so we always have most recent cis first -- this is ESSENTIAL for 
     //              lastCheckInTime to work :-)
-    func checkIn(value: Int, date: NSDate) {
+    func checkIn(_ value: Int, date: Date) {
         let timeframe = Timeframe(frequency: self.checkInFrequency, now: date)
         
         checkIns = checkIns.filter { (x) in x.timeframe != timeframe }
         
         checkIns.append(CheckIn(value: value, frequency: self.checkInFrequency, date: date))
-        self.checkIns = checkIns.sort {
+        self.checkIns = checkIns.sorted {
             // Date objects themselves are not comparable for some stupid reason in Swift
             return $0.timeframe.startDate.timeIntervalSince1970 > $1.timeframe.startDate.timeIntervalSince1970
         }
     }
     
     // Helper to get last check-in time displayed on list view
-    func lastCheckInTime() -> NSDate? {
+    func lastCheckInTime() -> Date? {
         if let ci = checkIns.first {
-            return ci.timeframe.startDate
+            return ci.timeframe.startDate as Date?
         } else {
             return nil
         }
@@ -78,14 +78,14 @@ class Goal: NSObject, NSCoding {
     
     // Calculate the total value for the current timeframe
     func currentProgress() -> Int {
-        let timeframe = Timeframe(frequency: self.frequency, now: NSDate())
+        let timeframe = Timeframe(frequency: self.frequency, now: Date())
         let value = timeframeValue(timeframe)
         
         return value
     }
     
     // Calculate the total value for a given timeframe
-    func timeframeValue(tf: Timeframe) -> Int {
+    func timeframeValue(_ tf: Timeframe) -> Int {
         // Check-ins are sorted by date descending so we can break once we exit the timeframe
         var val = 0
         for ci in checkIns {
@@ -106,7 +106,7 @@ class Goal: NSObject, NSCoding {
     func needsCheckIn() -> Bool {
         if (!active) { return false }
         
-        let tf = Timeframe(frequency: checkInFrequency, now: NSDate())
+        let tf = Timeframe(frequency: checkInFrequency, now: Date())
         if (!tf.isCheckInDate()) { return false; }
         if (checkIns.count == 0) { return true }
         
@@ -114,7 +114,7 @@ class Goal: NSObject, NSCoding {
     }
     
     // Determine whether a goal needs to be checked in at a given time
-    func needsCheckInOnDate(date: NSDate) -> Bool {
+    func needsCheckInOnDate(_ date: Date) -> Bool {
         if (!active) { return false }
         
         let tf = Timeframe(frequency: checkInFrequency, now: date)
@@ -128,7 +128,7 @@ class Goal: NSObject, NSCoding {
     }
     
     // Pull a check-in for a given date.  If none exists, return nil
-    func getCheckInForDate(date: NSDate) -> CheckIn? {
+    func getCheckInForDate(_ date: Date) -> CheckIn? {
         // Standard optimization -- if you ever hit a case where the date in question is > check In end date
         // You can break, since they're ordered in reverse chron order by timeframe
         for ci in checkIns {
@@ -141,30 +141,30 @@ class Goal: NSObject, NSCoding {
     }
     
     // MARK: NSCoding implementation
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(name, forKey: PropertyKey.nameKey)
-        aCoder.encodeObject(prompt, forKey: PropertyKey.promptKey)
-        aCoder.encodeObject(frequency.rawValue, forKey: PropertyKey.frequencyKey)
-        aCoder.encodeInteger(target, forKey: PropertyKey.targetKey)
-        aCoder.encodeObject(type.rawValue, forKey: PropertyKey.typeKey)
-        aCoder.encodeObject(checkInFrequency.rawValue, forKey: PropertyKey.checkInFrequencyKey)
-        aCoder.encodeBool(active, forKey: PropertyKey.activeKey)
-        aCoder.encodeObject(created, forKey: PropertyKey.createdKey)
-        aCoder.encodeObject(checkIns, forKey: PropertyKey.checkInsKey)
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(name, forKey: PropertyKey.nameKey)
+        aCoder.encode(prompt, forKey: PropertyKey.promptKey)
+        aCoder.encode(frequency.rawValue, forKey: PropertyKey.frequencyKey)
+        aCoder.encode(target, forKey: PropertyKey.targetKey)
+        aCoder.encode(type.rawValue, forKey: PropertyKey.typeKey)
+        aCoder.encode(checkInFrequency.rawValue, forKey: PropertyKey.checkInFrequencyKey)
+        aCoder.encode(active, forKey: PropertyKey.activeKey)
+        aCoder.encode(created, forKey: PropertyKey.createdKey)
+        aCoder.encode(checkIns, forKey: PropertyKey.checkInsKey)
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
-        let name = aDecoder.decodeObjectForKey(PropertyKey.nameKey) as! String
-        let prompt = aDecoder.decodeObjectForKey(PropertyKey.promptKey) as! String
-        let frequency = aDecoder.decodeObjectForKey(PropertyKey.frequencyKey) as! String
-        let target = aDecoder.decodeIntegerForKey(PropertyKey.targetKey)
-        let type = aDecoder.decodeObjectForKey(PropertyKey.typeKey) as! String
-        let checkInFrequency = aDecoder.decodeObjectForKey(PropertyKey.checkInFrequencyKey) as! String
-        let active = aDecoder.decodeBoolForKey(PropertyKey.activeKey)
-        let created = aDecoder.decodeObjectForKey(PropertyKey.createdKey) as! NSDate
-        let checkIns = aDecoder.decodeObjectForKey(PropertyKey.checkInsKey) as! [CheckIn]
+        let name = aDecoder.decodeObject(forKey: PropertyKey.nameKey) as! String
+        let prompt = aDecoder.decodeObject(forKey: PropertyKey.promptKey) as! String
+        let frequency = aDecoder.decodeObject(forKey: PropertyKey.frequencyKey) as! String
+        let target = aDecoder.decodeInteger(forKey: PropertyKey.targetKey)
+        let type = aDecoder.decodeObject(forKey: PropertyKey.typeKey) as! String
+        let checkInFrequency = aDecoder.decodeObject(forKey: PropertyKey.checkInFrequencyKey) as! String
+        let active = aDecoder.decodeBool(forKey: PropertyKey.activeKey)
+        let created = aDecoder.decodeObject(forKey: PropertyKey.createdKey) as! Date
+        let checkIns = aDecoder.decodeObject(forKey: PropertyKey.checkInsKey) as! [CheckIn]
         
-        if let freq = Frequency(rawValue: frequency), cif = Frequency(rawValue: checkInFrequency), typ = Type(rawValue: type) {
+        if let freq = Frequency(rawValue: frequency), let cif = Frequency(rawValue: checkInFrequency), let typ = Type(rawValue: type) {
             self.init(name: name, prompt: prompt, frequency: freq, target: target, type: typ, checkInFrequency: cif)
             self.active = active
             self.created = created
@@ -176,23 +176,23 @@ class Goal: NSObject, NSCoding {
     
     // MARK: Goal collection helpers
     static func loadGoals() -> [Goal]? {
-        if let goals = NSKeyedUnarchiver.unarchiveObjectWithFile(ArchiveURL.path!) as? [Goal] {
+        if let goals = NSKeyedUnarchiver.unarchiveObject(withFile: ArchiveURL.path) as? [Goal] {
             return Goal.sortGoals(goals)
         }
             
         return nil
     }
     
-    static func saveGoals(goals: [Goal]) {
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(goals, toFile: ArchiveURL.path!)
+    static func saveGoals(_ goals: [Goal]) {
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(goals, toFile: ArchiveURL.path)
         if isSuccessfulSave {
         } else {
             print("Save unsuccessful :-(")
         }
     }
     
-    static func sortGoals(goals: [Goal]) -> [Goal] {
-        return goals.sort {
+    static func sortGoals(_ goals: [Goal]) -> [Goal] {
+        return goals.sorted {
             if ($0.active && !$1.active) { return true; } // active always comes first
             if (!$0.active && $1.active) { return false; }
             
@@ -216,7 +216,7 @@ class Goal: NSObject, NSCoding {
     }
     
     // Here again, there are some optimizations in needsCheckIn, so we have a separate function
-    static func goalsNeedingCheckInOnDate(date: NSDate) -> [Goal] {
+    static func goalsNeedingCheckInOnDate(_ date: Date) -> [Goal] {
         let retGoals = [Goal]()
         if let goals = loadGoals() {
             return goals.filter { $0.needsCheckInOnDate(date) }

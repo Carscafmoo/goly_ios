@@ -96,23 +96,23 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
             checkInTextField.text = goal.checkInFrequency.rawValue
             promptTextField.text = goal.prompt
             navigationItem.title = goal.name
-            activeSwitch.on = goal.active
+            activeSwitch.isOn = goal.active
             
             if (goal.checkIns.count > 0) {
-                checkInTextField.enabled = false
-                frequencyTextField.enabled = false
+                checkInTextField.isEnabled = false
+                frequencyTextField.isEnabled = false
             }
         } else {
-            activeLabel.hidden = true
-            activeSwitch.hidden = true
+            activeLabel.isHidden = true
+            activeSwitch.isHidden = true
         }
         
         allowSave() // disable the save button as necessary!
         
         // Watch for the keyboard to show, if it shows, deal with your scrolling
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardDidShow), name: UIKeyboardDidShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillBeHidden), name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillBeHidden), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -121,26 +121,26 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
     }
 
     // MARK: Navigation
-    @IBAction func cancel(sender: UIBarButtonItem) {
+    @IBAction func cancel(_ sender: UIBarButtonItem) {
         let isPresentingInAddMode = presentingViewController is UINavigationController
         if isPresentingInAddMode {
-            dismissViewControllerAnimated(true, completion: nil)
+            dismiss(animated: true, completion: nil)
         } else {
-            navigationController!.popViewControllerAnimated(true)
+            navigationController!.popViewController(animated: true)
         }
 
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if saveButton === sender {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if saveButton === sender as? UIBarButtonItem {
             let name = nameTextField.text ?? ""
-            let trimmedName = name.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+            let trimmedName = name.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             let frequency = Frequency(rawValue: frequencyTextField.text!)!
             let type = Type(rawValue: typeTextField.text!)!
             let target = Int(targetTextField.text!)!
             let cif = Frequency(rawValue: checkInTextField.text!)!
             let prompt = promptTextField.text ?? ""
-            let active = activeSwitch.on
+            let active = activeSwitch.isOn
             if let goal = goal {
                 goal.name = trimmedName
                 goal.frequency = frequency
@@ -157,51 +157,51 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
     }
     
     // MARK: text field
-    func textFieldDidBeginEditing(textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         activeField = textField
         if (textField == frequencyTextField) {
             if (textField.text == "") {
-                textField.text = frequencies[frequencyPickerView.selectedRowInComponent(0)]
+                textField.text = frequencies[frequencyPickerView.selectedRow(inComponent: 0)]
             } else {
-                if let index = frequencies.indexOf(textField.text!) {
+                if let index = frequencies.index(of: textField.text!) {
                     frequencyPickerView.selectRow(index, inComponent: 0, animated: true)
                 }
             }
         } else if (textField == typeTextField) {
             if (textField.text == "") {
-                textField.text = types[typePickerView.selectedRowInComponent(0)]
+                textField.text = types[typePickerView.selectedRow(inComponent: 0)]
             } else {
-                if let index = types.indexOf(textField.text!) {
+                if let index = types.index(of: textField.text!) {
                     typePickerView.selectRow(index, inComponent: 0, animated: true)
                 }
             }
         } else if (textField == targetTextField) {
             if (textField.text == "") {
-                textField.text = String(numbers[targetPickerView.selectedRowInComponent(0)])
+                textField.text = String(numbers[targetPickerView.selectedRow(inComponent: 0)])
             } else {
-                if let index = numbers.indexOf(Int(textField.text!)!) {
+                if let index = numbers.index(of: Int(textField.text!)!) {
                     targetPickerView.selectRow(index, inComponent: 0, animated: true)
                 }
             }
         } else if (textField == checkInTextField) {
             let checkInFrequencies = filterCheckInFrequencies()
             if (textField.text == "") {
-                textField.text = checkInFrequencies[checkInPickerView.selectedRowInComponent(0)]
+                textField.text = checkInFrequencies[checkInPickerView.selectedRow(inComponent: 0)]
             } else {
-                if let index = checkInFrequencies.indexOf(textField.text!) {
+                if let index = checkInFrequencies.index(of: textField.text!) {
                     checkInPickerView.selectRow(index, inComponent: 0, animated: true)
                 }
             }
         }
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder() // hide the keyboard
         
         return true
     }
     
-    func textFieldDidEndEditing(textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         activeField = nil
         if (textField == nameTextField) {
             navigationItem.title = textField.text
@@ -214,11 +214,11 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
     }
     
     // MARK: Picker View DS
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if (pickerView == frequencyPickerView) {
             return frequencies.count
         } else if (pickerView == typePickerView) {
@@ -233,7 +233,7 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
     }
     
     // MARK: Picker view delegate
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if (pickerView == frequencyPickerView) {
             return frequencies[row]
         } else if (pickerView == typePickerView) {
@@ -247,11 +247,11 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
         }
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if (pickerView == frequencyPickerView) {
             frequencyTextField.text = frequencies[row]
             if (!checkInTextField.text!.isEmpty) {
-                if let freq = Frequency(rawValue: frequencyTextField.text!), cif = Frequency(rawValue:checkInTextField.text!) {
+                if let freq = Frequency(rawValue: frequencyTextField.text!), let cif = Frequency(rawValue:checkInTextField.text!) {
                     if (!Frequency.conforms(freq, checkInFrequency: cif)) {
                         checkInTextField.text = ""
                     }
@@ -267,32 +267,32 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
     }
     
     // MARK: Detail disclosures
-    @IBAction func discloseNameDetail(sender: UIButton) {
+    @IBAction func discloseNameDetail(_ sender: UIButton) {
         handleDetailDisclosure(nameDetail)
     }
     
-    @IBAction func discloseFrequencyDetail(sender: UIButton) {
+    @IBAction func discloseFrequencyDetail(_ sender: UIButton) {
         handleDetailDisclosure(frequencyDetail)
     }
     
-    @IBAction func discloseTypeDetail(sender: UIButton) {
+    @IBAction func discloseTypeDetail(_ sender: UIButton) {
         handleDetailDisclosure(typeDetail)
     }
-    @IBAction func discloseTargetDetail(sender: UIButton) {
+    @IBAction func discloseTargetDetail(_ sender: UIButton) {
         handleDetailDisclosure(targetDetail)
     }
     
-    @IBAction func discloseCheckInDetail(sender: UIButton) {
+    @IBAction func discloseCheckInDetail(_ sender: UIButton) {
         handleDetailDisclosure(checkInDetail)
     }
     
-    @IBAction func disclosePromptDetail(sender: UIButton) {
+    @IBAction func disclosePromptDetail(_ sender: UIButton) {
         handleDetailDisclosure(promptDetail)
     }
     
     // MARK: Helpers
     func filterCheckInFrequencies() -> [String] {
-        if let curFreqText = frequencyTextField.text, curFreq = Frequency(rawValue: curFreqText) {
+        if let curFreqText = frequencyTextField.text, let curFreq = Frequency(rawValue: curFreqText) {
             return frequencies.filter { (x) in Frequency.conforms(curFreq, checkInFrequency: Frequency(rawValue: x)!) }
         } else {
             return frequencies
@@ -302,8 +302,8 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
     func updatePrompt() {
         if (disableAutoPrompt) { return }
         
-        if let checkInFrequency = checkInTextField.text, type = typeTextField.text, name = nameTextField.text?.lowercaseString {
-            let trimmedName = name.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        if let checkInFrequency = checkInTextField.text, let type = typeTextField.text, let name = nameTextField.text?.lowercased() {
+            let trimmedName = name.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             if (type.isEmpty || checkInFrequency.isEmpty || trimmedName.isEmpty) { return }
             
             var query: String
@@ -328,8 +328,8 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
         }
     }
     
-    func handleDetailDisclosure(detailLabel: HideableLabel) {
-        let isHidden = detailLabel.hidden
+    func handleDetailDisclosure(_ detailLabel: HideableLabel) {
+        let isHidden = detailLabel.isHidden
         hideDetails()
         if (isHidden) {
             detailLabel.show()
@@ -337,8 +337,8 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
     }
     
     func allowSave() { // we check emptiness in reverse order since these should fill from the top down -- #efficiency
-        let trimmedPrompt = promptTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-        let trimmedName = nameTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        let trimmedPrompt = promptTextField.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        let trimmedName = nameTextField.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         if (trimmedPrompt.isEmpty ||
             checkInTextField.text!.isEmpty ||
             typeTextField.text!.isEmpty ||
@@ -346,32 +346,32 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
             targetTextField.text!.isEmpty ||
             trimmedName.isEmpty
             ) {
-            saveButton.enabled = false
+            saveButton.isEnabled = false
             
         } else {
-            saveButton.enabled = true
+            saveButton.isEnabled = true
         }
         
         
     }
     
     //MARK: Keyboard scrolling
-    func keyboardDidShow(notification: NSNotification) {
-        if let activeField = self.activeField, keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+    func keyboardDidShow(_ notification: Notification) {
+        if let activeField = self.activeField, let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height, right: 0.0)
             
             self.scrollView.contentInset = contentInsets
             self.scrollView.scrollIndicatorInsets = contentInsets
             var aRect = self.view.frame
             aRect.size.height -= keyboardSize.size.height
-            if (!CGRectContainsPoint(aRect, activeField.frame.origin)) {
+            if (!aRect.contains(activeField.frame.origin)) {
                 self.scrollView.scrollRectToVisible(activeField.frame, animated: true)
             }
         }
     }
     
-    func keyboardWillBeHidden(notification: NSNotification) {
-        let contentInsets = UIEdgeInsetsZero
+    func keyboardWillBeHidden(_ notification: Notification) {
+        let contentInsets = UIEdgeInsets.zero
         self.scrollView.contentInset = contentInsets
         self.scrollView.scrollIndicatorInsets = contentInsets
     }

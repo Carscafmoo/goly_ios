@@ -21,7 +21,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
     @IBOutlet weak var valueLabel: UILabel!
     let datePicker = UIDatePicker()
     let valuePickerView = UIPickerView()
-    let dateFormatter = NSDateFormatter()
+    let dateFormatter = DateFormatter()
     
     var currentTextField: UITextField?
     var originalPoint: CGPoint?
@@ -31,7 +31,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let date = NSDate()
+        let date = Date()
         if let goal = goal {
             presentCorrectView(goal)
             navigationItem.title = goal.name
@@ -55,27 +55,27 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
         valuePickerView.delegate = self
         valueField.inputView = valuePickerView
         
-        dateFormatter.dateStyle = .MediumStyle
-        dateFormatter.timeStyle = .NoStyle
-        dateFormatter.locale = NSLocale(localeIdentifier: "en_US") // @TODO: Probably figure out where the user is?
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        dateFormatter.locale = Locale(identifier: "en_US") // @TODO: Probably figure out where the user is?
         
         datePicker.maximumDate = date
-        datePicker.datePickerMode = .Date
+        datePicker.datePickerMode = .date
         dateField.delegate = self
         dateField.inputView = datePicker
-        dateField.text = dateFormatter.stringFromDate(NSDate())
-        datePicker.addTarget(self, action: #selector(datePickerChanged), forControlEvents: UIControlEvents.ValueChanged)
+        dateField.text = dateFormatter.string(from: Date())
+        datePicker.addTarget(self, action: #selector(datePickerChanged), for: UIControlEvents.valueChanged)
         
         allowSave()
     }
     
     // MARK: Navigation
-    @IBAction func cancel(sender: UIBarButtonItem) {
-        navigationController!.popViewControllerAnimated(true)
+    @IBAction func cancel(_ sender: UIBarButtonItem) {
+        navigationController!.popViewController(animated: true)
     }
     
-    @IBAction func save(sender: UIBarButtonItem) {
-        if let text = valueField.text, val = Int(text), goal = goal {
+    @IBAction func save(_ sender: UIBarButtonItem) {
+        if let text = valueField.text, let val = Int(text), let goal = goal {
             goal.checkIn(val, date: datePicker.date)
         }
         
@@ -85,7 +85,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
     
     func saveAndPop() {
         if var goals = Goal.loadGoals() {
-            for (index, _goal) in goals.enumerate() {
+            for (index, _goal) in goals.enumerated() {
                 if (_goal.name == goal!.name) {
                     goals[index] = goal!
                 }
@@ -101,53 +101,53 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
             }
         }
         
-        navigationController!.popViewControllerAnimated(false) // This looks terrible with the swipes if it's animated
+        navigationController!.popViewController(animated: false) // This looks terrible with the swipes if it's animated
     }
     
     
     // MARK: text fields
-    func textFieldDidBeginEditing(textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         currentTextField = textField
         if (textField == valueField) { delegateValueFieldDidBeginEditing(textField) }
         else if (textField == dateField) { delegateDateFieldDidBeginEditing(textField) }
         
     }
     
-    func delegateValueFieldDidBeginEditing(textField: UITextField) {
+    func delegateValueFieldDidBeginEditing(_ textField: UITextField) {
         if (textField.text == "") {
             valuePickerView.selectRow(0, inComponent: 0, animated: false) // reset to 0
-            textField.text = String(numbers[valuePickerView.selectedRowInComponent(0)])
+            textField.text = String(numbers[valuePickerView.selectedRow(inComponent: 0)])
         } else {
-            if let index = numbers.indexOf(Int(textField.text!)!) {
+            if let index = numbers.index(of: Int(textField.text!)!) {
                 valuePickerView.selectRow(index, inComponent: 0, animated: true)
             }
         }
     }
     
-    func delegateDateFieldDidBeginEditing(textField: UITextField) {
-        if let text = textField.text, date = dateFormatter.dateFromString(text) {
+    func delegateDateFieldDidBeginEditing(_ textField: UITextField) {
+        if let text = textField.text, let date = dateFormatter.date(from: text) {
             datePicker.date = date
         }
         
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder() // hide the keyboard
         currentTextField = nil
         
         return true
     }
     
-    func textFieldDidEndEditing(textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         allowSave()
     }
     
     // MARK: Picker View DS
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if (pickerView == valuePickerView) {
             return numbers.count
         } else {
@@ -156,7 +156,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
     }
     
     // MARK: Picker view delegate
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if (pickerView == valuePickerView) {
             return String(numbers[row])
         } else {
@@ -164,7 +164,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
         }
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if (pickerView == valuePickerView) {
             valueField.text = String(numbers[row])
         }
@@ -173,8 +173,8 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
     }
     
     // MARK: Date picker view delegate... sort of
-    func datePickerChanged(datePicker: UIDatePicker) {
-        dateField.text = dateFormatter.stringFromDate(datePicker.date)
+    func datePickerChanged(_ datePicker: UIDatePicker) {
+        dateField.text = dateFormatter.string(from: datePicker.date)
         if let checkIn = goal?.getCheckInForDate(datePicker.date) {
             valueField.text = String(checkIn.value)
         } else {
@@ -182,50 +182,50 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
         }
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesBegan(touches, withEvent: event)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
         if let ctf = currentTextField {
-            if (ctf.canResignFirstResponder()) { ctf.resignFirstResponder() }
+            if (ctf.canResignFirstResponder) { ctf.resignFirstResponder() }
         }
     }
     
     // MARK: Gesture recognizers
-    @IBAction func handleYesTap(sender: UITapGestureRecognizer) {
+    @IBAction func handleYesTap(_ sender: UITapGestureRecognizer) {
         checkInBinary(true)
     }
     
-    @IBAction func handleNoTap(sender: UITapGestureRecognizer) {
+    @IBAction func handleNoTap(_ sender: UITapGestureRecognizer) {
         checkInBinary(false)
     }
     
     // MARK: Swipe gesture recognizer
     // Stolen basically verbatim from http://guti.in/articles/creating-tinder-like-animations/, minus Bar Rafaeli for #sexism purposes
-    func handleSwipe(sender: UIPanGestureRecognizer) {
+    func handleSwipe(_ sender: UIPanGestureRecognizer) {
         // Parameters for determining swipe strength and rotation, etc
-        let strengthPixels = UIScreen.mainScreen().bounds.width / 2 // # of pixels that qualifies as a fully-fledged swipe -- half the screen
+        let strengthPixels = UIScreen.main.bounds.width / 2 // # of pixels that qualifies as a fully-fledged swipe -- half the screen
         let rotationScale = 16 // fraction of a circle you want to rotate the view.  Less is more rotation
         let sizeScaleFactor = 4 // 1 - fraction how quickly you want the view to shrink... i.e., 4 will shrink to 75%, 5 to 80%, 3 to 67%
         let minScale = CGFloat(0.75) // Cap the view shrinkage
         let baseImageAlpha = CGFloat(0.5) // We scale up and down the image alphas for yes and now depending on the swipe strength in their respective direction
         
         
-        let xDistance = sender.translationInView(self.view).x
-        let yDistance = sender.translationInView(self.view).y
+        let xDistance = sender.translation(in: self.view).x
+        let yDistance = sender.translation(in: self.view).y
         
         switch (sender.state) {
-        case .Began:
+        case .began:
             self.originalPoint = self.view.center;
             self.originalYesImageFrame = yesImageView.frame
             self.originalNoImageFrame = noImageView.frame
             
-        case .Changed:
+        case .changed:
             let rotationStrength = max(min(xDistance / strengthPixels, 1.0), -1.0)
             let rotationAngle = (2 * M_PI * Double(rotationStrength) / Double(rotationScale))
             let scaleStrength = 1 - fabs(rotationStrength) / CGFloat(sizeScaleFactor)
             let scale = max(scaleStrength, minScale)
-            self.view.center = CGPointMake(self.originalPoint!.x + xDistance, self.originalPoint!.y + yDistance)
-            let transform = CGAffineTransformMakeRotation(CGFloat(rotationAngle))
-            let scaleTransform = CGAffineTransformScale(transform, CGFloat(scale), CGFloat(scale)) // scale x and y equally I guess
+            self.view.center = CGPoint(x: self.originalPoint!.x + xDistance, y: self.originalPoint!.y + yDistance)
+            let transform = CGAffineTransform(rotationAngle: CGFloat(rotationAngle))
+            let scaleTransform = transform.scaledBy(x: CGFloat(scale), y: CGFloat(scale)) // scale x and y equally I guess
             self.view.transform = scaleTransform
             
             // Image alphas
@@ -236,33 +236,33 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
             // Move images -- they both end up on the edge of the page, offset by about 8
             // Depends on if we're swiping left or right whether we'll want to track min or max X value
             if (xDistance < 0) {
-                let frameWidth = UIScreen.mainScreen().bounds.width
+                let frameWidth = UIScreen.main.bounds.width
                 let originalYesDistance = frameWidth - originalYesImageFrame!.maxX - 8
                 let yesDistanceToTranslate = originalYesDistance * fabs(CGFloat(rotationStrength))
-                yesImageView.transform = CGAffineTransformMakeTranslation(yesDistanceToTranslate, CGFloat(0.0))
+                yesImageView.transform = CGAffineTransform(translationX: yesDistanceToTranslate, y: CGFloat(0.0))
                 
                 let originalNoDistance = frameWidth - originalNoImageFrame!.maxX - 8
                 let noDistanceToTranslate = originalNoDistance * fabs(CGFloat(rotationStrength))
-                noImageView.transform = CGAffineTransformMakeTranslation(noDistanceToTranslate, CGFloat(0.0))
+                noImageView.transform = CGAffineTransform(translationX: noDistanceToTranslate, y: CGFloat(0.0))
             } else {
                 let originalYesDistance = originalYesImageFrame!.minX - 8
                 let yesDistanceToTranslate = originalYesDistance * fabs(CGFloat(rotationStrength))
-                yesImageView.transform = CGAffineTransformMakeTranslation(-yesDistanceToTranslate, CGFloat(0.0))
+                yesImageView.transform = CGAffineTransform(translationX: -yesDistanceToTranslate, y: CGFloat(0.0))
                 
                 let originalNoDistance = originalNoImageFrame!.minX - 8
                 let noDistanceToTranslate = originalNoDistance * fabs(CGFloat(rotationStrength))
-                noImageView.transform = CGAffineTransformMakeTranslation(-noDistanceToTranslate, CGFloat(0.0))
+                noImageView.transform = CGAffineTransform(translationX: -noDistanceToTranslate, y: CGFloat(0.0))
             }
             
-        case .Ended:
+        case .ended:
             self.handleSwipeEnd(xDistance)
         default:
             break
         }
     }
     
-    func handleSwipeEnd(swipeDistance: CGFloat) {
-        let swipeMax = UIScreen.mainScreen().bounds.width / 2 // You must swipe at least 320 pixels for it to register as a swipe
+    func handleSwipeEnd(_ swipeDistance: CGFloat) {
+        let swipeMax = UIScreen.main.bounds.width / 2 // You must swipe at least 320 pixels for it to register as a swipe
         
         if (fabs(swipeDistance) >= CGFloat(swipeMax)) {
             if (swipeDistance > 0) { checkInBinary(true) }
@@ -272,28 +272,28 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
         }
         
         // Otherwise snap back
-        UIView.animateWithDuration(0.2, animations: {
+        UIView.animate(withDuration: 0.2, animations: {
             self.view.center = self.originalPoint!
-            self.view.transform = CGAffineTransformMakeRotation(0)
+            self.view.transform = CGAffineTransform(rotationAngle: 0)
             self.yesImageView.alpha = CGFloat(1.0)
             self.noImageView.alpha = CGFloat(1.0)
-            self.yesImageView.transform = CGAffineTransformMakeTranslation(0, 0)
-            self.noImageView.transform = CGAffineTransformMakeTranslation(0, 0)
+            self.yesImageView.transform = CGAffineTransform(translationX: 0, y: 0)
+            self.noImageView.transform = CGAffineTransform(translationX: 0, y: 0)
             
         }, completion: nil)
     }
     
     // MARK: Helpers
-    func presentCorrectView(goal: Goal) {
+    func presentCorrectView(_ goal: Goal) {
         switch goal.type {
         case .Binary:
-            yesImageView.hidden = false
-            noImageView.hidden = false
-            valueField.hidden = true
-            valueLabel.hidden = true
+            yesImageView.isHidden = false
+            noImageView.isHidden = false
+            valueField.isHidden = true
+            valueLabel.isHidden = true
             // You can't hide a menu button but you can disable it and and make it disappear
-            saveButton.tintColor = UIColor.clearColor()
-            saveButton.enabled = false
+            saveButton.tintColor = UIColor.clear
+            saveButton.isEnabled = false
             
             // Swipe recognizers
             let swipeRight = UIPanGestureRecognizer(target: self, action: #selector(handleSwipe))
@@ -306,23 +306,23 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
             
             
         case .Numeric:
-            yesImageView.hidden = true
-            noImageView.hidden = true
-            valueField.hidden = false
-            valueLabel.hidden = false
-            saveButton.enabled = true
+            yesImageView.isHidden = true
+            noImageView.isHidden = true
+            valueField.isHidden = false
+            valueLabel.isHidden = false
+            saveButton.isEnabled = true
             saveButton.tintColor = nil
         }
     }
     
     func allowSave() {
-        saveButton.enabled = false
-        if let text = valueField.text, dateText = dateField.text, _ = dateFormatter.dateFromString(dateText) {
-            if (!text.isEmpty) { saveButton.enabled = true }
+        saveButton.isEnabled = false
+        if let text = valueField.text, let dateText = dateField.text, let _ = dateFormatter.date(from: dateText) {
+            if (!text.isEmpty) { saveButton.isEnabled = true }
         }
     }
     
-    func checkInBinary(did: Bool) {
+    func checkInBinary(_ did: Bool) {
         let val = did ? 1 : 0
         if let goal = goal {
             goal.checkIn(val, date: datePicker.date)

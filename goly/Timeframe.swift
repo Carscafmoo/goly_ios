@@ -8,88 +8,86 @@
 
 import Foundation
 class Timeframe: NSObject, NSCoding {
-    var startDate: NSDate! // Start is always local midnight I guess?
-    var endDate: NSDate! // Timeframe does not include end time -- it's [start, end)
+    var startDate: Date! // Start is always local midnight I guess?
+    var endDate: Date! // Timeframe does not include end time -- it's [start, end)
     var frequency: Frequency
-    var dateFormatter: NSDateFormatter!
-    var cal: NSCalendar
-    var calOpts: NSCalendarOptions
+    var dateFormatter: DateFormatter!
+    var cal: Calendar
     
     /**
      * Create a timeframe given the time it currently is right now and the frequency for which the timeframe applies
      */
-    init(frequency: Frequency, now: NSDate) {
+    init(frequency: Frequency, now: Date) {
         self.frequency = frequency
         self.dateFormatter = Timeframe.getDateFormatter()
-        cal = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-        calOpts = NSCalendarOptions(rawValue: 0) // I think this means... default options?
+        cal = Calendar(identifier: Calendar.Identifier.gregorian)
         super.init()
         determineStartEnd(frequency, now: now)
     }
     
     // MARK: Stupid date math figuring out stuff
-    func determineStartEnd(frequency: Frequency, now: NSDate) {
+    func determineStartEnd(_ frequency: Frequency, now: Date) {
         switch frequency {
         case .Daily:
             // start is the current date, end is the next date
-            self.startDate = cal.startOfDayForDate(now)
-            self.endDate = cal.dateByAddingUnit(.Day, value: 1, toDate: self.startDate, options: calOpts)! // unclear what those are.  @TODO pick up here; play around in a playground?
+            self.startDate = cal.startOfDay(for: now)
+            self.endDate = (cal as Calendar).date(byAdding: .day, value: 1, to: self.startDate)!
         case .Weekly:
-            let component = cal.component(.Weekday, fromDate: now)
-            self.startDate = cal.startOfDayForDate(cal.dateByAddingUnit(.Day, value: -1 * component + 1, toDate: now, options: calOpts)!)
-            self.endDate = cal.dateByAddingUnit(.Day, value: 7, toDate: self.startDate, options: calOpts)
+            let component = (cal as Calendar).component(.weekday, from: now)
+            self.startDate = cal.startOfDay(for: (cal as Calendar).date(byAdding: .day, value: -1 * component + 1, to: now)!)
+            self.endDate = (cal as Calendar).date(byAdding: .day, value: 7, to: self.startDate)
         case .Monthly:
             self.startDate = startOfMonth(now)
-            self.endDate = cal.dateByAddingUnit(.Month, value: 1, toDate: self.startDate, options: calOpts)
+            self.endDate = (cal as Calendar).date(byAdding: .month, value: 1, to: self.startDate)
         case .Quarterly:
-            let monthComponent = (cal.component(.Month, fromDate: now) - 1) % 3
-            self.startDate = cal.dateByAddingUnit(.Month, value: -1 * monthComponent, toDate: startOfMonth(now), options: calOpts)
-            self.endDate = cal.dateByAddingUnit(.Month, value: 3, toDate: self.startDate, options: calOpts)
+            let monthComponent = ((cal as Calendar).component(.month, from: now) - 1) % 3
+            self.startDate = (cal as Calendar).date(byAdding: .month, value: -1 * monthComponent, to: startOfMonth(now))
+            self.endDate = (cal as Calendar).date(byAdding: .month, value: 3, to: self.startDate)
         case .Yearly:
-            let monthComponent = cal.component(.Month, fromDate: now)
-            self.startDate = cal.dateByAddingUnit(.Month, value: -1 * monthComponent + 1, toDate: startOfMonth(now), options: calOpts)
-            self.endDate = cal.dateByAddingUnit(.Year, value: 1, toDate: self.startDate, options: calOpts)
+            let monthComponent = (cal as Calendar).component(.month, from: now)
+            self.startDate = (cal as Calendar).date(byAdding: .month, value: -1 * monthComponent + 1, to: startOfMonth(now))
+            self.endDate = (cal as Calendar).date(byAdding: .year, value: 1, to: self.startDate)
         }
     }
     
     // MARK: date helpers
-    func startOfMonth(date: NSDate) -> NSDate {
-        let component = cal.component(.Day, fromDate: date)
+    func startOfMonth(_ date: Date) -> Date {
+        let component = (cal as Calendar).component(.day, from: date)
         
-        return cal.startOfDayForDate(cal.dateByAddingUnit(.Day, value: -1 * component + 1, toDate: date, options: NSCalendarOptions(rawValue: 0))!)
+        return cal.startOfDay(for: (cal as NSCalendar).date(byAdding: .day, value: -1 * component + 1, to: date, options: NSCalendar.Options(rawValue: 0))!)
     }
     
     // Return midnight on the day that this timeframe would need to be checked in
     // e.g. a daily check-in would need to be checked in on the date of its start date;
     // generally it is the day before the end date
-    func checkInDate() -> NSDate {
-        return cal.startOfDayForDate(cal.dateByAddingUnit(.Day, value: -1, toDate: endDate, options: calOpts)!)
+    func checkInDate() -> Date {
+        return cal.startOfDay(for: (cal as NSCalendar).date(byAdding: .day, value: -1, to: endDate)!)
     }
     
     // Is today the check in date for this timeframe?
     func isCheckInDate() -> Bool {
-        return dateIsCheckInDate(NSDate())
+        return dateIsCheckInDate(Date())
     }
     
     // Is a given date the check in date for this timeframe?
-    func dateIsCheckInDate(date: NSDate) -> Bool {
-        return cal.startOfDayForDate(date) == checkInDate()
+    func dateIsCheckInDate(_ date: Date) -> Bool {
+        return cal.startOfDay(for: date) == checkInDate()
     }
     
     // MARK: NSCoding implementation
-    func encodeWithCoder(aCoder: NSCoder) {
+    func encode(with aCoder: NSCoder) {
         // We only need to encode start, since that is a part of the timeframe, passing it as "now" should yield identical timeframe; as mentioned, we store the String rather than the actual date to deal with timezone issues (e.g., if I store 23:01:00 in Pacific Time and move to Mountain Time, that would get cast to 00:01:00 of *the next day* when it was loaded in.
-        aCoder.encodeObject(frequency.rawValue, forKey: "frequency")
-        aCoder.encodeObject(self.dateFormatter.stringFromDate(self.startDate), forKey: "startDate")
+        aCoder.encode(frequency.rawValue, forKey: "frequency")
+        aCoder.encode(self.dateFormatter.string(from: self.startDate), forKey: "startDate")
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
-        var startDate: NSDate
-        let frequency = aDecoder.decodeObjectForKey("frequency") as! String
-        if let start = aDecoder.decodeObjectForKey("startDate") as? String {
-            startDate = Timeframe.getDateFormatter().dateFromString(start)! // This is not the best way to do this :-(
+        var startDate: Date
+        let frequency = aDecoder.decodeObject(forKey: "frequency") as! String
+        if let start = aDecoder.decodeObject(forKey: "startDate") as? String {
+            startDate = Timeframe.getDateFormatter().date(from: start)! // This is not the best way to do this :-(
         } else {
-            startDate = aDecoder.decodeObjectForKey("startDate") as! NSDate
+            startDate = aDecoder.decodeObject(forKey: "startDate") as! Date
         }
         
         if let freq = Frequency(rawValue: frequency) {
@@ -101,7 +99,7 @@ class Timeframe: NSObject, NSCoding {
     
     // MARK: display stuff
     func toString() -> String {
-        return dateFormatter.stringFromDate(startDate)
+        return dateFormatter.string(from: startDate)
     }
     
     func next() -> Timeframe {
@@ -110,7 +108,7 @@ class Timeframe: NSObject, NSCoding {
     
     // Return a list of timeframes between two given points.  Incomplete timeframes are included
     // -- so for example, specifying quarerly timeframes between march and april should return both Q1 and Q2.
-    static func fromRange(startDate: NSDate, endDate: NSDate, frequency: Frequency) -> [Timeframe] {
+    static func fromRange(_ startDate: Date, endDate: Date, frequency: Frequency) -> [Timeframe] {
         var tfs = [Timeframe]()
         
         var tf = Timeframe(frequency: frequency, now: startDate)
@@ -122,11 +120,11 @@ class Timeframe: NSObject, NSCoding {
         return tfs
     }
     
-    static func getDateFormatter() -> NSDateFormatter {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateStyle = .ShortStyle
-        dateFormatter.timeStyle = .NoStyle
-        dateFormatter.locale = NSLocale(localeIdentifier: "en_US") // @TODO: Probably figure out where the user is?
+    static func getDateFormatter() -> DateFormatter {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .none
+        dateFormatter.locale = Locale(identifier: "en_US") // @TODO: Probably figure out where the user is?
         
         return dateFormatter
     }
