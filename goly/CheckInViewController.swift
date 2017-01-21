@@ -6,11 +6,10 @@
 //  Copyright © 2016 Carson C. Moore, LLC. All rights reserved.
 //
 import UIKit
-class CheckInViewController: UIViewController, UINavigationControllerDelegate, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class CheckInViewController: UIViewController, UINavigationControllerDelegate, UITextFieldDelegate { //, UIPickerViewDelegate, UIPickerViewDataSource {
     
     // MARK: Properties
     var goal: Goal?
-    var numbers = [Int]()
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var promptLabel: UILabel!
@@ -20,7 +19,6 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
     @IBOutlet weak var noImageView: UIImageView!
     @IBOutlet weak var valueLabel: UILabel!
     let datePicker = UIDatePicker()
-    let valuePickerView = UIPickerView()
     let dateFormatter = DateFormatter()
     
     var currentTextField: UITextField?
@@ -45,15 +43,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
         }
         
         valueField.delegate = self
-        
-        // Populate allowable #'s for the value view:
-        let smallNumbers = Array(0...20)
-        let mediumNumbers = Array(25...100).filter { (x) in x % 5 == 0 }
-        let largeNumbers = Array(150 ... 1000).filter { (x) in x % 50 == 0 }
-        numbers = smallNumbers + mediumNumbers + largeNumbers
-        
-        valuePickerView.delegate = self
-        valueField.inputView = valuePickerView
+        valueField.keyboardType = .numberPad
         
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
@@ -65,6 +55,9 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
         dateField.inputView = datePicker
         dateField.text = dateFormatter.string(from: Date())
         datePicker.addTarget(self, action: #selector(datePickerChanged), for: UIControlEvents.valueChanged)
+        
+        // Set up a change function on the value field:
+        valueField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
         allowSave()
     }
@@ -107,28 +100,21 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
     
     // MARK: text fields
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        print("Text field did beging editing")
         currentTextField = textField
-        if (textField == valueField) { delegateValueFieldDidBeginEditing(textField) }
-        else if (textField == dateField) { delegateDateFieldDidBeginEditing(textField) }
-        
+        if (textField == dateField) { delegateDateFieldDidBeginEditing(textField) }
     }
     
-    func delegateValueFieldDidBeginEditing(_ textField: UITextField) {
-        if (textField.text == "") {
-            valuePickerView.selectRow(0, inComponent: 0, animated: false) // reset to 0
-            textField.text = String(numbers[valuePickerView.selectedRow(inComponent: 0)])
-        } else {
-            if let index = numbers.index(of: Int(textField.text!)!) {
-                valuePickerView.selectRow(index, inComponent: 0, animated: true)
-            }
-        }
+    // Use that textFieldDidChange from earlier
+    func textFieldDidChange(_ textField: UITextField) {
+        print("Text field changed")
+        allowSave()
     }
     
     func delegateDateFieldDidBeginEditing(_ textField: UITextField) {
         if let text = textField.text, let date = dateFormatter.date(from: text) {
             datePicker.date = date
         }
-        
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -139,36 +125,6 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        allowSave()
-    }
-    
-    // MARK: Picker View DS
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if (pickerView == valuePickerView) {
-            return numbers.count
-        } else {
-            return 0 // should never hit this
-        }
-    }
-    
-    // MARK: Picker view delegate
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if (pickerView == valuePickerView) {
-            return String(numbers[row])
-        } else {
-            return "" // and here again we should never hit this
-        }
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if (pickerView == valuePickerView) {
-            valueField.text = String(numbers[row])
-        }
-        
         allowSave()
     }
     

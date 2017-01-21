@@ -34,13 +34,11 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
     // delegate fxns
     let frequencyPickerView = UIPickerView()
     let typePickerView = UIPickerView()
-    let targetPickerView = UIPickerView()
     let checkInPickerView = UIPickerView()
     
     // Stuff populating picker view
     var frequencies = [String]()
     var types = [String]()
-    var numbers = [Int]()
     
     // Collection of details for easy iteration
     var details = [HideableLabel]()
@@ -62,6 +60,7 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
         frequencyTextField.delegate = self
         typeTextField.delegate = self
         targetTextField.delegate = self
+        targetTextField.keyboardType = .numberPad
         checkInTextField.delegate = self
         
         frequencyPickerView.delegate = self
@@ -71,13 +70,6 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
         typePickerView.delegate = self
         types = ["Yes/No", "Numeric"]
         typeTextField.inputView = typePickerView
-        
-        targetPickerView.delegate = self
-        let smallNumbers = Array(0...20)
-        let mediumNumbers = Array(25...100).filter { (x) in x % 5 == 0 }
-        let largeNumbers = Array(150 ... 1000).filter { (x) in x % 50 == 0 }
-        numbers = smallNumbers + mediumNumbers + largeNumbers
-        targetTextField.inputView = targetPickerView
         
         checkInPickerView.delegate = self
         // re-use frequencies
@@ -175,14 +167,6 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
                     typePickerView.selectRow(index, inComponent: 0, animated: true)
                 }
             }
-        } else if (textField == targetTextField) {
-            if (textField.text == "") {
-                textField.text = String(numbers[targetPickerView.selectedRow(inComponent: 0)])
-            } else {
-                if let index = numbers.index(of: Int(textField.text!)!) {
-                    targetPickerView.selectRow(index, inComponent: 0, animated: true)
-                }
-            }
         } else if (textField == checkInTextField) {
             let checkInFrequencies = filterCheckInFrequencies()
             if (textField.text == "") {
@@ -223,8 +207,6 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
             return frequencies.count
         } else if (pickerView == typePickerView) {
             return types.count
-        } else if (pickerView == targetPickerView) {
-            return numbers.count
         } else if (pickerView == checkInPickerView) {
             return filterCheckInFrequencies().count
         } else {
@@ -238,8 +220,6 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
             return frequencies[row]
         } else if (pickerView == typePickerView) {
             return types[row]
-        } else if (pickerView == targetPickerView) {
-            return String(numbers[row])
         } else if (pickerView == checkInPickerView) {
             return filterCheckInFrequencies()[row]
         } else {
@@ -259,8 +239,6 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
             }
         } else if (pickerView == typePickerView) {
             typeTextField.text = types[row]
-        } else if (pickerView == targetPickerView) {
-            targetTextField.text = String(numbers[row])
         } else if (pickerView == checkInPickerView) {
             checkInTextField.text = filterCheckInFrequencies()[row]
         }
@@ -278,6 +256,7 @@ class GoalViewController: UIViewController, UINavigationControllerDelegate, UITe
     @IBAction func discloseTypeDetail(_ sender: UIButton) {
         handleDetailDisclosure(typeDetail)
     }
+    
     @IBAction func discloseTargetDetail(_ sender: UIButton) {
         handleDetailDisclosure(targetDetail)
     }
