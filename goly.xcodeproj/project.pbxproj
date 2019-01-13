@@ -17,6 +17,7 @@
 		9E6A4BB21CD529A500BD6D26 /* HideableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6A4BB11CD529A500BD6D26 /* HideableLabel.swift */; };
 		9E6A4BB71CD5568700BD6D26 /* UIClickToDismissView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6A4BB61CD5568700BD6D26 /* UIClickToDismissView.swift */; };
 		9EA9F4E61CB992EF00FA0F9B /* CheckInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA9F4E51CB992EF00FA0F9B /* CheckInViewController.swift */; };
+		9ED716B421EBDA300000B559 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EE5F2451CCD40DE00180499 /* Assets.xcassets */; };
 		9EDA3D761CB9AE4800C71D86 /* goalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDA3D751CB9AE4800C71D86 /* goalButton.swift */; };
 		9EDE20BB1C9DFA8000B981E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE20BA1C9DFA8000B981E9 /* AppDelegate.swift */; };
 		9EDE20BD1C9DFA8000B981E9 /* GoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE20BC1C9DFA8000B981E9 /* GoalViewController.swift */; };
@@ -31,7 +32,26 @@
 		9EE5F2401CC2CEF600180499 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE5F23F1CC2CEF600180499 /* HistoryViewController.swift */; };
 		9EE5F2421CC666AA00180499 /* SampleGoals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE5F2411CC666AA00180499 /* SampleGoals.swift */; };
 		9EE5F2441CCBFCC000180499 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE5F2431CCBFCC000180499 /* Notifications.swift */; };
-		9EE5F2461CCD40DE00180499 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EE5F2451CCD40DE00180499 /* Assets.xcassets */; };
+		9EF93F7321E290F600D100B0 /* GoalTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF93F7221E290F600D100B0 /* GoalTestCase.swift */; };
+		9EF93F7421E299F900D100B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE20BA1C9DFA8000B981E9 /* AppDelegate.swift */; };
+		9EF93F7521E299FE00D100B0 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE5F2431CCBFCC000180499 /* Notifications.swift */; };
+		9EF93F7621E29A0000D100B0 /* GoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE20BC1C9DFA8000B981E9 /* GoalViewController.swift */; };
+		9EF93F7721E29A0200D100B0 /* HideableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6A4BB11CD529A500BD6D26 /* HideableLabel.swift */; };
+		9EF93F7821E29A0600D100B0 /* CheckIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5743351CB194B3004643B4 /* CheckIn.swift */; };
+		9EF93F7921E29A0800D100B0 /* Timeframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5743371CB19519004643B4 /* Timeframe.swift */; };
+		9EF93F7A21E29A0A00D100B0 /* Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE20E21C9F1EC700B981E9 /* Type.swift */; };
+		9EF93F7B21E29A0C00D100B0 /* Frequency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE20E01C9E055700B981E9 /* Frequency.swift */; };
+		9EF93F7C21E29A1500D100B0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EDE20BE1C9DFA8000B981E9 /* Main.storyboard */; };
+		9EF93F7D21E29A1700D100B0 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE5F23F1CC2CEF600180499 /* HistoryViewController.swift */; };
+		9EF93F7E21E29A1A00D100B0 /* DateAxisFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E48EB1F1E2DABD00043A189 /* DateAxisFormatter.swift */; };
+		9EF93F7F21E29A1B00D100B0 /* UIClickToDismissView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6A4BB61CD5568700BD6D26 /* UIClickToDismissView.swift */; };
+		9EF93F8021E29A1D00D100B0 /* SampleGoals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE5F2411CC666AA00180499 /* SampleGoals.swift */; };
+		9EF93F8121E29A1F00D100B0 /* CheckInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA9F4E51CB992EF00FA0F9B /* CheckInViewController.swift */; };
+		9EF93F8221E29A2000D100B0 /* GoalTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5743331CAEB5C2004643B4 /* GoalTableViewController.swift */; };
+		9EF93F8321E29A2200D100B0 /* goalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDA3D751CB9AE4800C71D86 /* goalButton.swift */; };
+		9EF93F8421E29A2300D100B0 /* GoalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5743311CAEB404004643B4 /* GoalTableViewCell.swift */; };
+		9EF93F8521E29A3700D100B0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EDE20C61C9DFA8000B981E9 /* LaunchScreen.storyboard */; };
+		9EF93F8721E29A3D00D100B0 /* goly.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE20C11C9DFA8000B981E9 /* goly.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,6 +128,7 @@
 		9EE5F2411CC666AA00180499 /* SampleGoals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleGoals.swift; sourceTree = "<group>"; };
 		9EE5F2431CCBFCC000180499 /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		9EE5F2451CCD40DE00180499 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../../.Trash/Assets.xcassets; sourceTree = "<group>"; };
+		9EF93F7221E290F600D100B0 /* GoalTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTestCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +214,7 @@
 			children = (
 				9EDE20D21C9DFA8000B981E9 /* golyTests.swift */,
 				9EDE20D41C9DFA8000B981E9 /* Info.plist */,
+				9EF93F7221E290F600D100B0 /* GoalTestCase.swift */,
 			);
 			path = golyTests;
 			sourceTree = "<group>";
@@ -243,7 +265,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Carson C. Moore, LLC";
 				TargetAttributes = {
 					9EDE20B61C9DFA8000B981E9 = {
@@ -312,8 +334,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9ED716B421EBDA300000B559 /* Assets.xcassets in Resources */,
 				9EDE20C81C9DFA8000B981E9 /* LaunchScreen.storyboard in Resources */,
-				9EE5F2461CCD40DE00180499 /* Assets.xcassets in Resources */,
 				9EDE20C01C9DFA8000B981E9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -322,6 +344,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9EF93F7C21E29A1500D100B0 /* Main.storyboard in Resources */,
+				9EF93F8521E29A3700D100B0 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,7 +381,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9EF93F8721E29A3D00D100B0 /* goly.xcdatamodeld in Sources */,
+				9EF93F8221E29A2000D100B0 /* GoalTableViewController.swift in Sources */,
+				9EF93F7521E299FE00D100B0 /* Notifications.swift in Sources */,
+				9EF93F8421E29A2300D100B0 /* GoalTableViewCell.swift in Sources */,
+				9EF93F7421E299F900D100B0 /* AppDelegate.swift in Sources */,
 				9EDE20DF1C9E03FA00B981E9 /* Goal.swift in Sources */,
+				9EF93F7E21E29A1A00D100B0 /* DateAxisFormatter.swift in Sources */,
+				9EF93F7D21E29A1700D100B0 /* HistoryViewController.swift in Sources */,
+				9EF93F7621E29A0000D100B0 /* GoalViewController.swift in Sources */,
+				9EF93F7321E290F600D100B0 /* GoalTestCase.swift in Sources */,
+				9EF93F7A21E29A0A00D100B0 /* Type.swift in Sources */,
+				9EF93F7821E29A0600D100B0 /* CheckIn.swift in Sources */,
+				9EF93F7721E29A0200D100B0 /* HideableLabel.swift in Sources */,
+				9EF93F8121E29A1F00D100B0 /* CheckInViewController.swift in Sources */,
+				9EF93F7B21E29A0C00D100B0 /* Frequency.swift in Sources */,
+				9EF93F7F21E29A1B00D100B0 /* UIClickToDismissView.swift in Sources */,
+				9EF93F8021E29A1D00D100B0 /* SampleGoals.swift in Sources */,
+				9EF93F7921E29A0800D100B0 /* Timeframe.swift in Sources */,
+				9EF93F8321E29A2200D100B0 /* goalButton.swift in Sources */,
 				9EDE20D31C9DFA8000B981E9 /* golyTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -400,13 +442,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -445,13 +497,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -470,6 +532,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -478,9 +541,9 @@
 		9EDE20D81C9DFA8000B981E9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = goly/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.carscafmoo.goly1;
@@ -492,9 +555,9 @@
 		9EDE20D91C9DFA8000B981E9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = goly/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.carscafmoo.goly1;

@@ -56,17 +56,25 @@ class Goal: NSObject, NSCoding {
     //  - sort -- make sure we sort by timeframe DESC so we always have most recent cis first -- this is ESSENTIAL for 
     //              lastCheckInTime to work :-)
     func checkIn(_ value: Int, date: Date) {
-        let timeframe = Timeframe(frequency: self.checkInFrequency, now: date)
+        let checkInTimeframe = getCheckInTimeframeForDate(date: date)
+        checkIns = checkIns.filter { (x) in x.timeframe != checkInTimeframe }
         
-        checkIns = checkIns.filter { (x) in x.timeframe != timeframe }
-        
-        checkIns.append(CheckIn(value: value, frequency: self.checkInFrequency, date: date))
+        checkIns.append(CheckIn(value: value, timeframe: checkInTimeframe, timestamp: Date()))
         self.checkIns = checkIns.sorted {
             // Date objects themselves are not comparable for some stupid reason in Swift
             return $0.timeframe.startDate.timeIntervalSince1970 > $1.timeframe.startDate.timeIntervalSince1970
         }
     }
     
+    // Helper to generate the checkInTimeframe of a particular date:
+    func getCheckInTimeframeForDate(date: Date) -> Timeframe {
+        let checkInTimeframe = Timeframe(frequency: self.checkInFrequency, now: date)
+        let goalTimeframe = Timeframe(frequency: self.frequency, now: date)
+        checkInTimeframe.boundByGoalTimeframe(goalTimeframe: goalTimeframe)
+
+        return checkInTimeframe
+    }
+
     // Helper to get last check-in time displayed on list view
     func lastCheckInTime() -> Date? {
         if let ci = checkIns.first {
@@ -88,6 +96,7 @@ class Goal: NSObject, NSCoding {
     func timeframeValue(_ tf: Timeframe) -> Int {
         // Check-ins are sorted by date descending so we can break once we exit the timeframe
         var val = 0
+
         for ci in checkIns {
             if (ci.timeframe.endDate.timeIntervalSince1970 <= tf.startDate.timeIntervalSince1970) {
                 break
@@ -106,24 +115,27 @@ class Goal: NSObject, NSCoding {
     func needsCheckIn() -> Bool {
         if (!active) { return false }
         
-        let tf = Timeframe(frequency: checkInFrequency, now: Date())
-        if (!tf.isCheckInDate()) { return false; }
+        let checkInTf = getCheckInTimeframeForDate(date: Date())
+        if (!checkInTf.isCheckInDate()) { return false; }
         if (checkIns.count == 0) { return true }
         
-        return tf.startDate.timeIntervalSince1970 > checkIns[0].timeframe.startDate.timeIntervalSince1970
+        return checkInTf.startDate.timeIntervalSince1970 > checkIns[0].timeframe.startDate.timeIntervalSince1970
     }
     
     // Determine whether a goal needs to be checked in at a given time
     func needsCheckInOnDate(_ date: Date) -> Bool {
         if (!active) { return false }
         
-        let tf = Timeframe(frequency: checkInFrequency, now: date)
-        if (!tf.dateIsCheckInDate(date)) { return false; }
+        let checkInTf = getCheckInTimeframeForDate(date: date)
+        if (!checkInTf.dateIsCheckInDate(date)) {
+            return false
+        }
+        
         if (checkIns.count == 0) { return true }
         
         // Uses an optimization handy for most common use case where check-in date is in the future (for notification scheduling)
         if let _ = getCheckInForDate(date) { return false }
-        
+
         return true
     }
     
@@ -133,7 +145,7 @@ class Goal: NSObject, NSCoding {
         // You can break, since they're ordered in reverse chron order by timeframe
         for ci in checkIns {
             if (ci.timeframe.endDate.timeIntervalSince1970 < date.timeIntervalSince1970) { break }
-            let timeframe = Timeframe(frequency: checkInFrequency, now: date)
+            let timeframe = getCheckInTimeframeForDate(date: date)
             if (ci.timeframe == timeframe) { return ci }
         }
         

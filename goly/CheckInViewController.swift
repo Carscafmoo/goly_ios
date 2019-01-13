@@ -176,7 +176,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
             
         case .changed:
             let rotationStrength = max(min(xDistance / strengthPixels, 1.0), -1.0)
-            let rotationAngle = (2 * M_PI * Double(rotationStrength) / Double(rotationScale))
+            let rotationAngle = (2 * Double.pi * Double(rotationStrength) / Double(rotationScale))
             let scaleStrength = 1 - fabs(rotationStrength) / CGFloat(sizeScaleFactor)
             let scale = max(scaleStrength, minScale)
             self.view.center = CGPoint(x: self.originalPoint!.x + xDistance, y: self.originalPoint!.y + yDistance)

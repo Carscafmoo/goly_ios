@@ -29,7 +29,7 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
         super.viewDidLoad()
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
-        dateFormatter.locale = NSLocale(localeIdentifier: "en_US") as Locale! // @TODO: Probably figure out where the user is?
+        dateFormatter.locale = NSLocale(localeIdentifier: "en_US") as Locale // @TODO: Probably figure out where the user is?
         
         setDefaultDates()
         startDateTextField.text = dateFormatter.string(from: startDate as Date)
@@ -181,8 +181,6 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
         
         let chartDataSet = LineChartDataSet(values: dataEntries, label: "")
         let chartData = LineChartData(dataSet: chartDataSet)
-        drilldownChart.data = chartData
-        formatChart(drilldownChart, yMax: [runningTotal, Double(goal.target)].max()!)
         let xAxisFormatter = DateAxisFormatter()
         xAxisFormatter.dates = xVals
         drilldownChart.xAxis.valueFormatter = xAxisFormatter
@@ -194,6 +192,8 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
         chartDataSet.fillColor = UIColor.black
         chartDataSet.fillAlpha = 1.0
         chartDataSet.valueColors = dataPointLabelColors
+        drilldownChart.data = chartData
+        formatChart(drilldownChart, yMax: [runningTotal, Double(goal.target)].max()!)
         drilldownChart.notifyDataSetChanged()
     }
     
@@ -287,10 +287,12 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
             cis[checkIn.timeframe.startDate] = checkIn.value
         }
         
-        let citfs = Timeframe.fromRange(timeframe.startDate, endDate: timeframe.endDate, frequency: goal.checkInFrequency)
+        let citfs = timeframe.subTimeframes(subFrequency: goal.checkInFrequency)
+
         let df = Timeframe.getDateFormatter()
         let xVals = citfs.map{ df.string(from: $0.startDate) }
         let yVals = citfs.map{ cis[$0.startDate] ?? 0 }
+
         plotDrilldown(xVals, yVals: yVals)
     }
     

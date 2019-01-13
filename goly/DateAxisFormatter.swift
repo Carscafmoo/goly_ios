@@ -13,7 +13,9 @@ class DateAxisFormatter: NSObject, IAxisValueFormatter {
     
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
         var retVal = ""
-        if let dates = dates { retVal = dates[Int(value)] }
+        if let dts = dates {
+            retVal = dts[Int(value)]
+        }
         
         return retVal
     }

@@ -25,6 +25,12 @@ class Timeframe: NSObject, NSCoding {
         determineStartEnd(frequency, now: now)
     }
     
+    required convenience init?(frequency: Frequency, startDate: Date, endDate: Date) {
+        self.init(frequency: frequency, now: startDate)
+        self.startDate = startDate
+        self.endDate = endDate
+    }
+    
     // MARK: Stupid date math figuring out stuff
     func determineStartEnd(_ frequency: Frequency, now: Date) {
         switch frequency {
@@ -48,6 +54,14 @@ class Timeframe: NSObject, NSCoding {
             self.startDate = (cal as Calendar).date(byAdding: .month, value: -1 * monthComponent + 1, to: startOfMonth(now))
             self.endDate = (cal as Calendar).date(byAdding: .year, value: 1, to: self.startDate)
         }
+    }
+    
+    func boundByGoalTimeframe(goalTimeframe: Timeframe) {
+        // Used in cases where the goal has a nonconforming timeframe to the checkInTimeframe
+        // So for example monthly TFs with Weekly CheckIn TFs could have a case where the
+        // CheckInTF spans two months
+        self.startDate = max(self.startDate, goalTimeframe.startDate)
+        self.endDate = min(self.endDate, goalTimeframe.endDate)
     }
     
     // MARK: date helpers
@@ -76,22 +90,32 @@ class Timeframe: NSObject, NSCoding {
     
     // MARK: NSCoding implementation
     func encode(with aCoder: NSCoder) {
-        // We only need to encode start, since that is a part of the timeframe, passing it as "now" should yield identical timeframe; as mentioned, we store the String rather than the actual date to deal with timezone issues (e.g., if I store 23:01:00 in Pacific Time and move to Mountain Time, that would get cast to 00:01:00 of *the next day* when it was loaded in.
+        // as mentioned elsewhere, we store the String rather than the actual date to deal with timezone issues (e.g., if I store 23:01:00 in Pacific Time and move to Mountain Time, that would get cast to 00:01:00 of *the next day* when it was loaded in.
         aCoder.encode(frequency.rawValue, forKey: "frequency")
         aCoder.encode(self.dateFormatter.string(from: self.startDate), forKey: "startDate")
+        aCoder.encode(self.dateFormatter.string(from: self.endDate), forKey: "endDate")
     }
-    
+
     required convenience init?(coder aDecoder: NSCoder) {
         var startDate: Date
+        var endDate: Date? = nil
         let frequency = aDecoder.decodeObject(forKey: "frequency") as! String
         if let start = aDecoder.decodeObject(forKey: "startDate") as? String {
             startDate = Timeframe.getDateFormatter().date(from: start)! // This is not the best way to do this :-(
-        } else {
+        } else { // This bit is left in for legacy code
             startDate = aDecoder.decodeObject(forKey: "startDate") as! Date
         }
-        
+
+        if let end = aDecoder.decodeObject(forKey: "endDate") as? String {
+            endDate = Timeframe.getDateFormatter().date(from: end)!
+        }
+
         if let freq = Frequency(rawValue: frequency) {
-            self.init(frequency: freq, now: startDate)
+            if endDate != nil {
+                self.init(frequency: freq, startDate: startDate, endDate: endDate!)
+            } else {
+                self.init(frequency: freq, now: startDate)
+            }
         } else {
             return nil
         }
@@ -103,7 +127,12 @@ class Timeframe: NSObject, NSCoding {
     }
     
     func next() -> Timeframe {
-        return Timeframe(frequency: frequency, now: endDate)
+        let nextTimeframe = Timeframe(frequency: frequency, now: endDate)
+        if nextTimeframe.endDate < endDate {
+            nextTimeframe.startDate = endDate // You may have to do this for nonconformant tfs
+        }
+
+        return nextTimeframe
     }
     
     // Return a list of timeframes between two given points.  Incomplete timeframes are included
@@ -117,6 +146,16 @@ class Timeframe: NSObject, NSCoding {
             tf = tf.next()
         }
         
+        return tfs
+    }
+    
+    func subTimeframes(subFrequency: Frequency) -> [Timeframe] {
+        let tfs = Timeframe.fromRange(self.startDate, endDate: self.endDate, frequency: subFrequency)
+        if tfs.count > 0 {
+            tfs.first!.startDate = self.startDate
+            tfs.last!.endDate = self.endDate
+        }
+
         return tfs
     }
     

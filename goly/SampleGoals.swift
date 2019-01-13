@@ -9,6 +9,7 @@ import Foundation
 class GoalGenerator {
     let cal = Calendar(identifier: Calendar.Identifier.gregorian)
     let date = Date()
+    let formatter = DateFormatter()
     
     func generateDailyGoal() -> Goal {
         let goal = Goal(name: "Sample Daily Goal", prompt: "Did you brush your teeth today?", frequency: .Daily, target: 1, type: .Binary, checkInFrequency: .Daily)!
@@ -24,7 +25,7 @@ class GoalGenerator {
         goal.checkIn(0, date: (cal as Calendar).date(byAdding: .day, value: -2, to: date)!)
         goal.checkIn(1, date: (cal as Calendar).date(byAdding: .day, value: -1, to: date)!)
         // goal.checkIn(0, date: date)
-        
+
         return goal
     }
     
@@ -45,7 +46,7 @@ class GoalGenerator {
         goal.checkIn(20, date: (cal as Calendar).date(byAdding: .day, value: -3, to: date)!)
         goal.checkIn(0, date: (cal as Calendar).date(byAdding: .day, value: -1, to: date)!)
         // goal.checkIn(20, date: date)
-        
+
         return goal
     }
     
@@ -121,8 +122,22 @@ class GoalGenerator {
         return goal
     }
     
+    func generateNonConformantGoal() -> Goal {
+        let goal = Goal(name: "Sample Nonconformant Goal", prompt: "Did you cook dinner this week?", frequency: .Monthly, target: 4, type: .Binary, checkInFrequency: .Weekly)!
+        formatter.dateFormat = "yyyy-MM-dd"
+
+        // Should check in every Saturday I guess from whenever til whenever.
+        goal.checkIn(1, date: formatter.date(from: "2018-10-06")!)
+        goal.checkIn(0, date: formatter.date(from: "2018-10-13")!)
+        goal.checkIn(1, date: formatter.date(from: "2018-10-20")!)
+        goal.checkIn(1, date: formatter.date(from: "2018-10-27")!)
+        goal.checkIn(1, date: formatter.date(from: "2018-10-31")!)
+
+        return goal
+    }
+
     func getSampleGoals() -> [Goal] {
-        return [generateDailyGoal(), generateWeeklyGoal(), generateMonthlyGoal(), generateQuarterlyGoal(), generateYearlyGoal()]
+        return [generateDailyGoal(), generateWeeklyGoal(), generateMonthlyGoal(), generateQuarterlyGoal(), generateYearlyGoal(), generateNonConformantGoal()]
     }
     
     

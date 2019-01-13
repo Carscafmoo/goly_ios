@@ -20,11 +20,11 @@ enum Frequency: String {
         case .Weekly:
             return checkInFrequency == .Daily || checkInFrequency == .Weekly
         case .Monthly:
-            return checkInFrequency == .Daily || checkInFrequency == .Monthly
+            return checkInFrequency == .Daily || checkInFrequency == .Weekly || checkInFrequency == .Monthly
         case .Quarterly:
-            return checkInFrequency == .Daily || checkInFrequency == .Monthly || checkInFrequency == .Quarterly
+            return checkInFrequency == .Daily || checkInFrequency == .Weekly || checkInFrequency == .Monthly || checkInFrequency == .Quarterly
         case .Yearly:
-            return checkInFrequency != .Weekly
+            return true
         }
     }
     
