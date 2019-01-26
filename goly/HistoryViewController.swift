@@ -131,7 +131,7 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
             }
         }
         
-        return (timeframes.map { $0.toString() }, values)
+        return (timeframes.map { $0.toChartString() }, values)
         
     }
     

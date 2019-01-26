@@ -123,6 +123,42 @@ class Timeframe: NSObject, NSCoding {
     
     // MARK: display stuff
     func toString() -> String {
+        // If it's a standard timeframe, give it to me as "this month", "today", etc.
+        if self.isCurrent() && self.isStandard() {
+            return Frequency.thisNounify(self.frequency)
+        }
+
+        // Otherwise, if it's current but not standard (and weekly), use day names:
+        if self.isCurrent() && self.frequency == .Weekly {
+            return "\(cal.component(.weekday, from: startDate)) - \(cal.component(.weekday, from: endDate))"
+        }
+
+        if self.frequency == .Daily {
+            let df = DateFormatter()
+            df.locale = Locale.current
+            df.setLocalizedDateFormatFromTemplate("MMMMdYYYY")
+            return df.string(from: startDate)
+        }
+
+        if self.frequency == .Yearly {
+            let df = DateFormatter()
+            df.locale = Locale.current
+            df.setLocalizedDateFormatFromTemplate("YYYY")
+            return df.string(from: startDate)
+        }
+
+        // Otherwise, just give me start -> end dates in a reasonable format:
+        let df = DateIntervalFormatter()
+        df.locale = Locale.current
+        df.dateStyle = .medium
+        df.timeStyle = .none
+
+        // We have to subtract one second to get the end of the preceding day here
+        return df.string(from: startDate, to: endDate.addingTimeInterval(TimeInterval(-1)))
+    }
+
+    // Used to display the value solely for charting purposes -- could use some... improvements, I'm sure
+    func toChartString() -> String {
         return dateFormatter.string(from: startDate)
     }
     
@@ -158,7 +194,17 @@ class Timeframe: NSObject, NSCoding {
 
         return tfs
     }
-    
+
+    // Identify non-conformant timeframes (e.g., a week not starting on (day of week) but instead the first)
+    func isStandard() -> Bool {
+        return self == Timeframe(frequency: self.frequency, now: self.startDate)
+    }
+
+    func isCurrent() -> Bool {
+        let now = Date()
+        return startDate <= now && now < endDate
+    }
+
     static func getDateFormatter() -> DateFormatter {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .short
