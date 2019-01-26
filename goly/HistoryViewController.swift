@@ -45,10 +45,12 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
         historyChart.delegate = self
         scrollView.canCancelContentTouches = false
         scrollView.keyboardDismissMode = .onDrag
-        
+
+        drilldownChart.delegate = self
+
         setUpChart()
     }
-    
+
     //MARK: Do charty stuff
     func setUpChart() {
         historyChart.noDataText = "No Check-Ins available for this goal"
@@ -157,7 +159,7 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
         chart.animate(xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .linear)
         chart.pinchZoomEnabled = false
         chart.doubleTapToZoomEnabled = false
-        
+
         let limit = ChartLimitLine(limit: Double(goal!.target), label: "")
         limit.lineColor = UIColor.black
         limit.lineDashLengths = [4.0, 2.0]
@@ -171,20 +173,24 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
         var dataEntries = [BarChartDataEntry]()
         var runningTotal = 0.0
         var dataPointLabelColors = [UIColor]()
+
+        // Initialize with a 0-point:
+        dataEntries.append(BarChartDataEntry(x: -0.5, y: 0.0))
+        dataPointLabelColors.append(UIColor.clear)
         for i in 0..<yVals.count {
             let newRt = runningTotal + Double(yVals[i])
             dataPointLabelColors.append(newRt == runningTotal ? UIColor.clear : UIColor.black)
             runningTotal = newRt
-            let dataEntry = BarChartDataEntry(x: Double(i), y: runningTotal)
+            let dataEntry = BarChartDataEntry(x: Double(i), y: runningTotal) // Plot in the middle of the date / daterange
             dataEntries.append(dataEntry)
         }
-        
+
+        // And top it off with a buffer point:
+        dataEntries.append(BarChartDataEntry(x: Double(xVals.count) - 0.5, y: runningTotal))
+        dataPointLabelColors.append(UIColor.clear)
         let chartDataSet = LineChartDataSet(values: dataEntries, label: "")
         let chartData = LineChartData(dataSet: chartDataSet)
         let xAxisFormatter = DateAxisFormatter()
-        xAxisFormatter.dates = xVals
-        drilldownChart.xAxis.valueFormatter = xAxisFormatter
-        drilldownChart.xAxis.labelCount = [xVals.count, 5].min()! // Is there a default way to do spacing?
         chartDataSet.colors = [UIColor.black]
         chartDataSet.circleColors = [UIColor.black]
         chartDataSet.drawCirclesEnabled = false
@@ -192,6 +198,11 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
         chartDataSet.fillColor = UIColor.black
         chartDataSet.fillAlpha = 1.0
         chartDataSet.valueColors = dataPointLabelColors
+
+        xAxisFormatter.dates = xVals
+        drilldownChart.xAxis.valueFormatter = xAxisFormatter
+        drilldownChart.xAxis.labelCount = [xVals.count, 5].min()! // Is there a default way to do spacing?
+
         drilldownChart.data = chartData
         formatChart(drilldownChart, yMax: [runningTotal, Double(goal.target)].max()!)
         drilldownChart.notifyDataSetChanged()
@@ -260,19 +271,30 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
     // handle interactions on clicked bars in order to drilldown
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         let goal = self.goal!
-        
-        if ( Frequency.equals(goal.frequency, rhs: goal.checkInFrequency) || ((entry.y as Double) == 0.0) ) {
+        if (Frequency.equals(goal.frequency, rhs: goal.checkInFrequency) || (chartView == historyChart && (entry.y as Double) == 0.0) ) {
             return // Can't drilldown into a daily view; can't really drilldown into 0
         }
-        
-        // Getting the date and timeframe will allow us to grab any checkIns for this goal
-        var date = Date()
-        if let xAxisFormatter = historyChart.xAxis.valueFormatter as? DateAxisFormatter {
-            date = Timeframe.getDateFormatter().date(from: xAxisFormatter.dates![Int(entry.x)])!
+
+        if chartView == drilldownChart {
+            // Then open up the relevant check-in:
+            let date = getDateFromEntry(chart: drilldownChart, entry: entry)
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let controller = storyboard.instantiateViewController(withIdentifier: "CheckIn") as! CheckInViewController
+            controller.goal = goal
+            controller.date = date
+
+            // This is the only way I can really find that works to get the controller to show up in the nav controller as expected
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let window = appDelegate.window!
+            let rvc = window.rootViewController as! UINavigationController
+            rvc.pushViewController(controller, animated: false)
+
+            return
         }
-        
+
+        // Getting the date and timeframe will allow us to grab any checkIns for this goal
+        let date = getDateFromEntry(chart: historyChart, entry: entry)
         let timeframe = Timeframe(frequency: goal.frequency, now: date)
-        
         var cis = [Date: Int]()
         // Iterating backwards...
         for checkIn in goal.checkIns {
@@ -292,7 +314,6 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
         let df = Timeframe.getDateFormatter()
         let xVals = citfs.map{ df.string(from: $0.startDate) }
         let yVals = citfs.map{ cis[$0.startDate] ?? 0 }
-
         plotDrilldown(xVals, yVals: yVals)
     }
     
@@ -321,7 +342,15 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
                 }
             }
         }
-        
-        
+    }
+
+    // MARK: helpers
+    func getDateFromEntry(chart: ChartViewBase, entry: ChartDataEntry) -> Date {
+        var date = Date()
+        if let xAxisFormatter = chart.xAxis.valueFormatter as? DateAxisFormatter {
+            date = Timeframe.getDateFormatter().date(from: xAxisFormatter.dates![Int(entry.x)])!
+        }
+
+        return date
     }
 }

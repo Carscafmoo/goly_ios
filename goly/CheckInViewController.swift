@@ -20,23 +20,27 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
     @IBOutlet weak var valueLabel: UILabel!
     let datePicker = UIDatePicker()
     let dateFormatter = DateFormatter()
-    
+
+    var date: Date? // Allow us to pass in a date prior to loading if we want
     var currentTextField: UITextField?
     var originalPoint: CGPoint?
-    
+
     var originalYesImageFrame: CGRect?
     var originalNoImageFrame: CGRect?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        let date = Date()
+        if date == nil {
+            date = Date()
+        }
+
         if let goal = goal {
             presentCorrectView(goal)
             navigationItem.title = goal.name
             promptLabel.text = goal.prompt
             
             // If there is a check-in for the current timeframe, go ahead and grab it and display that value:
-            if let checkIn = goal.getCheckInForDate(date) {
+            if let checkIn = goal.getCheckInForDate(date!) {
                 valueField.text = String(checkIn.value)
             }
             
@@ -53,7 +57,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
         datePicker.datePickerMode = .date
         dateField.delegate = self
         dateField.inputView = datePicker
-        dateField.text = dateFormatter.string(from: Date())
+        dateField.text = dateFormatter.string(for: date!)
         datePicker.addTarget(self, action: #selector(datePickerChanged), for: UIControlEvents.valueChanged)
         
         // Set up a change function on the value field:
@@ -86,28 +90,26 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
             
             Goal.saveGoals(goals)
         }
-        
-        // If you are the last dude in the stack, tell the table to reload its data:
-        if (navigationController!.viewControllers.count == 2) {
-            if let cnt = navigationController!.viewControllers[0] as? GoalTableViewController {
-                cnt.tableView.reloadData()
-            }
+
+        let nvc = navigationController!
+        if let hvc = nvc.viewControllers.suffix(2).first as? HistoryViewController {
+            // You need to reload any saved data
+            hvc.viewDidLoad()
         }
-        
-        navigationController!.popViewController(animated: false) // This looks terrible with the swipes if it's animated
+
+        nvc.popViewController(animated: false) // This looks terrible with the swipes if it's animated
     }
+
     
     
     // MARK: text fields
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        print("Text field did beging editing")
         currentTextField = textField
         if (textField == dateField) { delegateDateFieldDidBeginEditing(textField) }
     }
     
     // Use that textFieldDidChange from earlier
     func textFieldDidChange(_ textField: UITextField) {
-        print("Text field changed")
         allowSave()
     }
     

@@ -34,6 +34,9 @@ class GoalTableViewController: UITableViewController {
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
+
+        // Always reload the data when the table appears -- you can get here in a variety of ways so it's weird to e.g. check-in then not see that on your screen
+        self.tableView.reloadData()
     }
     
     // MARK: Table data source population
@@ -143,7 +146,6 @@ class GoalTableViewController: UITableViewController {
             goals = Goal.sortGoals(goals)
             
             saveGoals()
-            self.tableView.reloadData() // We have to reload the whole shabang after any changes to maintain sorting
         }
     }
     
