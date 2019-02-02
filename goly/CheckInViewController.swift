@@ -17,7 +17,6 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
     @IBOutlet weak var dateField: UITextField!
     @IBOutlet weak var yesImageView: UIImageView!
     @IBOutlet weak var noImageView: UIImageView!
-    @IBOutlet weak var valueLabel: UILabel!
     let datePicker = UIDatePicker()
     let dateFormatter = DateFormatter()
 
@@ -27,6 +26,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
 
     var originalYesImageFrame: CGRect?
     var originalNoImageFrame: CGRect?
+    var autoPopKeyboard = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,12 +43,13 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
             if let checkIn = goal.getCheckInForDate(date!) {
                 valueField.text = String(checkIn.value)
             }
-            
+
+            dateField.text = goal.getCheckInTimeframeForDate(date: date!).toString()
         }
         
         valueField.delegate = self
         valueField.keyboardType = .numberPad
-        
+
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
         dateFormatter.locale = Locale(identifier: "en_US") // @TODO: Probably figure out where the user is?
@@ -57,12 +58,12 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
         datePicker.datePickerMode = .date
         dateField.delegate = self
         dateField.inputView = datePicker
-        dateField.text = dateFormatter.string(for: date!)
+
         datePicker.addTarget(self, action: #selector(datePickerChanged), for: UIControlEvents.valueChanged)
         
         // Set up a change function on the value field:
         valueField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        
+
         allowSave()
     }
     
@@ -114,9 +115,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
     }
     
     func delegateDateFieldDidBeginEditing(_ textField: UITextField) {
-        if let text = textField.text, let date = dateFormatter.date(from: text) {
-            datePicker.date = date
-        }
+        datePicker.date = date!
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -132,11 +131,15 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
     
     // MARK: Date picker view delegate... sort of
     func datePickerChanged(_ datePicker: UIDatePicker) {
-        dateField.text = dateFormatter.string(from: datePicker.date)
+        date = datePicker.date
         if let checkIn = goal?.getCheckInForDate(datePicker.date) {
             valueField.text = String(checkIn.value)
         } else {
             valueField.text = ""
+        }
+
+        if let checkInTimeframe = goal?.getCheckInTimeframeForDate(date: datePicker.date) {
+            dateField.text = checkInTimeframe.toString()
         }
     }
     
@@ -248,7 +251,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
             yesImageView.isHidden = false
             noImageView.isHidden = false
             valueField.isHidden = true
-            valueLabel.isHidden = true
+
             // You can't hide a menu button but you can disable it and and make it disappear
             saveButton.tintColor = UIColor.clear
             saveButton.isEnabled = false
@@ -267,15 +270,18 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
             yesImageView.isHidden = true
             noImageView.isHidden = true
             valueField.isHidden = false
-            valueLabel.isHidden = false
+            
             saveButton.isEnabled = true
             saveButton.tintColor = nil
+            if autoPopKeyboard {
+                valueField.becomeFirstResponder()
+            }
         }
     }
     
     func allowSave() {
         saveButton.isEnabled = false
-        if let text = valueField.text, let dateText = dateField.text, let _ = dateFormatter.date(from: dateText) {
+        if let text = valueField.text, let _ = date {
             if (!text.isEmpty) { saveButton.isEnabled = true }
         }
     }

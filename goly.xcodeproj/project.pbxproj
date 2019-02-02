@@ -18,6 +18,7 @@
 		9E6A4BB71CD5568700BD6D26 /* UIClickToDismissView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6A4BB61CD5568700BD6D26 /* UIClickToDismissView.swift */; };
 		9EA9F4E61CB992EF00FA0F9B /* CheckInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA9F4E51CB992EF00FA0F9B /* CheckInViewController.swift */; };
 		9ED716B421EBDA300000B559 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EE5F2451CCD40DE00180499 /* Assets.xcassets */; };
+		9ED716B621FCE7AE0000B559 /* TimeframeTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED716B521FCE7AD0000B559 /* TimeframeTestCase.swift */; };
 		9EDA3D761CB9AE4800C71D86 /* goalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDA3D751CB9AE4800C71D86 /* goalButton.swift */; };
 		9EDE20BB1C9DFA8000B981E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE20BA1C9DFA8000B981E9 /* AppDelegate.swift */; };
 		9EDE20BD1C9DFA8000B981E9 /* GoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE20BC1C9DFA8000B981E9 /* GoalViewController.swift */; };
@@ -110,6 +111,7 @@
 		9E6A4BB11CD529A500BD6D26 /* HideableLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HideableLabel.swift; sourceTree = "<group>"; };
 		9E6A4BB61CD5568700BD6D26 /* UIClickToDismissView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIClickToDismissView.swift; sourceTree = "<group>"; };
 		9EA9F4E51CB992EF00FA0F9B /* CheckInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckInViewController.swift; sourceTree = "<group>"; };
+		9ED716B521FCE7AD0000B559 /* TimeframeTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeframeTestCase.swift; sourceTree = "<group>"; };
 		9EDA3D751CB9AE4800C71D86 /* goalButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = goalButton.swift; sourceTree = "<group>"; };
 		9EDE20B71C9DFA8000B981E9 /* goly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = goly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EDE20BA1C9DFA8000B981E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 				9EDE20D21C9DFA8000B981E9 /* golyTests.swift */,
 				9EDE20D41C9DFA8000B981E9 /* Info.plist */,
 				9EF93F7221E290F600D100B0 /* GoalTestCase.swift */,
+				9ED716B521FCE7AD0000B559 /* TimeframeTestCase.swift */,
 			);
 			path = golyTests;
 			sourceTree = "<group>";
@@ -397,6 +400,7 @@
 				9EF93F8121E29A1F00D100B0 /* CheckInViewController.swift in Sources */,
 				9EF93F7B21E29A0C00D100B0 /* Frequency.swift in Sources */,
 				9EF93F7F21E29A1B00D100B0 /* UIClickToDismissView.swift in Sources */,
+				9ED716B621FCE7AE0000B559 /* TimeframeTestCase.swift in Sources */,
 				9EF93F8021E29A1D00D100B0 /* SampleGoals.swift in Sources */,
 				9EF93F7921E29A0800D100B0 /* Timeframe.swift in Sources */,
 				9EF93F8321E29A2200D100B0 /* goalButton.swift in Sources */,
