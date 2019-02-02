@@ -66,4 +66,27 @@ class TimeframeTestCase: XCTestCase {
         let pastQuarterlyTf = Timeframe(frequency: .Quarterly, now: formatter.date(from: "2018-10-17")!)
         XCTAssertEqual(pastQuarterlyTf.toString(), "Oct 1 – Dec 31, 2018")
     }
+
+    func testSubTimeframes() {
+        // Daily timeframe should have a subtf of just itself:
+        let dailyTf = Timeframe(frequency: .Daily, now: Date())
+        let dailySubs = dailyTf.subTimeframes(subFrequency: .Daily)
+        XCTAssertEqual(dailySubs.count, 1)
+        XCTAssertEqual(dailySubs.first!.startDate, dailyTf.startDate)
+        XCTAssertEqual(dailySubs.first!.endDate, dailyTf.endDate)
+
+        // For any sort of normal, conformant situation, you would expect it to behave... well, like you'd expect it to behave:
+        let quarterlyTf = Timeframe(frequency: .Quarterly, now: Date())
+        let quarterlySubs = quarterlyTf.subTimeframes(subFrequency: .Monthly)
+        XCTAssertEqual(quarterlySubs.count, 3)
+        XCTAssertEqual(quarterlySubs.first!.startDate, quarterlyTf.startDate)
+        XCTAssertEqual(quarterlySubs.last!.endDate, quarterlyTf.endDate)
+
+        // And for any sort of non-conforming timeframe, you would expect it to sort of chop appropriately:
+        let monthlyTf = Timeframe(frequency: .Monthly, now: formatter.date(from: "2019-01-01")!)
+        let monthlySubs = monthlyTf.subTimeframes(subFrequency: .Weekly)
+        XCTAssertEqual(monthlySubs.count, 5)
+        XCTAssertEqual(monthlySubs.first!.startDate, monthlyTf.startDate)
+        XCTAssertEqual(monthlySubs.last!.endDate, monthlyTf.endDate)
+    }
 }

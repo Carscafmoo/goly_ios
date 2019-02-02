@@ -130,7 +130,10 @@ class Timeframe: NSObject, NSCoding {
 
         // Otherwise, if it's current but not standard (and weekly), use day names:
         if self.isCurrent() && self.frequency == .Weekly {
-            return "\(cal.component(.weekday, from: startDate)) - \(cal.component(.weekday, from: endDate))"
+            let df = DateFormatter()
+            df.locale = Locale.current
+            df.setLocalizedDateFormatFromTemplate("EEEE")
+            return "\(df.string(from: startDate)) - \(df.string(from: endDate))"
         }
 
         if self.frequency == .Daily {
@@ -159,7 +162,11 @@ class Timeframe: NSObject, NSCoding {
 
     // Used to display the value solely for charting purposes -- could use some... improvements, I'm sure
     func toChartString() -> String {
-        return dateFormatter.string(from: startDate)
+        if frequency == .Daily {
+            return dateFormatter.string(from: startDate)
+        }
+        
+        return "\(dateFormatter.string(from: startDate)) - \(dateFormatter.string(from: endDate))"
     }
     
     func next() -> Timeframe {
@@ -177,7 +184,7 @@ class Timeframe: NSObject, NSCoding {
         var tfs = [Timeframe]()
         
         var tf = Timeframe(frequency: frequency, now: startDate)
-        while (tf.startDate.timeIntervalSince1970 <= endDate.timeIntervalSince1970) { // <= includes the end date here
+        while (tf.startDate.timeIntervalSince1970 < endDate.timeIntervalSince1970) { // <= includes the end date here
             tfs.append(tf)
             tf = tf.next()
         }

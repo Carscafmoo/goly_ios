@@ -198,13 +198,12 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
         chartDataSet.fillColor = UIColor.black
         chartDataSet.fillAlpha = 1.0
         chartDataSet.valueColors = dataPointLabelColors
-
         xAxisFormatter.dates = xVals
-        drilldownChart.xAxis.valueFormatter = xAxisFormatter
-        drilldownChart.xAxis.labelCount = [xVals.count, 5].min()! // Is there a default way to do spacing?
 
+        drilldownChart.xAxis.valueFormatter = xAxisFormatter
         drilldownChart.data = chartData
         formatChart(drilldownChart, yMax: [runningTotal, Double(goal.target)].max()!)
+        drilldownChart.xAxis.setLabelCount([xVals.count, 4].min()!, force: true) // Is there a default way to do spacing?
         drilldownChart.notifyDataSetChanged()
     }
     
@@ -271,17 +270,15 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
     // handle interactions on clicked bars in order to drilldown
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         let goal = self.goal!
-        if (Frequency.equals(goal.frequency, rhs: goal.checkInFrequency) || (chartView == historyChart && (entry.y as Double) == 0.0) ) {
-            return // Can't drilldown into a daily view; can't really drilldown into 0
-        }
-
-        if chartView == drilldownChart {
-            // Then open up the relevant check-in:
-            let date = getDateFromEntry(chart: drilldownChart, entry: entry)
+        if (Frequency.equals(goal.frequency, rhs: goal.checkInFrequency) || (chartView == historyChart && (entry.y as Double) == 0.0) || chartView == drilldownChart) {
+            // Can't really drill down into 0, nor can you drill down into something that
+            // only has one check in.... but you can open up the relevant check-in:
+            let date = getDateFromEntry(chart: chartView, entry: entry)
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let controller = storyboard.instantiateViewController(withIdentifier: "CheckIn") as! CheckInViewController
             controller.goal = goal
             controller.date = date
+            controller.autoPopKeyboard = false
 
             // This is the only way I can really find that works to get the controller to show up in the nav controller as expected
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -310,9 +307,7 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
         }
         
         let citfs = timeframe.subTimeframes(subFrequency: goal.checkInFrequency)
-
-        let df = Timeframe.getDateFormatter()
-        let xVals = citfs.map{ df.string(from: $0.startDate) }
+        let xVals = citfs.map{ $0.toChartString() }
         let yVals = citfs.map{ cis[$0.startDate] ?? 0 }
         plotDrilldown(xVals, yVals: yVals)
     }
@@ -348,7 +343,9 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
     func getDateFromEntry(chart: ChartViewBase, entry: ChartDataEntry) -> Date {
         var date = Date()
         if let xAxisFormatter = chart.xAxis.valueFormatter as? DateAxisFormatter {
-            date = Timeframe.getDateFormatter().date(from: xAxisFormatter.dates![Int(entry.x)])!
+            let strDaterange = xAxisFormatter.dates![Int(entry.x)]
+            let startDate = strDaterange.components(separatedBy: " - ")[0]
+            date = Timeframe.getDateFormatter().date(from: startDate)!
         }
 
         return date
