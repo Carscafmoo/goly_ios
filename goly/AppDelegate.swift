@@ -14,11 +14,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         application.registerUserNotificationSettings(UIUserNotificationSettings(types:  [.alert, .badge, .sound], categories: nil))  // types are UIUserNotificationType members
         
-        if let lo = launchOptions, let _ = lo[UIApplicationLaunchOptionsKey.localNotification] {
+        if let lo = launchOptions, let _ = lo[UIApplication.LaunchOptionsKey.localNotification] {
             launchCheckIns()
         }
         

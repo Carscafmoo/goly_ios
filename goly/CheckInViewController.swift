@@ -59,7 +59,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
         dateField.delegate = self
         dateField.inputView = datePicker
 
-        datePicker.addTarget(self, action: #selector(datePickerChanged), for: UIControlEvents.valueChanged)
+        datePicker.addTarget(self, action: #selector(datePickerChanged), for: UIControl.Event.valueChanged)
         
         // Set up a change function on the value field:
         valueField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
@@ -110,7 +110,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
     }
     
     // Use that textFieldDidChange from earlier
-    func textFieldDidChange(_ textField: UITextField) {
+    @objc func textFieldDidChange(_ textField: UITextField) {
         allowSave()
     }
     
@@ -130,7 +130,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
     }
     
     // MARK: Date picker view delegate... sort of
-    func datePickerChanged(_ datePicker: UIDatePicker) {
+    @objc func datePickerChanged(_ datePicker: UIDatePicker) {
         date = datePicker.date
         if let checkIn = goal?.getCheckInForDate(datePicker.date) {
             valueField.text = String(checkIn.value)
@@ -161,7 +161,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
     
     // MARK: Swipe gesture recognizer
     // Stolen basically verbatim from http://guti.in/articles/creating-tinder-like-animations/, minus Bar Rafaeli for #sexism purposes
-    func handleSwipe(_ sender: UIPanGestureRecognizer) {
+    @objc func handleSwipe(_ sender: UIPanGestureRecognizer) {
         // Parameters for determining swipe strength and rotation, etc
         let strengthPixels = UIScreen.main.bounds.width / 2 // # of pixels that qualifies as a fully-fledged swipe -- half the screen
         let rotationScale = 16 // fraction of a circle you want to rotate the view.  Less is more rotation
