@@ -74,7 +74,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
     
     @IBAction func save(_ sender: UIBarButtonItem) {
         if let text = valueField.text, let val = Int(text), let goal = goal {
-            goal.checkIn(val, date: datePicker.date)
+            goal.checkIn(val, date: date!)
         }
         
         saveAndPop()
@@ -289,7 +289,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
     func checkInBinary(_ did: Bool) {
         let val = did ? 1 : 0
         if let goal = goal {
-            goal.checkIn(val, date: datePicker.date)
+            goal.checkIn(val, date: date!)
         }
         
         saveAndPop()
