@@ -689,7 +689,7 @@
                                 </connections>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="This Week" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HDy-ep-Iik">
-                                <rect key="frame" x="127" y="378.5" width="121" height="32"/>
+                                <rect key="frame" x="127" y="410.5" width="121" height="32"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -710,7 +710,7 @@
                             <constraint firstItem="HDy-ep-Iik" firstAttribute="centerX" secondItem="uFQ-4D-3im" secondAttribute="centerX" id="FJ6-5e-m31"/>
                             <constraint firstItem="bA9-nC-qHh" firstAttribute="centerX" secondItem="uFQ-4D-3im" secondAttribute="centerX" constant="80" id="Jge-IS-0PQ"/>
                             <constraint firstItem="1V5-Ei-4qh" firstAttribute="top" secondItem="hhr-zh-UeN" secondAttribute="bottom" constant="64" id="QLZ-nc-bch"/>
-                            <constraint firstItem="HDy-ep-Iik" firstAttribute="top" secondItem="piw-MW-q4E" secondAttribute="bottom" constant="16" id="Xql-qt-oVN"/>
+                            <constraint firstItem="HDy-ep-Iik" firstAttribute="top" secondItem="piw-MW-q4E" secondAttribute="bottom" constant="48" id="Xql-qt-oVN"/>
                             <constraint firstItem="bA9-nC-qHh" firstAttribute="centerY" secondItem="uFQ-4D-3im" secondAttribute="centerY" id="ZBP-Kf-Qpr"/>
                             <constraint firstAttribute="trailing" secondItem="1V5-Ei-4qh" secondAttribute="trailing" constant="8" id="fjQ-EB-8hr"/>
                             <constraint firstItem="piw-MW-q4E" firstAttribute="centerX" secondItem="uFQ-4D-3im" secondAttribute="centerX" id="qMb-DA-bJG"/>
