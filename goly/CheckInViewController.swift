@@ -142,7 +142,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
             dateField.text = checkInTimeframe.toString()
         }
     }
-    
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         if let ctf = currentTextField {
@@ -182,7 +182,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
         case .changed:
             let rotationStrength = max(min(xDistance / strengthPixels, 1.0), -1.0)
             let rotationAngle = (2 * Double.pi * Double(rotationStrength) / Double(rotationScale))
-            let scaleStrength = 1 - fabs(rotationStrength) / CGFloat(sizeScaleFactor)
+            let scaleStrength = 1 - abs(rotationStrength) / CGFloat(sizeScaleFactor)
             let scale = max(scaleStrength, minScale)
             self.view.center = CGPoint(x: self.originalPoint!.x + xDistance, y: self.originalPoint!.y + yDistance)
             let transform = CGAffineTransform(rotationAngle: CGFloat(rotationAngle))
@@ -199,19 +199,19 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
             if (xDistance < 0) {
                 let frameWidth = UIScreen.main.bounds.width
                 let originalYesDistance = frameWidth - originalYesImageFrame!.maxX - 8
-                let yesDistanceToTranslate = originalYesDistance * fabs(CGFloat(rotationStrength))
+                let yesDistanceToTranslate = originalYesDistance * abs(CGFloat(rotationStrength))
                 yesImageView.transform = CGAffineTransform(translationX: yesDistanceToTranslate, y: CGFloat(0.0))
                 
                 let originalNoDistance = frameWidth - originalNoImageFrame!.maxX - 8
-                let noDistanceToTranslate = originalNoDistance * fabs(CGFloat(rotationStrength))
+                let noDistanceToTranslate = originalNoDistance * abs(CGFloat(rotationStrength))
                 noImageView.transform = CGAffineTransform(translationX: noDistanceToTranslate, y: CGFloat(0.0))
             } else {
                 let originalYesDistance = originalYesImageFrame!.minX - 8
-                let yesDistanceToTranslate = originalYesDistance * fabs(CGFloat(rotationStrength))
+                let yesDistanceToTranslate = originalYesDistance * abs(CGFloat(rotationStrength))
                 yesImageView.transform = CGAffineTransform(translationX: -yesDistanceToTranslate, y: CGFloat(0.0))
                 
                 let originalNoDistance = originalNoImageFrame!.minX - 8
-                let noDistanceToTranslate = originalNoDistance * fabs(CGFloat(rotationStrength))
+                let noDistanceToTranslate = originalNoDistance * abs(CGFloat(rotationStrength))
                 noImageView.transform = CGAffineTransform(translationX: -noDistanceToTranslate, y: CGFloat(0.0))
             }
             
@@ -225,7 +225,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
     func handleSwipeEnd(_ swipeDistance: CGFloat) {
         let swipeMax = UIScreen.main.bounds.width / 2 // You must swipe at least 320 pixels for it to register as a swipe
         
-        if (fabs(swipeDistance) >= CGFloat(swipeMax)) {
+        if (abs(swipeDistance) >= CGFloat(swipeMax)) {
             if (swipeDistance > 0) { checkInBinary(true) }
             else { checkInBinary(false) }
             
