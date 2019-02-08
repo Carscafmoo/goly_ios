@@ -23,7 +23,6 @@
 		9EDE20C01C9DFA8000B981E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EDE20BE1C9DFA8000B981E9 /* Main.storyboard */; };
 		9EDE20C31C9DFA8000B981E9 /* goly.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE20C11C9DFA8000B981E9 /* goly.xcdatamodeld */; };
 		9EDE20C81C9DFA8000B981E9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EDE20C61C9DFA8000B981E9 /* LaunchScreen.storyboard */; };
-		9EDE20D31C9DFA8000B981E9 /* golyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE20D21C9DFA8000B981E9 /* golyTests.swift */; };
 		9EDE20DE1C9E03FA00B981E9 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE20DD1C9E03FA00B981E9 /* Goal.swift */; };
 		9EDE20DF1C9E03FA00B981E9 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE20DD1C9E03FA00B981E9 /* Goal.swift */; };
 		9EDE20E11C9E055700B981E9 /* Frequency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE20E01C9E055700B981E9 /* Frequency.swift */; };
@@ -52,6 +51,8 @@
 		9EF93F8521E29A3700D100B0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EDE20C61C9DFA8000B981E9 /* LaunchScreen.storyboard */; };
 		9EF93F8721E29A3D00D100B0 /* goly.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE20C11C9DFA8000B981E9 /* goly.xcdatamodeld */; };
 		9EFAA6A1220D24D700D83A44 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EFAA69E220D24D700D83A44 /* Default-568h@2x.png */; };
+		9EFAA6A6220DC50E00D83A44 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EFAA693220BD82300D83A44 /* Charts.framework */; };
+		9EFAA6A7220DC50E00D83A44 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9EFAA693220BD82300D83A44 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,7 +77,28 @@
 			remoteGlobalIDString = 1CBBC58C6CE1EBEE9852CE41;
 			remoteInfo = ChartsTests;
 		};
+		9EFAA6A8220DC50E00D83A44 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9EFAA68D220BD82300D83A44 /* Charts.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = A58A4ED274A941CA248EA921;
+			remoteInfo = Charts;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		9EFAA6AA220DC50E00D83A44 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				9EFAA6A7220DC50E00D83A44 /* Charts.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		9E48EB1A1E2D7B2D0043A189 /* Charts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Charts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -98,7 +120,6 @@
 		9EDE20C71C9DFA8000B981E9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9EDE20C91C9DFA8000B981E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9EDE20CE1C9DFA8000B981E9 /* golyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = golyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9EDE20D21C9DFA8000B981E9 /* golyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = golyTests.swift; sourceTree = "<group>"; };
 		9EDE20D41C9DFA8000B981E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9EDE20DD1C9E03FA00B981E9 /* Goal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
 		9EDE20E01C9E055700B981E9 /* Frequency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Frequency.swift; sourceTree = "<group>"; };
@@ -117,6 +138,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9EFAA6A6220DC50E00D83A44 /* Charts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -171,7 +193,6 @@
 		9EDE20D11C9DFA8000B981E9 /* golyTests */ = {
 			isa = PBXGroup;
 			children = (
-				9EDE20D21C9DFA8000B981E9 /* golyTests.swift */,
 				9EDE20D41C9DFA8000B981E9 /* Info.plist */,
 				9EF93F7221E290F600D100B0 /* GoalTestCase.swift */,
 				9ED716B521FCE7AD0000B559 /* TimeframeTestCase.swift */,
@@ -242,10 +263,12 @@
 				9EDE20B31C9DFA8000B981E9 /* Sources */,
 				9EDE20B41C9DFA8000B981E9 /* Frameworks */,
 				9EDE20B51C9DFA8000B981E9 /* Resources */,
+				9EFAA6AA220DC50E00D83A44 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				9EFAA6A9220DC50E00D83A44 /* PBXTargetDependency */,
 			);
 			name = goly;
 			productName = goly;
@@ -407,7 +430,6 @@
 				9EF93F8021E29A1D00D100B0 /* SampleGoals.swift in Sources */,
 				9EF93F7921E29A0800D100B0 /* Timeframe.swift in Sources */,
 				9EF93F8321E29A2200D100B0 /* GoalButton.swift in Sources */,
-				9EDE20D31C9DFA8000B981E9 /* golyTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,6 +440,11 @@
 			isa = PBXTargetDependency;
 			target = 9EDE20B61C9DFA8000B981E9 /* goly */;
 			targetProxy = 9EDE20CF1C9DFA8000B981E9 /* PBXContainerItemProxy */;
+		};
+		9EFAA6A9220DC50E00D83A44 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Charts;
+			targetProxy = 9EFAA6A8220DC50E00D83A44 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -550,6 +577,7 @@
 		9EDE20D81C9DFA8000B981E9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = QU736QCFRX;
@@ -565,6 +593,7 @@
 		9EDE20D91C9DFA8000B981E9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = QU736QCFRX;

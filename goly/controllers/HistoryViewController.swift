@@ -141,7 +141,6 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
         let formatter = DefaultValueFormatter()
         formatter.decimals = 0
         axisFormatter.decimals = 0
-        // formatter.minimumFractionDigits = 0 DEBUG?
         
         chart.xAxis.labelPosition = .bottom
         chart.xAxis.labelCount = [chart.data!.entryCount, 10].min()! // Is there a default way to do spacing?
