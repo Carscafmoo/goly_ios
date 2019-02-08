@@ -98,11 +98,13 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
             hvc.viewDidLoad()
         }
 
+        if nvc.viewControllers.count == 2, let gtvc = nvc.viewControllers.first as? GoalTableViewController {
+            gtvc.viewDidLoad()
+        }
+
         nvc.popViewController(animated: false) // This looks terrible with the swipes if it's animated
     }
 
-    
-    
     // MARK: text fields
     func textFieldDidBeginEditing(_ textField: UITextField) {
         currentTextField = textField
