@@ -20,6 +20,10 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
     let datePicker = UIDatePicker()
     let dateFormatter = DateFormatter()
 
+    // Create bottom borders on our editable text fields to indicate their editability:
+    let valueBorder = CALayer()
+    let dateBorder = CALayer()
+
     var date: Date? // Allow us to pass in a date prior to loading if we want
     var currentTextField: UITextField?
     var originalPoint: CGPoint?
@@ -44,7 +48,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
                 valueField.text = String(checkIn.value)
             }
 
-            dateField.text = goal.getCheckInTimeframeForDate(date: date!).toString()
+            dateField.text = goal.getCheckInTimeframeForDate(date: date!).toString().capitalized
         }
         
         valueField.delegate = self
@@ -63,6 +67,10 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
         
         // Set up a change function on the value field:
         valueField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+
+        // Add a bottom border to the value field and the date field:
+        self.addLineToView(view: valueField, position: .LINE_POSITION_BOTTOM, color: UIColor.black, width: 0.5)
+        self.addLineToView(view: dateField, position: .LINE_POSITION_BOTTOM, color: UIColor.black, width: 0.5)
 
         allowSave()
     }
@@ -113,7 +121,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
     @objc func textFieldDidChange(_ textField: UITextField) {
         allowSave()
     }
-    
+
     func delegateDateFieldDidBeginEditing(_ textField: UITextField) {
         datePicker.date = date!
     }
@@ -139,7 +147,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
         }
 
         if let checkInTimeframe = goal?.getCheckInTimeframeForDate(date: datePicker.date) {
-            dateField.text = checkInTimeframe.toString()
+            dateField.text = checkInTimeframe.toString().capitalized
         }
     }
 
@@ -293,5 +301,31 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
         }
         
         saveAndPop()
+    }
+
+    // From https://stackoverflow.com/questions/26800963/uitextfield-border-for-bottom-side-only
+    enum LINE_POSITION {
+        case LINE_POSITION_TOP
+        case LINE_POSITION_BOTTOM
+    }
+
+    func addLineToView(view : UIView, position : LINE_POSITION, color: UIColor, width: Double) {
+        let lineView = UIView()
+        lineView.backgroundColor = color
+        lineView.translatesAutoresizingMaskIntoConstraints = false // This is important!
+        view.addSubview(lineView)
+
+        let metrics = ["width" : NSNumber(value: width)]
+        let views = ["lineView" : lineView]
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[lineView]|", options:NSLayoutConstraint.FormatOptions(rawValue: 0), metrics:metrics, views:views))
+
+        switch position {
+        case .LINE_POSITION_TOP:
+            view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[lineView(width)]", options:NSLayoutConstraint.FormatOptions(rawValue: 0), metrics:metrics, views:views))
+            break
+        case .LINE_POSITION_BOTTOM:
+            view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[lineView(width)]|", options:NSLayoutConstraint.FormatOptions(rawValue: 0), metrics:metrics, views:views))
+            break
+        }
     }
 }
