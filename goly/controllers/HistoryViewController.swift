@@ -269,10 +269,13 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
     // handle interactions on clicked bars in order to drilldown
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         let goal = self.goal!
-        if (Frequency.equals(goal.frequency, rhs: goal.checkInFrequency) || (chartView == historyChart && (entry.y as Double) == 0.0) || chartView == drilldownChart) {
-            // Can't really drill down into 0, nor can you drill down into something that
-            // only has one check in.... but you can open up the relevant check-in:
+        if (Frequency.equals(goal.frequency, rhs: goal.checkInFrequency) || chartView == drilldownChart) {
+            // Can't really drill down into something that only has one check in.... but you can open up the relevant check-in:
             let date = getDateFromEntry(chart: chartView, entry: entry)
+            if date >= Date() {
+                return // Don't allow check-ins for the future!
+            }
+
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let controller = storyboard.instantiateViewController(withIdentifier: "CheckIn") as! CheckInViewController
             controller.goal = goal
