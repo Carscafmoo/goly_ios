@@ -688,11 +688,11 @@
                                     <outletCollection property="gestureRecognizers" destination="sBL-n1-JhQ" appends="YES" id="3cr-0C-Zzf"/>
                                 </connections>
                             </imageView>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="This Week" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HDy-ep-Iik">
-                                <rect key="frame" x="127" y="410.5" width="121" height="32"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Today" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HDy-ep-Iik">
+                                <rect key="frame" x="152" y="410.5" width="71.5" height="32"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="0" textAlignment="center" minimumFontSize="48" translatesAutoresizingMaskIntoConstraints="NO" id="piw-MW-q4E">
                                 <rect key="frame" x="171" y="304.5" width="33.5" height="58"/>
