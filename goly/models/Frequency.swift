@@ -58,8 +58,23 @@ enum Frequency: String {
             return "year"
         }
     }
-    
+
     static func equals(_ lhs: Frequency, rhs: Frequency) -> Bool {
         return lhs.hashValue == rhs.hashValue
+    }
+
+    func order() -> Int {
+        switch self {
+        case .Daily:
+            return 0
+        case .Weekly:
+            return 1
+        case .Monthly:
+            return 2
+        case .Quarterly:
+            return 3
+        case .Yearly:
+            return 4
+        }
     }
 }

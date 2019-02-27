@@ -214,4 +214,19 @@ class GoalTestCase: XCTestCase {
         goal.checkIn(1, date: formatter.date(from: "2018-11-01")!)
         XCTAssertEqual(goal.timeframeValue(timeframe), 3)
     }
+
+    /*This actually overwrites all saved goals, which is not what we want
+     Creating an extension which overrides the static property of the archive path
+     was not a successful endeavor.
+ func testLoadGoals() {
+        // Delete any existing goals:
+        Goal.saveGoals([])
+        let goals = self.goalGen.getSampleGoals()
+        Goal.saveGoals(goals)
+
+        let sortedGoals = Goal.loadGoals()
+
+        Goal.saveGoals([])
+
+    }*/
 }

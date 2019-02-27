@@ -59,7 +59,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
         dateField.delegate = self
         dateField.inputView = datePicker
 
-        datePicker.addTarget(self, action: #selector(datePickerChanged), for: UIControlEvents.valueChanged)
+        datePicker.addTarget(self, action: #selector(datePickerChanged), for: UIControl.Event.valueChanged)
         
         // Set up a change function on the value field:
         valueField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
@@ -98,11 +98,13 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
             hvc.viewDidLoad()
         }
 
+        if nvc.viewControllers.count == 2, let gtvc = nvc.viewControllers.first as? GoalTableViewController {
+            gtvc.viewDidLoad()
+        }
+
         nvc.popViewController(animated: false) // This looks terrible with the swipes if it's animated
     }
 
-    
-    
     // MARK: text fields
     func textFieldDidBeginEditing(_ textField: UITextField) {
         currentTextField = textField
@@ -110,7 +112,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
     }
     
     // Use that textFieldDidChange from earlier
-    func textFieldDidChange(_ textField: UITextField) {
+    @objc func textFieldDidChange(_ textField: UITextField) {
         allowSave()
     }
     
@@ -130,7 +132,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
     }
     
     // MARK: Date picker view delegate... sort of
-    func datePickerChanged(_ datePicker: UIDatePicker) {
+    @objc func datePickerChanged(_ datePicker: UIDatePicker) {
         date = datePicker.date
         if let checkIn = goal?.getCheckInForDate(datePicker.date) {
             valueField.text = String(checkIn.value)
@@ -142,7 +144,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
             dateField.text = checkInTimeframe.toString()
         }
     }
-    
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         if let ctf = currentTextField {
@@ -161,7 +163,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
     
     // MARK: Swipe gesture recognizer
     // Stolen basically verbatim from http://guti.in/articles/creating-tinder-like-animations/, minus Bar Rafaeli for #sexism purposes
-    func handleSwipe(_ sender: UIPanGestureRecognizer) {
+    @objc func handleSwipe(_ sender: UIPanGestureRecognizer) {
         // Parameters for determining swipe strength and rotation, etc
         let strengthPixels = UIScreen.main.bounds.width / 2 // # of pixels that qualifies as a fully-fledged swipe -- half the screen
         let rotationScale = 16 // fraction of a circle you want to rotate the view.  Less is more rotation
@@ -182,7 +184,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
         case .changed:
             let rotationStrength = max(min(xDistance / strengthPixels, 1.0), -1.0)
             let rotationAngle = (2 * Double.pi * Double(rotationStrength) / Double(rotationScale))
-            let scaleStrength = 1 - fabs(rotationStrength) / CGFloat(sizeScaleFactor)
+            let scaleStrength = 1 - abs(rotationStrength) / CGFloat(sizeScaleFactor)
             let scale = max(scaleStrength, minScale)
             self.view.center = CGPoint(x: self.originalPoint!.x + xDistance, y: self.originalPoint!.y + yDistance)
             let transform = CGAffineTransform(rotationAngle: CGFloat(rotationAngle))
@@ -199,19 +201,19 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
             if (xDistance < 0) {
                 let frameWidth = UIScreen.main.bounds.width
                 let originalYesDistance = frameWidth - originalYesImageFrame!.maxX - 8
-                let yesDistanceToTranslate = originalYesDistance * fabs(CGFloat(rotationStrength))
+                let yesDistanceToTranslate = originalYesDistance * abs(CGFloat(rotationStrength))
                 yesImageView.transform = CGAffineTransform(translationX: yesDistanceToTranslate, y: CGFloat(0.0))
                 
                 let originalNoDistance = frameWidth - originalNoImageFrame!.maxX - 8
-                let noDistanceToTranslate = originalNoDistance * fabs(CGFloat(rotationStrength))
+                let noDistanceToTranslate = originalNoDistance * abs(CGFloat(rotationStrength))
                 noImageView.transform = CGAffineTransform(translationX: noDistanceToTranslate, y: CGFloat(0.0))
             } else {
                 let originalYesDistance = originalYesImageFrame!.minX - 8
-                let yesDistanceToTranslate = originalYesDistance * fabs(CGFloat(rotationStrength))
+                let yesDistanceToTranslate = originalYesDistance * abs(CGFloat(rotationStrength))
                 yesImageView.transform = CGAffineTransform(translationX: -yesDistanceToTranslate, y: CGFloat(0.0))
                 
                 let originalNoDistance = originalNoImageFrame!.minX - 8
-                let noDistanceToTranslate = originalNoDistance * fabs(CGFloat(rotationStrength))
+                let noDistanceToTranslate = originalNoDistance * abs(CGFloat(rotationStrength))
                 noImageView.transform = CGAffineTransform(translationX: -noDistanceToTranslate, y: CGFloat(0.0))
             }
             
@@ -225,7 +227,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
     func handleSwipeEnd(_ swipeDistance: CGFloat) {
         let swipeMax = UIScreen.main.bounds.width / 2 // You must swipe at least 320 pixels for it to register as a swipe
         
-        if (fabs(swipeDistance) >= CGFloat(swipeMax)) {
+        if (abs(swipeDistance) >= CGFloat(swipeMax)) {
             if (swipeDistance > 0) { checkInBinary(true) }
             else { checkInBinary(false) }
             

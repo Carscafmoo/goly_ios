@@ -17,7 +17,7 @@ class GoalTableViewController: UITableViewController {
         super.viewDidLoad()
         
         if let savedGoals  = loadGoals() {
-            goals += savedGoals
+            goals = savedGoals
         }
         
         navigationItem.leftBarButtonItem = editButtonItem
@@ -31,7 +31,7 @@ class GoalTableViewController: UITableViewController {
         
         if (goals.isEmpty) {
             let alert = UIAlertController(title: "You have no saved goals!", message: "Click the + in the upper right to create a new goal", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
 
@@ -98,7 +98,7 @@ class GoalTableViewController: UITableViewController {
     }
     
     // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
             goals.remove(at: indexPath.row)

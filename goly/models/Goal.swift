@@ -191,7 +191,7 @@ class Goal: NSObject, NSCoding {
         if let goals = NSKeyedUnarchiver.unarchiveObject(withFile: ArchiveURL.path) as? [Goal] {
             return Goal.sortGoals(goals)
         }
-            
+
         return nil
     }
     
@@ -209,8 +209,8 @@ class Goal: NSObject, NSCoding {
             if (!$0.active && $1.active) { return false; }
             
             // That which is more frequently checked in should come first
-            if ($0.checkInFrequency.hashValue < $1.checkInFrequency.hashValue) { return true; }
-            if ($0.checkInFrequency.hashValue > $1.checkInFrequency.hashValue) { return false; }
+            if ($0.checkInFrequency.order() < $1.checkInFrequency.order()) { return true; }
+            if ($0.checkInFrequency.order() > $1.checkInFrequency.order()) { return false; }
             
             // Otherwise, sort by name I guess
             return $0.name < $1.name

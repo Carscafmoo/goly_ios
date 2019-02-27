@@ -40,7 +40,7 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
         endDateTextField.delegate = self
         startDateTextField.inputView = datePickerView
         endDateTextField.inputView = datePickerView
-        datePickerView.addTarget(self, action: #selector(handleDatePicker), for: UIControlEvents.valueChanged)
+        datePickerView.addTarget(self, action: #selector(handleDatePicker), for: UIControl.Event.valueChanged)
         
         historyChart.delegate = self
         scrollView.canCancelContentTouches = false
@@ -141,7 +141,6 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
         let formatter = DefaultValueFormatter()
         formatter.decimals = 0
         axisFormatter.decimals = 0
-        // formatter.minimumFractionDigits = 0 DEBUG?
         
         chart.xAxis.labelPosition = .bottom
         chart.xAxis.labelCount = [chart.data!.entryCount, 10].min()! // Is there a default way to do spacing?
@@ -245,7 +244,7 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
         else { datePickerView.maximumDate = NSDate() as Date }
     }
     
-    func handleDatePicker(_ sender: UIDatePicker) {
+    @objc func handleDatePicker(_ sender: UIDatePicker) {
         var shouldPlot = false // only replot if something has actually changed
         let date = sender.date
         let ctf = contentView.currentTextField!
