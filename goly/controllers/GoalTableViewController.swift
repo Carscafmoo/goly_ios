@@ -17,7 +17,7 @@ class GoalTableViewController: UITableViewController {
         super.viewDidLoad()
         
         if let savedGoals  = loadGoals() {
-            goals += savedGoals
+            goals = savedGoals
         }
         
         navigationItem.leftBarButtonItem = editButtonItem

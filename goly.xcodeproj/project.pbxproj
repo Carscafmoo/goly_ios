@@ -17,13 +17,12 @@
 		9EA9F4E61CB992EF00FA0F9B /* CheckInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA9F4E51CB992EF00FA0F9B /* CheckInViewController.swift */; };
 		9ED716B421EBDA300000B559 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EE5F2451CCD40DE00180499 /* Assets.xcassets */; };
 		9ED716B621FCE7AE0000B559 /* TimeframeTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED716B521FCE7AD0000B559 /* TimeframeTestCase.swift */; };
-		9EDA3D761CB9AE4800C71D86 /* goalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDA3D751CB9AE4800C71D86 /* goalButton.swift */; };
+		9EDA3D761CB9AE4800C71D86 /* GoalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDA3D751CB9AE4800C71D86 /* GoalButton.swift */; };
 		9EDE20BB1C9DFA8000B981E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE20BA1C9DFA8000B981E9 /* AppDelegate.swift */; };
 		9EDE20BD1C9DFA8000B981E9 /* GoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE20BC1C9DFA8000B981E9 /* GoalViewController.swift */; };
 		9EDE20C01C9DFA8000B981E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EDE20BE1C9DFA8000B981E9 /* Main.storyboard */; };
 		9EDE20C31C9DFA8000B981E9 /* goly.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE20C11C9DFA8000B981E9 /* goly.xcdatamodeld */; };
 		9EDE20C81C9DFA8000B981E9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EDE20C61C9DFA8000B981E9 /* LaunchScreen.storyboard */; };
-		9EDE20D31C9DFA8000B981E9 /* golyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE20D21C9DFA8000B981E9 /* golyTests.swift */; };
 		9EDE20DE1C9E03FA00B981E9 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE20DD1C9E03FA00B981E9 /* Goal.swift */; };
 		9EDE20DF1C9E03FA00B981E9 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE20DD1C9E03FA00B981E9 /* Goal.swift */; };
 		9EDE20E11C9E055700B981E9 /* Frequency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE20E01C9E055700B981E9 /* Frequency.swift */; };
@@ -47,10 +46,13 @@
 		9EF93F8021E29A1D00D100B0 /* SampleGoals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE5F2411CC666AA00180499 /* SampleGoals.swift */; };
 		9EF93F8121E29A1F00D100B0 /* CheckInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA9F4E51CB992EF00FA0F9B /* CheckInViewController.swift */; };
 		9EF93F8221E29A2000D100B0 /* GoalTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5743331CAEB5C2004643B4 /* GoalTableViewController.swift */; };
-		9EF93F8321E29A2200D100B0 /* goalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDA3D751CB9AE4800C71D86 /* goalButton.swift */; };
+		9EF93F8321E29A2200D100B0 /* GoalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDA3D751CB9AE4800C71D86 /* GoalButton.swift */; };
 		9EF93F8421E29A2300D100B0 /* GoalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5743311CAEB404004643B4 /* GoalTableViewCell.swift */; };
 		9EF93F8521E29A3700D100B0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EDE20C61C9DFA8000B981E9 /* LaunchScreen.storyboard */; };
 		9EF93F8721E29A3D00D100B0 /* goly.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE20C11C9DFA8000B981E9 /* goly.xcdatamodeld */; };
+		9EFAA6A1220D24D700D83A44 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EFAA69E220D24D700D83A44 /* Default-568h@2x.png */; };
+		9EFAA6A6220DC50E00D83A44 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EFAA693220BD82300D83A44 /* Charts.framework */; };
+		9EFAA6A7220DC50E00D83A44 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9EFAA693220BD82300D83A44 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,7 +77,28 @@
 			remoteGlobalIDString = 1CBBC58C6CE1EBEE9852CE41;
 			remoteInfo = ChartsTests;
 		};
+		9EFAA6A8220DC50E00D83A44 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9EFAA68D220BD82300D83A44 /* Charts.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = A58A4ED274A941CA248EA921;
+			remoteInfo = Charts;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		9EFAA6AA220DC50E00D83A44 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				9EFAA6A7220DC50E00D83A44 /* Charts.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		9E48EB1A1E2D7B2D0043A189 /* Charts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Charts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,7 +111,7 @@
 		9E6A4BB61CD5568700BD6D26 /* UIClickToDismissView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIClickToDismissView.swift; sourceTree = "<group>"; };
 		9EA9F4E51CB992EF00FA0F9B /* CheckInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckInViewController.swift; sourceTree = "<group>"; };
 		9ED716B521FCE7AD0000B559 /* TimeframeTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeframeTestCase.swift; sourceTree = "<group>"; };
-		9EDA3D751CB9AE4800C71D86 /* goalButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = goalButton.swift; sourceTree = "<group>"; };
+		9EDA3D751CB9AE4800C71D86 /* GoalButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalButton.swift; sourceTree = "<group>"; };
 		9EDE20B71C9DFA8000B981E9 /* goly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = goly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EDE20BA1C9DFA8000B981E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9EDE20BC1C9DFA8000B981E9 /* GoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalViewController.swift; sourceTree = "<group>"; };
@@ -97,7 +120,6 @@
 		9EDE20C71C9DFA8000B981E9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9EDE20C91C9DFA8000B981E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9EDE20CE1C9DFA8000B981E9 /* golyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = golyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9EDE20D21C9DFA8000B981E9 /* golyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = golyTests.swift; sourceTree = "<group>"; };
 		9EDE20D41C9DFA8000B981E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9EDE20DD1C9E03FA00B981E9 /* Goal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
 		9EDE20E01C9E055700B981E9 /* Frequency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Frequency.swift; sourceTree = "<group>"; };
@@ -108,6 +130,7 @@
 		9EE5F2451CCD40DE00180499 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../../.Trash/Assets.xcassets; sourceTree = "<group>"; };
 		9EF93F7221E290F600D100B0 /* GoalTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTestCase.swift; sourceTree = "<group>"; };
 		9EFAA68D220BD82300D83A44 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "../../Downloads/Charts-master 3/Charts.xcodeproj"; sourceTree = "<group>"; };
+		9EFAA69E220D24D700D83A44 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +138,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9EFAA6A6220DC50E00D83A44 /* Charts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,6 +155,7 @@
 		9EDE20AE1C9DFA8000B981E9 = {
 			isa = PBXGroup;
 			children = (
+				9EFAA69E220D24D700D83A44 /* Default-568h@2x.png */,
 				9EFAA68D220BD82300D83A44 /* Charts.xcodeproj */,
 				9E48EB1A1E2D7B2D0043A189 /* Charts.framework */,
 				9EDE20B91C9DFA8000B981E9 /* goly */,
@@ -151,24 +176,12 @@
 		9EDE20B91C9DFA8000B981E9 /* goly */ = {
 			isa = PBXGroup;
 			children = (
+				9EFAA6A4220D251F00D83A44 /* controllers */,
+				9EFAA6A5220D252400D83A44 /* lib */,
+				9EFAA6A2220D251200D83A44 /* models */,
+				9EFAA6A3220D251800D83A44 /* views */,
 				9EDE20BA1C9DFA8000B981E9 /* AppDelegate.swift */,
-				9EE5F2431CCBFCC000180499 /* Notifications.swift */,
-				9EDE20BC1C9DFA8000B981E9 /* GoalViewController.swift */,
-				9E6A4BB11CD529A500BD6D26 /* HideableLabel.swift */,
-				9EDE20DD1C9E03FA00B981E9 /* Goal.swift */,
-				9E5743351CB194B3004643B4 /* CheckIn.swift */,
-				9E5743371CB19519004643B4 /* Timeframe.swift */,
-				9EDE20E21C9F1EC700B981E9 /* Type.swift */,
-				9EDE20E01C9E055700B981E9 /* Frequency.swift */,
 				9EDE20BE1C9DFA8000B981E9 /* Main.storyboard */,
-				9EE5F23F1CC2CEF600180499 /* HistoryViewController.swift */,
-				9E48EB1F1E2DABD00043A189 /* DateAxisFormatter.swift */,
-				9E6A4BB61CD5568700BD6D26 /* UIClickToDismissView.swift */,
-				9EE5F2411CC666AA00180499 /* SampleGoals.swift */,
-				9EA9F4E51CB992EF00FA0F9B /* CheckInViewController.swift */,
-				9E5743331CAEB5C2004643B4 /* GoalTableViewController.swift */,
-				9EDA3D751CB9AE4800C71D86 /* goalButton.swift */,
-				9E5743311CAEB404004643B4 /* GoalTableViewCell.swift */,
 				9EDE20C61C9DFA8000B981E9 /* LaunchScreen.storyboard */,
 				9EDE20C91C9DFA8000B981E9 /* Info.plist */,
 				9EDE20C11C9DFA8000B981E9 /* goly.xcdatamodeld */,
@@ -180,7 +193,6 @@
 		9EDE20D11C9DFA8000B981E9 /* golyTests */ = {
 			isa = PBXGroup;
 			children = (
-				9EDE20D21C9DFA8000B981E9 /* golyTests.swift */,
 				9EDE20D41C9DFA8000B981E9 /* Info.plist */,
 				9EF93F7221E290F600D100B0 /* GoalTestCase.swift */,
 				9ED716B521FCE7AD0000B559 /* TimeframeTestCase.swift */,
@@ -197,6 +209,50 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		9EFAA6A2220D251200D83A44 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				9E5743351CB194B3004643B4 /* CheckIn.swift */,
+				9EDE20E01C9E055700B981E9 /* Frequency.swift */,
+				9EDE20DD1C9E03FA00B981E9 /* Goal.swift */,
+				9EE5F2431CCBFCC000180499 /* Notifications.swift */,
+				9E5743371CB19519004643B4 /* Timeframe.swift */,
+				9EDE20E21C9F1EC700B981E9 /* Type.swift */,
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
+		9EFAA6A3220D251800D83A44 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				9EDA3D751CB9AE4800C71D86 /* GoalButton.swift */,
+				9E5743311CAEB404004643B4 /* GoalTableViewCell.swift */,
+				9E48EB1F1E2DABD00043A189 /* DateAxisFormatter.swift */,
+				9E6A4BB11CD529A500BD6D26 /* HideableLabel.swift */,
+				9E6A4BB61CD5568700BD6D26 /* UIClickToDismissView.swift */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
+		9EFAA6A4220D251F00D83A44 /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				9EA9F4E51CB992EF00FA0F9B /* CheckInViewController.swift */,
+				9E5743331CAEB5C2004643B4 /* GoalTableViewController.swift */,
+				9EDE20BC1C9DFA8000B981E9 /* GoalViewController.swift */,
+				9EE5F23F1CC2CEF600180499 /* HistoryViewController.swift */,
+			);
+			path = controllers;
+			sourceTree = "<group>";
+		};
+		9EFAA6A5220D252400D83A44 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				9EE5F2411CC666AA00180499 /* SampleGoals.swift */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -207,10 +263,12 @@
 				9EDE20B31C9DFA8000B981E9 /* Sources */,
 				9EDE20B41C9DFA8000B981E9 /* Frameworks */,
 				9EDE20B51C9DFA8000B981E9 /* Resources */,
+				9EFAA6AA220DC50E00D83A44 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				9EFAA6A9220DC50E00D83A44 /* PBXTargetDependency */,
 			);
 			name = goly;
 			productName = goly;
@@ -305,6 +363,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9ED716B421EBDA300000B559 /* Assets.xcassets in Resources */,
+				9EFAA6A1220D24D700D83A44 /* Default-568h@2x.png in Resources */,
 				9EDE20C81C9DFA8000B981E9 /* LaunchScreen.storyboard in Resources */,
 				9EDE20C01C9DFA8000B981E9 /* Main.storyboard in Resources */,
 			);
@@ -337,7 +396,7 @@
 				9EDE20E11C9E055700B981E9 /* Frequency.swift in Sources */,
 				9E5743361CB194B3004643B4 /* CheckIn.swift in Sources */,
 				9EDE20BD1C9DFA8000B981E9 /* GoalViewController.swift in Sources */,
-				9EDA3D761CB9AE4800C71D86 /* goalButton.swift in Sources */,
+				9EDA3D761CB9AE4800C71D86 /* GoalButton.swift in Sources */,
 				9EDE20C31C9DFA8000B981E9 /* goly.xcdatamodeld in Sources */,
 				9E6A4BB71CD5568700BD6D26 /* UIClickToDismissView.swift in Sources */,
 				9E6A4BB21CD529A500BD6D26 /* HideableLabel.swift in Sources */,
@@ -370,8 +429,7 @@
 				9ED716B621FCE7AE0000B559 /* TimeframeTestCase.swift in Sources */,
 				9EF93F8021E29A1D00D100B0 /* SampleGoals.swift in Sources */,
 				9EF93F7921E29A0800D100B0 /* Timeframe.swift in Sources */,
-				9EF93F8321E29A2200D100B0 /* goalButton.swift in Sources */,
-				9EDE20D31C9DFA8000B981E9 /* golyTests.swift in Sources */,
+				9EF93F8321E29A2200D100B0 /* GoalButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,6 +440,11 @@
 			isa = PBXTargetDependency;
 			target = 9EDE20B61C9DFA8000B981E9 /* goly */;
 			targetProxy = 9EDE20CF1C9DFA8000B981E9 /* PBXContainerItemProxy */;
+		};
+		9EFAA6A9220DC50E00D83A44 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Charts;
+			targetProxy = 9EFAA6A8220DC50E00D83A44 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -514,6 +577,7 @@
 		9EDE20D81C9DFA8000B981E9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = QU736QCFRX;
@@ -529,6 +593,7 @@
 		9EDE20D91C9DFA8000B981E9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = QU736QCFRX;
