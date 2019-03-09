@@ -57,8 +57,11 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
         dateFormatter.locale = Locale(identifier: "en_US") // @TODO: Probably figure out where the user is?
+
+        if let date = date {
+            datePicker.maximumDate = max(date, Date())
+        }
         
-        datePicker.maximumDate = date
         datePicker.datePickerMode = .date
         dateField.delegate = self
         dateField.inputView = datePicker

@@ -148,7 +148,22 @@ class GoalTableViewController: UITableViewController {
             saveGoals()
         }
     }
-    
+
+    @IBAction func showSettings(_ sender: UIBarButtonItem) {
+        guard
+            let settingsURL = URL(string: UIApplication.openSettingsURLString),
+            UIApplication.shared.canOpenURL(settingsURL)
+            else {
+                return
+        }
+
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(settingsURL)
+        } else {
+            UIApplication.shared.openURL(settingsURL)
+        }
+    }
+
     // MARK: Persistence
     func saveGoals() {
         Goal.saveGoals(goals)

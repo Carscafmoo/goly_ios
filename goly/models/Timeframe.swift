@@ -40,7 +40,13 @@ class Timeframe: NSObject, NSCoding {
             self.endDate = (cal as Calendar).date(byAdding: .day, value: 1, to: self.startDate)!
         case .Weekly:
             let component = (cal as Calendar).component(.weekday, from: now)
-            self.startDate = cal.startOfDay(for: (cal as Calendar).date(byAdding: .day, value: -1 * component + 1, to: now)!)
+            self.startDate = cal.startOfDay(for: (cal as Calendar).date(byAdding: .day, value: -1 * component + 1 + Settings.getWeekBeginsDay(), to: now)!)
+
+            // There is some funkiness that can happen where this could be in the future for cases where the week begins on Monday, so ... if it is, go back 7 days:
+            if self.startDate > now {
+                self.startDate = (cal as Calendar).date(byAdding: .day, value: -7, to: self.startDate)
+            }
+
             self.endDate = (cal as Calendar).date(byAdding: .day, value: 7, to: self.startDate)
         case .Monthly:
             self.startDate = startOfMonth(now)
@@ -207,9 +213,12 @@ class Timeframe: NSObject, NSCoding {
         return self == Timeframe(frequency: self.frequency, now: self.startDate)
     }
 
+    func contains(date: Date) -> Bool {
+        return startDate <= date && date < endDate
+    }
+
     func isCurrent() -> Bool {
-        let now = Date()
-        return startDate <= now && now < endDate
+        return self.contains(date: Date())
     }
 
     static func getDateFormatter() -> DateFormatter {

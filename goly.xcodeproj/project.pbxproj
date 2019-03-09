@@ -14,6 +14,13 @@
 		9E5743381CB19519004643B4 /* Timeframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5743371CB19519004643B4 /* Timeframe.swift */; };
 		9E6A4BB21CD529A500BD6D26 /* HideableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6A4BB11CD529A500BD6D26 /* HideableLabel.swift */; };
 		9E6A4BB71CD5568700BD6D26 /* UIClickToDismissView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6A4BB61CD5568700BD6D26 /* UIClickToDismissView.swift */; };
+		9E853AFD222B2C1200E27E85 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E853AFC222B2C1200E27E85 /* Settings.swift */; };
+		9E853B00222B6DB400E27E85 /* NotificationsTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E853AFF222B6DB400E27E85 /* NotificationsTestCase.swift */; };
+		9E853B01222B773900E27E85 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E853AFC222B2C1200E27E85 /* Settings.swift */; };
+		9E853B032230A97500E27E85 /* DateInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E853B022230A97500E27E85 /* DateInjector.swift */; };
+		9E853B062230AA5C00E27E85 /* MockDateInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E853B052230AA5C00E27E85 /* MockDateInjector.swift */; };
+		9E853B072230AA9600E27E85 /* DateInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E853B022230A97500E27E85 /* DateInjector.swift */; };
+		9E8A0AE4222B28DB00A2FF56 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9E8A0AE3222B28DB00A2FF56 /* Settings.bundle */; };
 		9EA9F4E61CB992EF00FA0F9B /* CheckInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA9F4E51CB992EF00FA0F9B /* CheckInViewController.swift */; };
 		9ED716B421EBDA300000B559 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EE5F2451CCD40DE00180499 /* Assets.xcassets */; };
 		9ED716B621FCE7AE0000B559 /* TimeframeTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED716B521FCE7AD0000B559 /* TimeframeTestCase.swift */; };
@@ -109,6 +116,11 @@
 		9E5743371CB19519004643B4 /* Timeframe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timeframe.swift; sourceTree = "<group>"; };
 		9E6A4BB11CD529A500BD6D26 /* HideableLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HideableLabel.swift; sourceTree = "<group>"; };
 		9E6A4BB61CD5568700BD6D26 /* UIClickToDismissView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIClickToDismissView.swift; sourceTree = "<group>"; };
+		9E853AFC222B2C1200E27E85 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		9E853AFF222B6DB400E27E85 /* NotificationsTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsTestCase.swift; sourceTree = "<group>"; };
+		9E853B022230A97500E27E85 /* DateInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateInjector.swift; sourceTree = "<group>"; };
+		9E853B052230AA5C00E27E85 /* MockDateInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDateInjector.swift; sourceTree = "<group>"; };
+		9E8A0AE3222B28DB00A2FF56 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		9EA9F4E51CB992EF00FA0F9B /* CheckInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckInViewController.swift; sourceTree = "<group>"; };
 		9ED716B521FCE7AD0000B559 /* TimeframeTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeframeTestCase.swift; sourceTree = "<group>"; };
 		9EDA3D751CB9AE4800C71D86 /* GoalButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalButton.swift; sourceTree = "<group>"; };
@@ -152,6 +164,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9E853B042230AA4E00E27E85 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				9E853B052230AA5C00E27E85 /* MockDateInjector.swift */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
 		9EDE20AE1C9DFA8000B981E9 = {
 			isa = PBXGroup;
 			children = (
@@ -186,6 +206,7 @@
 				9EDE20C91C9DFA8000B981E9 /* Info.plist */,
 				9EDE20C11C9DFA8000B981E9 /* goly.xcdatamodeld */,
 				9EE5F2451CCD40DE00180499 /* Assets.xcassets */,
+				9E8A0AE3222B28DB00A2FF56 /* Settings.bundle */,
 			);
 			path = goly;
 			sourceTree = "<group>";
@@ -193,8 +214,10 @@
 		9EDE20D11C9DFA8000B981E9 /* golyTests */ = {
 			isa = PBXGroup;
 			children = (
+				9E853B042230AA4E00E27E85 /* lib */,
 				9EDE20D41C9DFA8000B981E9 /* Info.plist */,
 				9EF93F7221E290F600D100B0 /* GoalTestCase.swift */,
+				9E853AFF222B6DB400E27E85 /* NotificationsTestCase.swift */,
 				9ED716B521FCE7AD0000B559 /* TimeframeTestCase.swift */,
 			);
 			path = golyTests;
@@ -216,6 +239,7 @@
 				9EDE20E01C9E055700B981E9 /* Frequency.swift */,
 				9EDE20DD1C9E03FA00B981E9 /* Goal.swift */,
 				9EE5F2431CCBFCC000180499 /* Notifications.swift */,
+				9E853AFC222B2C1200E27E85 /* Settings.swift */,
 				9E5743371CB19519004643B4 /* Timeframe.swift */,
 				9EDE20E21C9F1EC700B981E9 /* Type.swift */,
 			);
@@ -249,6 +273,7 @@
 			isa = PBXGroup;
 			children = (
 				9EE5F2411CC666AA00180499 /* SampleGoals.swift */,
+				9E853B022230A97500E27E85 /* DateInjector.swift */,
 			);
 			path = lib;
 			sourceTree = "<group>";
@@ -364,6 +389,7 @@
 			files = (
 				9ED716B421EBDA300000B559 /* Assets.xcassets in Resources */,
 				9EFAA6A1220D24D700D83A44 /* Default-568h@2x.png in Resources */,
+				9E8A0AE4222B28DB00A2FF56 /* Settings.bundle in Resources */,
 				9EDE20C81C9DFA8000B981E9 /* LaunchScreen.storyboard in Resources */,
 				9EDE20C01C9DFA8000B981E9 /* Main.storyboard in Resources */,
 			);
@@ -392,6 +418,7 @@
 				9EDE20DE1C9E03FA00B981E9 /* Goal.swift in Sources */,
 				9E5743321CAEB404004643B4 /* GoalTableViewCell.swift in Sources */,
 				9E5743341CAEB5C2004643B4 /* GoalTableViewController.swift in Sources */,
+				9E853B032230A97500E27E85 /* DateInjector.swift in Sources */,
 				9EE5F2401CC2CEF600180499 /* HistoryViewController.swift in Sources */,
 				9EDE20E11C9E055700B981E9 /* Frequency.swift in Sources */,
 				9E5743361CB194B3004643B4 /* CheckIn.swift in Sources */,
@@ -403,6 +430,7 @@
 				9EDE20BB1C9DFA8000B981E9 /* AppDelegate.swift in Sources */,
 				9EA9F4E61CB992EF00FA0F9B /* CheckInViewController.swift in Sources */,
 				9EDE20E31C9F1EC700B981E9 /* Type.swift in Sources */,
+				9E853AFD222B2C1200E27E85 /* Settings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,6 +439,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9EF93F8721E29A3D00D100B0 /* goly.xcdatamodeld in Sources */,
+				9E853B072230AA9600E27E85 /* DateInjector.swift in Sources */,
+				9E853B00222B6DB400E27E85 /* NotificationsTestCase.swift in Sources */,
 				9EF93F8221E29A2000D100B0 /* GoalTableViewController.swift in Sources */,
 				9EF93F7521E299FE00D100B0 /* Notifications.swift in Sources */,
 				9EF93F8421E29A2300D100B0 /* GoalTableViewCell.swift in Sources */,
@@ -424,11 +454,13 @@
 				9EF93F7821E29A0600D100B0 /* CheckIn.swift in Sources */,
 				9EF93F7721E29A0200D100B0 /* HideableLabel.swift in Sources */,
 				9EF93F8121E29A1F00D100B0 /* CheckInViewController.swift in Sources */,
+				9E853B062230AA5C00E27E85 /* MockDateInjector.swift in Sources */,
 				9EF93F7B21E29A0C00D100B0 /* Frequency.swift in Sources */,
 				9EF93F7F21E29A1B00D100B0 /* UIClickToDismissView.swift in Sources */,
 				9ED716B621FCE7AE0000B559 /* TimeframeTestCase.swift in Sources */,
 				9EF93F8021E29A1D00D100B0 /* SampleGoals.swift in Sources */,
 				9EF93F7921E29A0800D100B0 /* Timeframe.swift in Sources */,
+				9E853B01222B773900E27E85 /* Settings.swift in Sources */,
 				9EF93F8321E29A2200D100B0 /* GoalButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
