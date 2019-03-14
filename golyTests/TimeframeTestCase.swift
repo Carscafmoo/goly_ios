@@ -89,4 +89,25 @@ class TimeframeTestCase: XCTestCase {
         XCTAssertEqual(monthlySubs.first!.startDate, monthlyTf.startDate)
         XCTAssertEqual(monthlySubs.last!.endDate, monthlyTf.endDate)
     }
+
+    func testUserPreferencesForWeekday() {
+        // So we can re-set it later
+        let checkInDaySetting = Settings.getWeekBeginsDay()
+
+        UserDefaults.standard.set(1, forKey: Settings.SettingsBundleKeys.weekBeginsKey)
+        let midweek_test = Timeframe(frequency: .Weekly, now: formatter.date(from: "2018-10-17")!)
+        XCTAssertEqual(midweek_test.startDate, formatter.date(from: "2018-10-15")) // Monday
+        XCTAssertEqual(midweek_test.endDate, formatter.date(from: "2018-10-22")) // Monday
+
+        let beginning_of_week_test = Timeframe(frequency: .Weekly, now: formatter.date(from: "2018-10-15")!)
+        XCTAssertEqual(beginning_of_week_test.startDate, formatter.date(from: "2018-10-15")) // Monday
+        XCTAssertEqual(beginning_of_week_test.endDate, formatter.date(from: "2018-10-22")) // Monday
+
+        let end_of_week_test = Timeframe(frequency: .Weekly, now: formatter.date(from: "2018-10-21")!)
+        XCTAssertEqual(end_of_week_test.startDate, formatter.date(from: "2018-10-15")) // Monday
+        XCTAssertEqual(end_of_week_test.endDate, formatter.date(from: "2018-10-22")) // Monday)
+
+        UserDefaults.standard.set(checkInDaySetting, forKey: Settings.SettingsBundleKeys.weekBeginsKey)
+
+    }
 }

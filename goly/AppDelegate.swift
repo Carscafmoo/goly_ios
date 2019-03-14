@@ -44,10 +44,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        
+        // Check user settings:
+        Settings.setVersionAndBuildNumber()
+
         // If you open the app after 9:00 PM, you should pretty much no matter what launch the checkIn page if you haven't yet
         let hour = (Calendar.current as NSCalendar).component(.hour, from: Date())
-        if (hour < 21) { return }
+        if (hour < Settings.getCheckInHour()) { return }
         
         // But, only do that if you're not CURRENTLY checking anything in RIGHT NOW in the background
         if let window = window, let rvc = window.rootViewController as? UINavigationController {

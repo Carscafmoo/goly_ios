@@ -304,11 +304,29 @@ class HistoryViewController: UIViewController,  UITextFieldDelegate, ChartViewDe
             if (checkIn.timeframe.startDate.timeIntervalSince1970 >= timeframe.endDate.timeIntervalSince1970) {
                 continue
             }
-            
+
             cis[checkIn.timeframe.startDate] = checkIn.value
         }
-        
-        let citfs = timeframe.subTimeframes(subFrequency: goal.checkInFrequency)
+
+        // You have to have some way to map out the X values to the Y Values, which is annoying...
+        // Construct an array of all possible checkInTimeframes for this Goal during this period... :-/
+        var citfs = [Timeframe]()
+        var tfDate = timeframe.startDate!
+        let cal = Calendar(identifier: Calendar.Identifier.gregorian)
+        while tfDate < timeframe.endDate! {
+            let tf = goal.getCheckInTimeframeForDate(date: tfDate)
+
+            if let lastTf = citfs.last {
+                if lastTf == tf {
+                    tfDate = cal.date(byAdding: .day, value: 1, to: tfDate)!
+                    continue // Otherwise you need to append it...
+                }
+            }
+
+            citfs.append(tf)
+            tfDate = cal.date(byAdding: .day, value: 1, to: tfDate)!
+        }
+
         let xVals = citfs.map{ $0.toChartString() }
         let yVals = citfs.map{ cis[$0.startDate] ?? 0 }
         plotDrilldown(xVals, yVals: yVals)

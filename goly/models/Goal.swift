@@ -68,9 +68,37 @@ class Goal: NSObject, NSCoding {
     
     // Helper to generate the checkInTimeframe of a particular date:
     func getCheckInTimeframeForDate(date: Date) -> Timeframe {
+        var priorCheckIn: CheckIn?
+        var nextCheckIn: CheckIn?
+        for checkIn in checkIns {
+            if checkIn.timeframe.contains(date: date) {
+                return checkIn.timeframe  // If you already have a check-in for this date, use the existing timeframe no matter what.
+            }
+
+            // However, if you don't, keep track of the next checkIn you have available, and the prior checkIn, if applicable:
+            if checkIn.timeframe.startDate > date {
+                nextCheckIn = checkIn
+            }
+
+            if checkIn.timeframe.endDate <= date {
+                priorCheckIn = checkIn
+                break  // we can safely break here because we are already past the date; these are sorted DESC
+            }
+        }
+
         let checkInTimeframe = Timeframe(frequency: self.checkInFrequency, now: date)
         let goalTimeframe = Timeframe(frequency: self.frequency, now: date)
         checkInTimeframe.boundByGoalTimeframe(goalTimeframe: goalTimeframe)
+
+        // If a user changes settings for (e.g.) start of week, you need to be able to account for that, so make this conform
+        // to existing timeframes.  Expected behavior is outlined in GoalTestCase.testChangingUserPreferenceWithExistingGoals
+        if let nextCheckIn = nextCheckIn {
+            checkInTimeframe.endDate = min(checkInTimeframe.endDate, nextCheckIn.timeframe.startDate) // Bound this by any existing checkIn on the back side
+        }
+
+        if let priorCheckIn = priorCheckIn {
+            checkInTimeframe.startDate = max(checkInTimeframe.startDate, priorCheckIn.timeframe.endDate) // Bound this by any existing checkIn on the front side
+        }
 
         return checkInTimeframe
     }

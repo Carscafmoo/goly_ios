@@ -215,6 +215,63 @@ class GoalTestCase: XCTestCase {
         XCTAssertEqual(goal.timeframeValue(timeframe), 3)
     }
 
+    func testChangingUserPreferenceWithExistingGoals() {
+        let checkInDaySetting = Settings.getWeekBeginsDay()
+        let weeklyGoal = goalGen.generateNonConformantGoal()  // has a weekly check-in Freq
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        weeklyGoal.checkIns = []
+
+        // I check-in 10/7-10/13 and 10/21-10/27 (Sun - Sat)...
+        UserDefaults.standard.set(0, forKey: Settings.SettingsBundleKeys.weekBeginsKey) // Set to begin Sunday
+        weeklyGoal.checkIn(1, date: formatter.date(from: "2018-10-10")!)
+        weeklyGoal.checkIn(1, date: formatter.date(from: "2018-10-24")!)
+
+        // Then I update my settings and check in 10/17, which technically now runs 10/15-10/21 (overlapping on 10/21)
+        UserDefaults.standard.set(1, forKey: Settings.SettingsBundleKeys.weekBeginsKey) // Set to begin Saturday
+        weeklyGoal.checkIn(1, date: formatter.date(from: "2018-10-17")!)
+
+        // Then I would expect to see the checkIn end on 10/20 instead of 10/21:
+        XCTAssertEqual(weeklyGoal.checkIns.count, 3)
+        // Sorted DESC
+        XCTAssertEqual(weeklyGoal.checkIns[2].timeframe.startDate, formatter.date(from: "2018-10-07")!)
+        XCTAssertEqual(weeklyGoal.checkIns[2].timeframe.endDate, formatter.date(from: "2018-10-14")!)
+        // Note -- there is a gap 10-14 to 10-15; we'll see that and fill it in later
+        XCTAssertEqual(weeklyGoal.checkIns[1].timeframe.startDate, formatter.date(from: "2018-10-15")!)
+        XCTAssertEqual(weeklyGoal.checkIns[1].timeframe.endDate, formatter.date(from: "2018-10-21")!)
+        XCTAssertEqual(weeklyGoal.checkIns[1].value, 1)
+        XCTAssertEqual(weeklyGoal.checkIns[0].timeframe.startDate, formatter.date(from: "2018-10-21")!)
+        XCTAssertEqual(weeklyGoal.checkIns[0].timeframe.endDate, formatter.date(from: "2018-10-28")!)
+
+        // And then if I change back my settings and re-check in, I should still have the same timeframe:
+        UserDefaults.standard.set(0, forKey: Settings.SettingsBundleKeys.weekBeginsKey) // Set to begin back Sunday
+        weeklyGoal.checkIn(2, date: formatter.date(from: "2018-10-17")!)
+        XCTAssertEqual(weeklyGoal.checkIns.count, 3)
+        XCTAssertEqual(weeklyGoal.checkIns[2].timeframe.startDate, formatter.date(from: "2018-10-07")!)
+        XCTAssertEqual(weeklyGoal.checkIns[2].timeframe.endDate, formatter.date(from: "2018-10-14")!)
+        XCTAssertEqual(weeklyGoal.checkIns[1].timeframe.startDate, formatter.date(from: "2018-10-15")!)
+        XCTAssertEqual(weeklyGoal.checkIns[1].timeframe.endDate, formatter.date(from: "2018-10-21")!)  // Should be capped
+        XCTAssertEqual(weeklyGoal.checkIns[1].value, 2)
+        XCTAssertEqual(weeklyGoal.checkIns[0].timeframe.startDate, formatter.date(from: "2018-10-21")!)
+        XCTAssertEqual(weeklyGoal.checkIns[0].timeframe.endDate, formatter.date(from: "2018-10-28")!)
+
+        // And then if I try to check in that Sunday (the 14th), I should get a single-day timeframe to make up the difference:
+        weeklyGoal.checkIn(3, date: formatter.date(from: "2018-10-14")!)
+        XCTAssertEqual(weeklyGoal.checkIns.count, 4)
+        XCTAssertEqual(weeklyGoal.checkIns[3].timeframe.startDate, formatter.date(from: "2018-10-07")!)
+        XCTAssertEqual(weeklyGoal.checkIns[3].timeframe.endDate, formatter.date(from: "2018-10-14")!)
+        XCTAssertEqual(weeklyGoal.checkIns[2].timeframe.startDate, formatter.date(from: "2018-10-14")!)
+        XCTAssertEqual(weeklyGoal.checkIns[2].timeframe.endDate, formatter.date(from: "2018-10-15")!)
+        XCTAssertEqual(weeklyGoal.checkIns[2].value, 3)
+        XCTAssertEqual(weeklyGoal.checkIns[1].timeframe.startDate, formatter.date(from: "2018-10-15")!)
+        XCTAssertEqual(weeklyGoal.checkIns[1].timeframe.endDate, formatter.date(from: "2018-10-21")!)  // Should be capped
+        XCTAssertEqual(weeklyGoal.checkIns[1].value, 2)
+        XCTAssertEqual(weeklyGoal.checkIns[0].timeframe.startDate, formatter.date(from: "2018-10-21")!)
+        XCTAssertEqual(weeklyGoal.checkIns[0].timeframe.endDate, formatter.date(from: "2018-10-28")!)
+
+        UserDefaults.standard.set(checkInDaySetting, forKey: Settings.SettingsBundleKeys.weekBeginsKey)
+    }
+
     /*This actually overwrites all saved goals, which is not what we want
      Creating an extension which overrides the static property of the archive path
      was not a successful endeavor.

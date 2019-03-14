@@ -25,38 +25,12 @@ class Notifications {
             // Load goals already sorts by frequency and activity
             // If no goals are active, the first goal will be inactive and you can return
             if (!goals[0].active) { return }
-            
-            // If the most frequent goal CI frequency is daily, you're in good shape.  If it's weekly though, you're in trouble.  All others are fine.
-            var cifs = [goals[0].checkInFrequency]
-            if (goals[0].checkInFrequency == .Weekly) {
-                // See if there's any non-weekly goals; take the lowest check-in frequency among them
-                let nonWeeklies = goals.filter { return $0.checkInFrequency != .Weekly; }
-                if nonWeeklies.count > 0 {
-                    // Should still be able to take the first one -- they should still be in order
-                    cifs.append(nonWeeklies[0].checkInFrequency)
-                }
-            }
-            
+
             // Now, loop through the next 10 dates on which anything would need to check in
             // Start now...
-            let date = Date()
-            var (nextCheckInDate, nextCheckInTimeframe) = calculateNextCheckIn(cifs, date: date)
-            
-            let nextCheckInTime = checkInTime(nextCheckInDate)
-            
-            // Don't schedule anything for today if it's past check-in time or if there are no goals to check in
-            if (nextCheckInTime.timeIntervalSince1970 <= date.timeIntervalSince1970 || Goal.goalsNeedingCheckInOnDate(nextCheckInDate).count == 0) {
-                (nextCheckInDate, nextCheckInTimeframe) = calculateNextCheckIn(cifs, date: nextCheckInTimeframe.next().startDate as Date)
-            }
-            
-            // Now go through the next ten and schedule notifications if we have any goals coming due on these timeframes
-            for _ in 0..<10 {
-                let goalsToCi = goals.filter { return $0.needsCheckInOnDate(nextCheckInDate) }
-                let randomIndex = Int(arc4random_uniform(UInt32(goalsToCi.count)))
-                let msg = goalsToCi[randomIndex].prompt
-                scheduleNotification(app, date: nextCheckInDate, message: msg)
-                
-                (nextCheckInDate, nextCheckInTimeframe) = calculateNextCheckIn(cifs, date: nextCheckInTimeframe.next().startDate as Date)
+            let (nextCheckInDts, nextCheckInMessages) = nextCheckInDates(goals: goals)
+            for i in 0..<nextCheckInDts.count {
+                scheduleNotification(app, date: nextCheckInDts[i], message: nextCheckInMessages[i])
             }
         }
     }
@@ -68,33 +42,46 @@ class Notifications {
     
     func scheduleNotification(_ app: UIApplication, date: Date, message: String) {
         let notification = UILocalNotification()
-        notification.fireDate = checkInTime(date)
+        notification.fireDate = date
         notification.alertBody = message
         notification.alertAction = "check in"
         notification.soundName = UILocalNotificationDefaultSoundName
         app.scheduleLocalNotification(notification)
     }
-    
-    // Calculate the next check-in time of any frequency given a date.
-    // E.g., if you have a weekly and monthly frequency, and you pass May 30, 2016 this will return May 31 (EOM)
-    func calculateNextCheckIn(_ cifs: [Frequency], date: Date) -> (Date, Timeframe) {
-        var tf = Timeframe(frequency: cifs[0], now: date)
-        var cid = tf.checkInDate()
-        for (index, cif) in cifs.enumerated() {
-            if (index == 0) { continue }
-            let newTf = Timeframe(frequency:cif, now:date)
-            let newCid = newTf.checkInDate()
-            if (newCid.timeIntervalSince1970 < cid.timeIntervalSince1970) {
-                tf = newTf
-                cid = newCid
-            }
+
+    // Figure out what are the next 10 dates that will need CheckIns:
+    func nextCheckInDates(goals: [Goal], dateInjector: DateInjector=DateInjector()) -> ([Date], [String]) {
+        var nextDates = [Date]()
+        var messages = [String]()
+        let activeGoals = goals.filter { (goal) -> Bool in goal.active }
+        if activeGoals.isEmpty {
+            return (nextDates, messages)
         }
-        
-        return (cid, tf)
+
+        var date = dateInjector.currentDate()
+        // If it's too late to check in now, don't schedule one for today:
+        if cal.component(.hour, from: date) >= Settings.getCheckInHour() {
+            date = cal.date(byAdding: .day, value: 1, to: date)!
+        }
+
+        // Note: it really feels like you can do something more performy with the highest check-in frequency,
+        // But weekly CIF + quarterly+ goal screws that up; see testNotificationsForReallyNonConformingStuff for more
+        var n = 0  // Number of notifications
+        while n < 10 {
+            if let checkInGoal = activeGoals.filter({ $0.needsCheckInOnDate(date) }).randomElement() {
+                nextDates.append(checkInTime(date))
+                messages.append(checkInGoal.prompt)
+                n += 1
+            }
+
+            date = cal.date(byAdding: .day, value: 1, to: date)!
+        }
+
+        return (nextDates, messages)
     }
-    
+
     // Get the check in time of a given date
     func checkInTime(_ date: Date) -> Date {
-        return (cal as NSCalendar).date(byAdding: .hour, value: 21, to: cal.startOfDay(for: date))!
+        return (cal as NSCalendar).date(byAdding: .hour, value: Settings.getCheckInHour(), to: cal.startOfDay(for: date))!
     }
 }
