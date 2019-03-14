@@ -17,9 +17,11 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
     @IBOutlet weak var dateField: UITextField!
     @IBOutlet weak var yesImageView: UIImageView!
     @IBOutlet weak var noImageView: UIImageView!
+    @IBOutlet weak var progressBar: UIProgressView!
+    @IBOutlet weak var progressBarLabel: UILabel!
     let datePicker = UIDatePicker()
     let dateFormatter = DateFormatter()
-
+    
     // Create bottom borders on our editable text fields to indicate their editability:
     let valueBorder = CALayer()
     let dateBorder = CALayer()
@@ -48,7 +50,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
                 valueField.text = String(checkIn.value)
             }
 
-            dateField.text = goal.getCheckInTimeframeForDate(date: date!).toString().capitalized
+            updatePageText()
         }
         
         valueField.delegate = self
@@ -151,9 +153,7 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
             valueField.text = ""
         }
 
-        if let checkInTimeframe = goal?.getCheckInTimeframeForDate(date: datePicker.date) {
-            dateField.text = checkInTimeframe.toString().capitalized
-        }
+        updatePageText()
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -331,6 +331,17 @@ class CheckInViewController: UIViewController, UINavigationControllerDelegate, U
         case .LINE_POSITION_BOTTOM:
             view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[lineView(width)]|", options:NSLayoutConstraint.FormatOptions(rawValue: 0), metrics:metrics, views:views))
             break
+        }
+    }
+    func updatePageText() {
+        if let goal = goal, let date = date {
+            let targetTimeframe = Timeframe(frequency: goal.frequency, now: date)
+            let currentProgress = goal.timeframeValue(targetTimeframe)
+            let target = goal.target
+            progressBar.setProgress(min(Float(currentProgress) / Float(target), 1.0), animated: true)
+            progressBarLabel.text = "\(currentProgress) of \(target) \(targetTimeframe.toString())"
+
+            dateField.text = goal.getCheckInTimeframeForDate(date: date).toString().capitalized
         }
     }
 }
