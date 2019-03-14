@@ -692,6 +692,15 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="48"/>
                                 <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                             </textField>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="VEQ-hj-jMn">
+                                <rect key="frame" x="40" y="231.5" width="295" height="2"/>
+                            </progressView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="X of Y this week" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hh3-Nl-mv9">
+                                <rect key="frame" x="40" y="241.5" width="295" height="20"/>
+                                <fontDescription key="fontDescription" type="italicSystem" pointSize="17"/>
+                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -699,14 +708,21 @@
                             <constraint firstItem="VeP-k8-ULQ" firstAttribute="centerX" secondItem="uFQ-4D-3im" secondAttribute="centerX" constant="-80" id="5wa-oN-voY"/>
                             <constraint firstItem="piw-MW-q4E" firstAttribute="centerY" secondItem="uFQ-4D-3im" secondAttribute="centerY" id="6Xs-Dx-9aj"/>
                             <constraint firstItem="1V5-Ei-4qh" firstAttribute="centerX" secondItem="uFQ-4D-3im" secondAttribute="centerX" id="9DE-Rt-QHf"/>
+                            <constraint firstItem="Hh3-Nl-mv9" firstAttribute="top" secondItem="VEQ-hj-jMn" secondAttribute="bottom" constant="8" id="F8U-fd-TE6"/>
                             <constraint firstItem="HDy-ep-Iik" firstAttribute="centerX" secondItem="uFQ-4D-3im" secondAttribute="centerX" id="FJ6-5e-m31"/>
                             <constraint firstItem="bA9-nC-qHh" firstAttribute="centerX" secondItem="uFQ-4D-3im" secondAttribute="centerX" constant="80" id="Jge-IS-0PQ"/>
+                            <constraint firstItem="VEQ-hj-jMn" firstAttribute="centerX" secondItem="uFQ-4D-3im" secondAttribute="centerX" id="Ms9-gK-HJk"/>
                             <constraint firstItem="1V5-Ei-4qh" firstAttribute="top" secondItem="hhr-zh-UeN" secondAttribute="bottom" constant="64" id="QLZ-nc-bch"/>
                             <constraint firstItem="HDy-ep-Iik" firstAttribute="top" secondItem="piw-MW-q4E" secondAttribute="bottom" constant="48" id="Xql-qt-oVN"/>
                             <constraint firstItem="bA9-nC-qHh" firstAttribute="centerY" secondItem="uFQ-4D-3im" secondAttribute="centerY" id="ZBP-Kf-Qpr"/>
+                            <constraint firstItem="VEQ-hj-jMn" firstAttribute="leading" secondItem="uFQ-4D-3im" secondAttribute="leading" constant="40" id="a49-dY-qNF"/>
                             <constraint firstAttribute="trailing" secondItem="1V5-Ei-4qh" secondAttribute="trailing" constant="8" id="fjQ-EB-8hr"/>
                             <constraint firstItem="piw-MW-q4E" firstAttribute="centerX" secondItem="uFQ-4D-3im" secondAttribute="centerX" id="qMb-DA-bJG"/>
+                            <constraint firstItem="Hh3-Nl-mv9" firstAttribute="leading" secondItem="VEQ-hj-jMn" secondAttribute="leading" id="qig-AG-jvO"/>
                             <constraint firstItem="piw-MW-q4E" firstAttribute="centerX" secondItem="uFQ-4D-3im" secondAttribute="centerX" id="uKD-Es-dEu"/>
+                            <constraint firstItem="1V5-Ei-4qh" firstAttribute="centerX" secondItem="uFQ-4D-3im" secondAttribute="centerX" id="vhh-dS-iLw"/>
+                            <constraint firstItem="VEQ-hj-jMn" firstAttribute="bottom" secondItem="1V5-Ei-4qh" secondAttribute="bottom" constant="48" id="wWA-68-s4L"/>
+                            <constraint firstItem="Hh3-Nl-mv9" firstAttribute="trailing" secondItem="VEQ-hj-jMn" secondAttribute="trailing" id="zYd-Yn-x7s"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Check In" id="9Zv-Cc-acK">
@@ -725,6 +741,8 @@
                         <outlet property="cancelButton" destination="Uxy-Ri-WBe" id="iXn-Bz-a78"/>
                         <outlet property="dateField" destination="HDy-ep-Iik" id="j8e-mR-JfN"/>
                         <outlet property="noImageView" destination="VeP-k8-ULQ" id="l2w-cl-bGC"/>
+                        <outlet property="progressBar" destination="VEQ-hj-jMn" id="Q2j-fc-A9m"/>
+                        <outlet property="progressBarLabel" destination="Hh3-Nl-mv9" id="NGM-Rt-WvE"/>
                         <outlet property="promptLabel" destination="1V5-Ei-4qh" id="n55-cp-yZp"/>
                         <outlet property="saveButton" destination="pV1-cZ-9ui" id="WZN-IP-TbC"/>
                         <outlet property="valueField" destination="piw-MW-q4E" id="POB-HG-pRa"/>
