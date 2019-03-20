@@ -65,17 +65,18 @@ class GoalTableViewController: UITableViewController {
         cell.nameLabel.text = goal.name
         var dateString = "No Check-Ins"
         if let cit = goal.lastCheckInTime() {
-            dateString = "Last Check-In: " + dateFormatter.string(from: cit as Date)
+            dateString = "Last Check-In:\n" + dateFormatter.string(from: cit as Date)
         }
         
         cell.lastCheckInLabel.text = dateString
         cell.checkInButton.goal = goal
         cell.historyButton.goal = goal
         
-        let cp = String(goal.currentProgress())
+        let cp = goal.currentProgress()
         let fnoun = Frequency.thisNounify(goal.frequency)
-        cell.currentProgressLabel.text = cp + " of " + String(goal.target) + " " + fnoun
-        
+        cell.currentProgressLabel.text = "\(cp) of \(goal.target) \(fnoun)"
+        cell.progressBar.setProgress(min(Float(cp) / Float(goal.target), 1.0), animated: true)
+
         if (!goal.active) {
             cell.nameLabel.textColor = UIColor.gray
             cell.currentProgressLabel.textColor = UIColor.gray
@@ -83,7 +84,7 @@ class GoalTableViewController: UITableViewController {
             cell.checkInButton.isEnabled = false
         } else {
             cell.nameLabel.textColor = UIColor.black
-            cell.currentProgressLabel.textColor = UIColor.black
+            cell.currentProgressLabel.textColor = UIColor.darkGray
             cell.lastCheckInLabel.textColor = UIColor.black
             cell.checkInButton.isEnabled = true
         }
