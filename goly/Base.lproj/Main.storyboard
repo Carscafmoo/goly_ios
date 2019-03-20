@@ -415,30 +415,30 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="0000-00-00 00:00:00" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UqI-CL-1uE">
-                                            <rect key="frame" x="88" y="68" width="172.5" height="23"/>
-                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="0000-00-00 00:00:00" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UqI-CL-1uE">
+                                            <rect key="frame" x="88" y="70.5" width="104.5" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
                                             <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yFz-AG-Fyd" customClass="goalButton" customModule="goly" customModuleProvider="target">
-                                            <rect key="frame" x="291" y="39.5" width="60" height="20.5"/>
+                                            <rect key="frame" x="291" y="39.5" width="60" height="23"/>
                                             <state key="normal" title="Check In"/>
                                             <connections>
                                                 <segue destination="EW8-XV-psV" kind="show" identifier="CheckIn" id="8Q1-Gj-wSb"/>
                                             </connections>
                                         </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="X of Y this Z" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zi6-Du-Bve">
-                                            <rect key="frame" x="88" y="39.5" width="94" height="20.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="X of Y this Z" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zi6-Du-Bve">
+                                            <rect key="frame" x="200.5" y="70.5" width="82.5" height="20.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20.5" id="5az-MN-LbO"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sDp-dq-fAN" customClass="goalButton" customModule="goly" customModuleProvider="target">
-                                            <rect key="frame" x="301" y="68" width="50" height="23"/>
+                                            <rect key="frame" x="301" y="70.5" width="50" height="20.5"/>
                                             <state key="normal" title="History"/>
                                             <connections>
                                                 <segue destination="GPe-Fr-3eV" kind="show" identifier="ShowHistory" id="ka8-cG-tvf"/>
@@ -450,27 +450,35 @@
                                                 <constraint firstAttribute="width" secondItem="FZZ-Uk-jCh" secondAttribute="height" multiplier="1:1" id="oyT-AS-MtY"/>
                                             </constraints>
                                         </imageView>
+                                        <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="7XS-mc-evC">
+                                            <rect key="frame" x="88" y="47.5" width="171" height="2"/>
+                                            <color key="progressTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="trackTintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </progressView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="cKD-YG-fTw" secondAttribute="trailing" constant="8" id="0nb-Aw-Hfx"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="UqI-CL-1uE" secondAttribute="bottom" constant="8" id="2fX-oF-OqK"/>
+                                        <constraint firstItem="sDp-dq-fAN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="zi6-Du-Bve" secondAttribute="trailing" constant="8" id="33o-RT-DIA"/>
+                                        <constraint firstItem="zi6-Du-Bve" firstAttribute="bottom" secondItem="UqI-CL-1uE" secondAttribute="bottom" id="5SA-Rv-K5s"/>
+                                        <constraint firstItem="zi6-Du-Bve" firstAttribute="leading" secondItem="UqI-CL-1uE" secondAttribute="trailing" constant="8" id="7s7-EL-z2x"/>
                                         <constraint firstAttribute="topMargin" secondItem="cKD-YG-fTw" secondAttribute="top" id="BKv-rX-zlQ"/>
-                                        <constraint firstItem="yFz-AG-Fyd" firstAttribute="top" secondItem="zi6-Du-Bve" secondAttribute="top" id="C2f-Mu-frV"/>
-                                        <constraint firstItem="zi6-Du-Bve" firstAttribute="top" secondItem="cKD-YG-fTw" secondAttribute="bottom" constant="8" id="Fqb-pA-FqX"/>
+                                        <constraint firstItem="sDp-dq-fAN" firstAttribute="top" secondItem="yFz-AG-Fyd" secondAttribute="bottom" constant="8" id="FOU-py-PkF"/>
                                         <constraint firstItem="sDp-dq-fAN" firstAttribute="top" secondItem="UqI-CL-1uE" secondAttribute="top" id="IYY-ec-g7d"/>
-                                        <constraint firstItem="yFz-AG-Fyd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="zi6-Du-Bve" secondAttribute="trailing" constant="8" id="T3P-fF-492"/>
+                                        <constraint firstItem="7XS-mc-evC" firstAttribute="top" secondItem="cKD-YG-fTw" secondAttribute="bottom" constant="16" id="Jcx-a3-ULs"/>
                                         <constraint firstItem="sDp-dq-fAN" firstAttribute="trailing" secondItem="yFz-AG-Fyd" secondAttribute="trailing" id="Zq0-F1-E2w"/>
                                         <constraint firstItem="FZZ-Uk-jCh" firstAttribute="leading" secondItem="scg-f1-vT9" secondAttribute="leadingMargin" id="a8E-b5-w1e"/>
                                         <constraint firstItem="cKD-YG-fTw" firstAttribute="leading" secondItem="FZZ-Uk-jCh" secondAttribute="trailing" constant="16" id="aQW-d6-mcn"/>
+                                        <constraint firstItem="zi6-Du-Bve" firstAttribute="top" secondItem="UqI-CL-1uE" secondAttribute="top" id="aQp-I2-QPB"/>
+                                        <constraint firstItem="yFz-AG-Fyd" firstAttribute="leading" secondItem="7XS-mc-evC" secondAttribute="trailing" constant="32" id="bI1-IN-IH1"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="yFz-AG-Fyd" secondAttribute="trailing" constant="8" id="cas-Oo-pBc"/>
+                                        <constraint firstItem="7XS-mc-evC" firstAttribute="leading" secondItem="cKD-YG-fTw" secondAttribute="leading" id="fPh-v6-eDC"/>
                                         <constraint firstItem="UqI-CL-1uE" firstAttribute="leading" secondItem="cKD-YG-fTw" secondAttribute="leading" id="fWp-Wx-sMn"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="FZZ-Uk-jCh" secondAttribute="bottom" constant="16" id="oQZ-0U-j5G"/>
-                                        <constraint firstItem="UqI-CL-1uE" firstAttribute="top" secondItem="zi6-Du-Bve" secondAttribute="bottom" constant="8" id="ozC-dC-EJ8"/>
-                                        <constraint firstItem="zi6-Du-Bve" firstAttribute="leading" secondItem="cKD-YG-fTw" secondAttribute="leading" id="sLl-qD-sei"/>
-                                        <constraint firstItem="yFz-AG-Fyd" firstAttribute="bottom" secondItem="zi6-Du-Bve" secondAttribute="bottom" id="tWZ-hp-o9Y"/>
+                                        <constraint firstItem="yFz-AG-Fyd" firstAttribute="top" secondItem="cKD-YG-fTw" secondAttribute="bottom" constant="8" id="v18-O6-E7U"/>
                                         <constraint firstItem="sDp-dq-fAN" firstAttribute="bottom" secondItem="UqI-CL-1uE" secondAttribute="bottom" id="w1k-87-0A4"/>
+                                        <constraint firstItem="yFz-AG-Fyd" firstAttribute="leading" secondItem="zi6-Du-Bve" secondAttribute="trailing" constant="8" id="xl9-Q6-cis"/>
                                         <constraint firstItem="FZZ-Uk-jCh" firstAttribute="top" secondItem="scg-f1-vT9" secondAttribute="topMargin" constant="16" id="zSt-iu-XYS"/>
-                                        <constraint firstItem="sDp-dq-fAN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="UqI-CL-1uE" secondAttribute="trailing" constant="8" id="zU3-Ls-KCs"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -479,6 +487,7 @@
                                     <outlet property="historyButton" destination="sDp-dq-fAN" id="Ipi-4f-gtK"/>
                                     <outlet property="lastCheckInLabel" destination="UqI-CL-1uE" id="PlV-vD-XcL"/>
                                     <outlet property="nameLabel" destination="cKD-YG-fTw" id="3cL-cQ-m7d"/>
+                                    <outlet property="progressBar" destination="7XS-mc-evC" id="k8S-gN-XgK"/>
                                     <segue destination="Ige-hc-gyB" kind="show" identifier="ShowDetail" id="EiO-2x-JvU"/>
                                 </connections>
                             </tableViewCell>
@@ -694,6 +703,8 @@
                             </textField>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="VEQ-hj-jMn">
                                 <rect key="frame" x="40" y="231.5" width="295" height="2"/>
+                                <color key="progressTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="trackTintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </progressView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="X of Y this week" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hh3-Nl-mv9">
                                 <rect key="frame" x="40" y="241.5" width="295" height="20"/>

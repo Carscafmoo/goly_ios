@@ -15,6 +15,7 @@ class GoalTableViewCell: UITableViewCell {
     @IBOutlet weak var checkInButton: goalButton!
     @IBOutlet weak var historyButton: goalButton!
     @IBOutlet weak var currentProgressLabel: UILabel!
+    @IBOutlet weak var progressBar: UIProgressView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
