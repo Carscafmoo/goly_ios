@@ -24,10 +24,15 @@ class Settings {
     }
 
     class func getCheckInHour() -> Int {
-        return UserDefaults.standard.integer(forKey: SettingsBundleKeys.checkInTimeKey)
+        let intValue = UserDefaults.standard.integer(forKey: SettingsBundleKeys.checkInTimeKey)
+        if intValue == 0 {
+            return 21  // I guess this is the only way to ... do default values ... ?
+        }
+
+        return intValue
     }
 
     class func getWeekBeginsDay() -> Int {
-        return UserDefaults.standard.integer(forKey: SettingsBundleKeys.weekBeginsKey)
+        return UserDefaults.standard.integer(forKey: SettingsBundleKeys.weekBeginsKey) // The default value is actually 0 anyway, so :/
     }
 }
